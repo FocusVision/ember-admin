@@ -373,6 +373,9 @@ module('Acceptance: Admin Relationships', {
           { id: 1, name: 'Ball', cat: 1 },
           { id: 2, name: 'Mouse', cat: 1 }
         ];
+        if (toy) {
+          toys.push(toy);
+        }
         return [200, { 'Content-Type': 'application/json' }, JSON.stringify({ cats, owners, toys })];
       });
       this.get('/admin/birds', function() {
@@ -396,6 +399,9 @@ module('Acceptance: Admin Relationships', {
         let { course } = JSON.parse(request.requestBody);
         course.id = 3;
         return [200, { 'Content-Type': 'application/json' }, JSON.stringify({ courses: [course] })];
+      });
+      this.get('/admin/toys/:id', function() {
+        return [200, { 'Content-Type': 'application/json' }, JSON.stringify({ toys: [toy] })];
       });
       this.get('/admin/toys', function() {
         let toys = [
@@ -457,14 +463,6 @@ test('should create new model as a relationship to parent', function(assert) {
   andThen(function() {
     fillInByLabel('name', 'Bell');
     click(find('button.save'));
-  });
-
-  andThen(function() {
-    click('.toy a:contains("Bell")');
-  });
-
-  andThen(function() {
-    click('.cat a:contains("Felix")');
   });
 
   andThen(function() {
