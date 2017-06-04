@@ -1,13 +1,11 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    ecmaVersion: 2017,
-    sourceType: 'module'
-  },
-  extends: 'eslint:recommended',
-  env: {
-    browser: true
-  },
+  extends: 'focusvision/ember',
+  plugins: [
+    'chai-friendly'
+  ],
   rules: {
+    'no-unused-expressions': 0,
+    'chai-friendly/no-unused-expressions': 2
   }
-};
+}
