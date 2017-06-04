@@ -2,6 +2,7 @@ import Ember from 'ember'
 import { describe, it, before, after } from 'mocha'
 import { expect } from 'chai'
 import startApp from '../helpers/start-app'
+import { visit, click } from 'ember-native-dom-helpers'
 import {
   rowValuesEqual,
   inputPropertiesEqual
@@ -140,21 +141,15 @@ describe('Acceptance: Admin', () => {
     })
   })
 
-  it('editing a record', () => {
-    visit('/admin/cat')
-
-    andThen(() => {
-      const link = find('.cat a:contains("Felix")')
-      click(link)
-    })
+  it('editing a record', async () => {
+    await visit('/admin/cat')
+    click('.cat a:contains("Felix")')
 
     andThen(() => {
       fillInByLabel('name', 'Hobbes')
       fillInByLabel('age', 29)
       click(find('button.save'))
     })
-
-    andThen(() => {})
 
     andThen(() => {
       const rows = find('.cat table tr')
