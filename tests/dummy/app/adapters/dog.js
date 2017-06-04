@@ -6,7 +6,5 @@ const {
 } = Ember
 
 export default ApplicationAdapter.extend({
-  namespace: computed(function() {
-    return ''
-  })
+  namespace: computed(() => '')
 })

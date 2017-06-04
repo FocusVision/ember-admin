@@ -9,12 +9,14 @@ const {
 
 export default Route.extend(WriteMixin, {
   model(params) {
-    return this.admin.store.find(this.paramsFor('model-records').name, params.id)
+    return this.admin.store
+      .find(this.paramsFor('model-records').name, params.id)
   },
   templateAdminPath: 'admin/edit',
   actions: {
     destroyRecord(callback) {
-      let canDestroy = window.confirm('Are you sure you want to destroy this record?')
+      const canDestroy = window
+        .confirm('Are you sure you want to destroy this record?')
       let promise
 
       if (canDestroy) {
@@ -22,12 +24,16 @@ export default Route.extend(WriteMixin, {
         callback(promise)
 
         promise.then(() => {
-          this.transitionTo('model-records', this.paramsFor('model-records').name)
+          this.transitionTo(
+            'model-records',
+            this.paramsFor('model-records').name
+          )
         })
       } else {
-        promise = new Promise(function(resolve, reject) {
+        promise = new Promise((resolve, reject) => {
           reject()
         })
+
         callback(promise)
       }
     }

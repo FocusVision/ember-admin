@@ -12,8 +12,8 @@ const {
 
 export default Component.extend({
   setupCellObsever: observer('record', 'column', on('init', function() {
-    let record = get(this, 'record')
-    let column = get(this, 'column')
+    const record = get(this, 'record')
+    const column = get(this, 'column')
 
     if (!record || !column) {
       return
@@ -24,9 +24,9 @@ export default Component.extend({
   })),
 
   _updateCell() {
-    let record = get(this, 'record')
-    let column = get(this, 'column')
-    let value = get(record, column)
+    const record = get(this, 'record')
+    const column = get(this, 'column')
+    const value = get(record, column)
 
     set(this, 'cellValue', value)
   },

@@ -7,6 +7,11 @@ const {
   Controller
 } = Ember
 
-export default Controller.extend(RecordTypeMixin, ColumnsMixin, RelationshipsMixin, {
-  excludedColumns: ['id']
-})
+export default Controller.extend(
+  RecordTypeMixin,
+  ColumnsMixin,
+  RelationshipsMixin,
+  {
+    excludedColumns: ['id']
+  }
+)

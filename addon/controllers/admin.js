@@ -10,12 +10,12 @@ const {
 
 export default Controller.extend({
   filteredModels: computed(function() {
-    let {
+    const {
       includedModels,
       excludedModels
     } = this.admin
 
-    return get(this, 'model').reduce(function(collection, name) {
+    return get(this, 'model').reduce((collection, name) => {
       if (includedModels) {
         if (includes(includedModels, name)) {
           collection.push(name)

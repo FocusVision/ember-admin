@@ -17,14 +17,14 @@ function columnIncludes(columnType, parameter) {
 
 export default Mixin.create(RecordTypeMixin, {
   columns: computed('model', function() {
-    let adapter = getOwner(this).lookup('data-adapter:main')
-    let recordType = this.get('recordType')
-    let type = adapter.getModelTypes().findBy('name', recordType)
-    let { klass } = type
+    const adapter = getOwner(this).lookup('data-adapter:main')
+    const recordType = this.get('recordType')
+    const type = adapter.getModelTypes().findBy('name', recordType)
+    const { klass } = type
 
-    let keys = emberArray(['id'])
+    const keys = emberArray(['id'])
 
-    klass.eachAttribute(function(key) {
+    klass.eachAttribute(key => {
       keys.push(key)
     })
 
@@ -32,11 +32,10 @@ export default Mixin.create(RecordTypeMixin, {
   }),
 
   filteredColumns: filter('columns', function(name) {
-    let modelName = get(this, 'model-record.name')
+    const modelName = get(this, 'model-record.name')
     let allowColumn = true
 
-    /*jshint -W024 */
-    let {
+    const {
       admin: {
         includedColumns: adminIncludedColumns,
         excludedColumns: adminExcludedColumns
@@ -44,7 +43,6 @@ export default Mixin.create(RecordTypeMixin, {
       includedColumns,
       excludedColumns
     } = this
-    /*jshint +W024 */
 
     if (adminIncludedColumns) {
       if (!columnIncludes(adminIncludedColumns[modelName], name)) {

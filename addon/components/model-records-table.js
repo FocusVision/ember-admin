@@ -13,10 +13,11 @@ const {
 
 export default Component.extend(ColumnsMixin, {
   includedColumns: ['id'],
-  didReceiveAttrs() {
-    this._super(...arguments)
 
-    let owner = getOwner(this)
+  didReceiveAttrs(...args) {
+    this._super(...args)
+
+    const owner = getOwner(this)
     let templatePath = `admin/index/${get(this, 'recordType')}`
     if (!owner.resolveRegistration(`template:${templatePath}`)) {
       templatePath = 'admin/index/default'
@@ -24,46 +25,51 @@ export default Component.extend(ColumnsMixin, {
 
     set(this, 'layout', owner.resolveRegistration(`template:${templatePath}`))
   },
+
   filteredRecords: computed('records', 'filter', function() {
     if (isBlank(get(this, 'filter'))) {
       return get(this, 'records')
-    } else {
-      let filter = get(this, 'filter').toLowerCase()
-      let columns = get(this, 'filteredColumns')
-      return get(this, 'records').filter(function(record) {
-        let value
-
-        for (let i = 0; i < columns.length; i++) {
-          value = (get(record, columns[i]) || '').toString().toLowerCase()
-
-          if (value.indexOf(filter) > -1) {
-            return true
-          }
-        }
-      })
     }
+
+    const filter = get(this, 'filter').toLowerCase()
+    const columns = get(this, 'filteredColumns')
+
+    return get(this, 'records').filter(record => {
+      let value
+
+      for (let i = 0; i < columns.length; i++) {
+        value = (get(record, columns[i]) || '').toString().toLowerCase()
+
+        if (value.indexOf(filter) > -1) {
+          return true
+        }
+      }
+
+      return false
+    })
   }),
+
   relationshipGiven: computed('relationshipName', 'relationshipId', function() {
     return get(this, 'relationshipName') && get(this, 'relationshipId')
   }),
+
   hideCreate: computed('relationshipName', 'relationshipId', function() {
-    let relationshipName = get(this, 'relationshipName')
-    let relationshipId = get(this, 'relationshipId')
+    const relationshipName = get(this, 'relationshipName')
+    const relationshipId = get(this, 'relationshipId')
 
     if (relationshipId) {
       if (isNone(relationshipName)) {
         return true
-      } else {
-        let { store } = this.admin
-        let constructor = store.modelFor(get(this, 'recordType'))
-        let inverseFor = constructor.inverseFor(relationshipName, store)
-        let { kind } = inverseFor
+      }
+      const { store } = this.admin
+      const constructor = store.modelFor(get(this, 'recordType'))
+      const { kind } = constructor.inverseFor(relationshipName, store)
 
-        if (kind && kind === 'belongsTo' && get(this, 'records.length') > 0) {
-          return true
-        }
+      if (kind && kind === 'belongsTo' && get(this, 'records.length') > 0) {
+        return true
       }
     }
+
     return false
   })
 })
