@@ -10,7 +10,7 @@ const Router = EmberRouter.extend({
 })
 
 Router.map(function() {
-  adminRouter(this)
+  return adminRouter(this)
 })
 
 export default Router

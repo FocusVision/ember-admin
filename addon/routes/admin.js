@@ -7,8 +7,9 @@ const {
 
 export default Route.extend({
   model() {
-    return getOwner(this).lookup('data-adapter:main').getModelTypes().map(function(type) {
-      return type.name
-    })
+    return getOwner(this)
+      .lookup('data-adapter:main')
+      .getModelTypes()
+      .map(type => type.name)
   }
 })

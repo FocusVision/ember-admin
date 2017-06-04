@@ -19,8 +19,8 @@ export default Store.extend({
 
     if (!this.typeAdapter[type]) {
       let namespaces = []
-      let adapter = this._super(type)
-      let adminService = getOwner(this).lookup('service:admin')
+      const adapter = this._super(type)
+      const adminService = getOwner(this).lookup('service:admin')
 
       if (get(adapter, 'namespace')) {
         namespaces = get(adapter, 'namespace').split('/')
@@ -35,7 +35,7 @@ export default Store.extend({
         namespace = undefined
       }
 
-      let AdminAdapter = adapter.constructor.extend({
+      const AdminAdapter = adapter.constructor.extend({
         namespace
       })
 

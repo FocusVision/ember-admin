@@ -9,8 +9,9 @@ const {
 
 export default Mixin.create(EmberDataRouteMixin, {
   renderTemplate() {
-    let templatePath = `${this.templateAdminPath}/${this.paramsFor('model-records').name}`
-    let defaultTemplatePath = `${this.templateAdminPath}/default`
+    const templatePath =
+      `${this.templateAdminPath}/${this.paramsFor('model-records').name}`
+    const defaultTemplatePath = `${this.templateAdminPath}/default`
 
     if (getOwner(this).lookup(`template:${templatePath}`)) {
       this.render(templatePath)
@@ -18,9 +19,10 @@ export default Mixin.create(EmberDataRouteMixin, {
       this.render(defaultTemplatePath)
     }
   },
+
   actions: {
     save(callback) {
-      let promise = get(this, 'controller.model').save()
+      const promise = get(this, 'controller.model').save()
       callback(promise)
 
       promise.then(() => {
@@ -32,6 +34,8 @@ export default Mixin.create(EmberDataRouteMixin, {
     }
   },
   willTransitionConfirm() {
-    return window.confirm('You have unsaved changes. Are you sure you want to continue?')
+    return window.confirm(
+      'You have unsaved changes. Are you sure you want to continue?'
+    )
   }
 })
