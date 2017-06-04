@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/services/admin';
+export { default } from 'ember-admin/services/admin'

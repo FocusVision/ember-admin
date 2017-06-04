@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/components/property-print';
+export { default } from 'ember-admin/components/property-print'

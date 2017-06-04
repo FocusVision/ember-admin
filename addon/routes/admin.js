@@ -1,14 +1,14 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 const {
   getOwner,
   Route
-} = Ember;
+} = Ember
 
 export default Route.extend({
   model() {
     return getOwner(this).lookup('data-adapter:main').getModelTypes().map(function(type) {
-      return type.name;
-    });
+      return type.name
+    })
   }
-});
+})

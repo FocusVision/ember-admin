@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/routes/model-records/index';
+export { default } from 'ember-admin/routes/model-records/index'

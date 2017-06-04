@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import layout from '../templates/property-print';
+import Ember from 'ember'
+import layout from '../templates/property-print'
 
 const {
   Component,
@@ -8,28 +8,28 @@ const {
   set,
   observer,
   addObserver
-} = Ember;
+} = Ember
 
 export default Component.extend({
   setupCellObsever: observer('record', 'column', on('init', function() {
-    let record = get(this, 'record');
-    let column = get(this, 'column');
+    let record = get(this, 'record')
+    let column = get(this, 'column')
 
     if (!record || !column) {
-      return;
+      return
     }
 
-    addObserver(this, `record.${column}`, this, this._updateCell);
-    this._updateCell();
+    addObserver(this, `record.${column}`, this, this._updateCell)
+    this._updateCell()
   })),
 
   _updateCell() {
-    let record = get(this, 'record');
-    let column = get(this, 'column');
-    let value = get(record, column);
+    let record = get(this, 'record')
+    let column = get(this, 'column')
+    let value = get(record, column)
 
-    set(this, 'cellValue', value);
+    set(this, 'cellValue', value)
   },
 
   layout
-});
+})

@@ -1,13 +1,13 @@
-import DS from 'ember-data';
+import DS from 'ember-data'
 
 const {
   attr,
   hasMany,
   Model
-} = DS;
+} = DS
 
 export default Model.extend({
   name: attr('string'),
   age:  attr('number'),
   toys: hasMany('toy', { async: true })
-});
+})

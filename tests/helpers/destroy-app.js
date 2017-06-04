@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 const {
   run
-} = Ember;
+} = Ember
 
 export default function destroyApp(application) {
-  run(application, 'destroy');
+  run(application, 'destroy')
 }

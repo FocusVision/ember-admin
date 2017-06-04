@@ -1,11 +1,11 @@
-import DS from 'ember-data';
+import DS from 'ember-data'
 
 const {
   attr,
   hasMany,
   belongsTo,
   Model
-} = DS;
+} = DS
 
 export default Model.extend({
   name:  attr('string'),
@@ -15,4 +15,4 @@ export default Model.extend({
   baz:   attr('string'),
   toys:  hasMany('toy', { async: true }),
   owner: belongsTo('owner', { async: true })
-});
+})
