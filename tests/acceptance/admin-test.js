@@ -151,10 +151,8 @@ describe('Acceptance: Admin', () => {
       .fillInAge('29')
       .clickSave()
 
-    andThen(() => {  // async issues with above require this :/
-      const rows = $(find('.cat table tr'))
-      rowValuesEqual(expect, rows.eq(1), '1', 'Hobbes', '29', '', '', '')
-    })
+    const rows = $(find('.cat table tr'))
+    rowValuesEqual(expect, rows.eq(1), '1', 'Hobbes', '29', '', '', '')
   })
 
   it('creating a new record', async () => {
@@ -164,52 +162,26 @@ describe('Acceptance: Admin', () => {
       .fillInAge(30)
       .clickSave()
 
-    // andThen(() => {
-    //   const link = find('.cat a:contains("Create")')
-    //   click(link, 'cannot find "Create"')
-    // })
-    //
-    // andThen(() => {
-    //   fillInByLabel('name', 'Lion-O')
-    //   fillInByLabel('age', 30)
-    //   click(find('button.save'))
-    // })
-
-    // andThen(() => {})
-
-    andThen(() => {
-      const rows = $(find('.cat table tr'))
-      rowValuesEqual(expect, rows.eq(3), '3', 'Lion-O', '30', '', '', '')
-    })
+    const rows = $(find('.cat table tr'))
+    rowValuesEqual(expect, rows.eq(3), '3', 'Lion-O', '30', '', '', '')
   })
 
-  // it('creating doesn\'t affect list', () => {
-  //   visit('/admin/cat')
-  //   const oldConfirm = window.confirm
-  //   window.confirm = () => {
-  //     return true
-  //   }
-  //
-  //   const rows
-  //
-  //   andThen(() => {
-  //     const link = find('.cat a:contains("Create")')
-  //
-  //     rows = find('.cat tr')
-  //
-  //     click(link)
-  //   })
-  //
-  //   andThen(() => {
-  //     visit('/admin/cat')
-  //   })
-  //
-  //   andThen(() => {
-  //     const newRows = find('.cat tr')
-  //     expect.equal(rows.length, newRows.length, 'Number of rows unaffected')
-  //     window.confirm = oldConfirm
-  //   })
-  // })
+  it("creating doesn't affect list", async () => {
+    const oldConfirm = window.confirm
+    window.confirm = () => true
+
+    await page.visitCats()
+
+    const rows = findAll('.cat table tr')
+
+    await  page.clickCreate().visitCats()
+
+    const newRows = findAll('.cat table tr')
+
+
+    expect(rows.length).to.equal(newRows.length) //Number of rows unaffected
+    window.confirm = oldConfirm
+  })
 
   // it('deconsting a record & confirming', () => {
   //   const confirmCount = 0
