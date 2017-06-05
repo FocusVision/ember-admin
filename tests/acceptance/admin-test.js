@@ -12,15 +12,12 @@ import Pretender from 'pretender'
 import page from '../pages/model-index'
 
 const {
-  isEmpty,
-  run
+  isEmpty
 } = Ember
-
-let App
-let server
 
 describe('Acceptance: Admin', () => {
   let application
+  let server
   beforeEach(() => application = startApp())
   afterEach(() => destroyApp(application))
 
@@ -192,10 +189,10 @@ describe('Acceptance: Admin', () => {
 
     await page.visitCatEdit({ cat_id: 1 }).clickDelete()
 
-    expect(page.cats().count).to.equal(2)
-    expect(page.cats().id, 2)
-    expect(page.cats().name, 'Nyan')
-    expect(page.cats().age, 3)
+    expect(page.cats().count).to.equal(1)
+    expect(page.cats(0).id, 2)
+    expect(page.cats(0).name, 'Nyan')
+    expect(page.cats(0).age, 3)
     expect(confirmCount).to.equal(1)
     window.confirm = oldConfirm
   })
@@ -264,8 +261,8 @@ describe('Acceptance: Admin', () => {
 
     await page.visitCats()
 
-    expect(page.cats(1).id, 2)
-    expect(page.cats(1).name, 'Nyan')
+    expect(page.cats(0).id).to.equal('2')
+    expect(page.cats(0).name).to.equal('Nyan')
 
     await page.visitCatEdit({ cat_id: 1 })
 
@@ -280,14 +277,14 @@ describe('Acceptance: Admin', () => {
 
     await page.visitCats()
 
-    expect(page.cats(0).text.split(' ')).to.include.members(
+    expect(page.catHeaders().text.split(' ')).to.include.members(
       ['id', 'age', 'foo', 'bar', 'baz']
     )
     // TODO: fix after mirage is integrated
     // expect(page.cats(1).text.split(' ')).to.include.members(
     //   ['1', '10']
     // )
-    expect(page.cats(1).text.split(' ')).to.include.members(
+    expect(page.cats(0).text.split(' ')).to.include.members(
       ['2', '3']
     )
   })
