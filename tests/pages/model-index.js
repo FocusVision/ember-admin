@@ -1,5 +1,6 @@
 import {
   create,
+  collection,
   visitable,
   text,
   clickable,
@@ -9,9 +10,19 @@ import {
 export default create({
   visit: visitable('/admin'),
   visitCats: visitable('/admin/cat'),
+  visitCatEdit: visitable('/admin/cat/:cat_id/edit'),
 
   modelLinks: text('a', {
     multiple: true
+  }),
+
+  cats: collection({
+    itemScope: '.cat table tr',
+    item: {
+      id: text('td', { at: 0 }),
+      name: text('td', { at: 1 }),
+      age: text('td', { at: 2 })
+    }
   }),
 
   filterBy: fillable('input[data-test=filter-input]'),
@@ -23,5 +34,6 @@ export default create({
     at: 0
   }),
   clickSave: clickable('button[data-test=button-save]'),
+  clickDelete: clickable('button[data-test=button-delete]'),
   clickCreate: clickable('a[data-test=button-create]')
 });

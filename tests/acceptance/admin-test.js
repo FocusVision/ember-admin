@@ -183,28 +183,24 @@ describe('Acceptance: Admin', () => {
     window.confirm = oldConfirm
   })
 
-  // it('deconsting a record & confirming', () => {
-  //   const confirmCount = 0
-  //   const oldConfirm = window.confirm
-  //   window.confirm = () => {
-  //     confirmCount = 1
-  //     return true
-  //   }
-  //   visit('/admin/cat/1/edit')
-  //
-  //   andThen(() => {
-  //     click(find('button.deconste'))
-  //   })
-  //
-  //   andThen(() => {})
-  //
-  //   andThen(() => {
-  //     const rows = find('.cat table tr')
-  //     rowValuesEqual(expect, rows.eq(1), '2', 'Nyan', '3', '', '', '')
-  //     expect.equal(confirmCount, 1)
-  //     window.confirm = oldConfirm
-  //   })
-  // })
+  it('deleting a record & confirming', async () => {
+    let confirmCount = 0
+    const oldConfirm = window.confirm
+    window.confirm = () => {
+      confirmCount += 1
+      return true
+    }
+
+    await page.visitCatEdit({ cat_id: 1 }).clickDelete()
+
+    expect(page.cats().count).to.equal(2)
+    expect(page.cats().id, 2)
+    expect(page.cats().name, 'Nyan')
+    expect(page.cats().age, 3)
+    expect(confirmCount).to.equal(1)
+    window.confirm = oldConfirm
+  })
+
   //
   // it('deconsting a record & not confirming', () => {
   //   const oldConfirm = window.confirm

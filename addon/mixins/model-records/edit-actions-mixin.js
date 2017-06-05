@@ -31,10 +31,10 @@ export default Mixin.create({
         .confirm('Are you sure you want to destroy this record?')
 
       if (canDestroy) {
-        get(this, 'controller.model')
+        get(this, 'model')
           .destroyRecord()
           .then((record) => {
-            this.transitionTo(
+            this.transitionToRoute(
               'model-records',
               record.constructor.modelName
             )
