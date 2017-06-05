@@ -11,12 +11,12 @@ export default Mixin.create({
     save() {
       return get(this, 'model')
         .save()
-        .then((record) => {
+        .then(record => {
           this.transitionToRoute(
             'model-records',
             record.constructor.modelName
           )
-      })
+        })
     },
 
     cancel() {
@@ -33,7 +33,7 @@ export default Mixin.create({
       if (canDestroy) {
         get(this, 'model')
           .destroyRecord()
-          .then((record) => {
+          .then(record => {
             this.transitionToRoute(
               'model-records',
               record.constructor.modelName

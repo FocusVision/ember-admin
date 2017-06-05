@@ -1,35 +1,28 @@
-import Ember from 'ember'
 import { describe, it, before, after, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
 import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
-import { visit, findAll } from 'ember-native-dom-helpers'
-import {
-  rowValuesEqual,
-  inputPropertiesEqual
-} from '../helpers/equality-helpers'
+import { findAll } from 'ember-native-dom-helpers'
 import Pretender from 'pretender'
 import page from '../pages/model-index'
-
-const {
-  run
-} = Ember
 
 describe('Acceptance: Admin Relationships', () => {
   let application
   let server
   let toy
-  beforeEach(() => application = startApp())
+  beforeEach(() => {
+    application = startApp()
+  })
   afterEach(() => destroyApp(application))
 
   before(() => {
     server = new Pretender(function() {
       this.get('/admin/cats', () =>
-        [
+        ([
           200,
           { 'Content-Type': 'application/json' },
           JSON.stringify({ cats: [], owners: [], toys: [] })
-        ]
+        ])
       )
       this.get('/admin/cats/1', () => {
         const cats = [
@@ -135,7 +128,7 @@ describe('Acceptance: Admin Relationships', () => {
   })
 
   it('should list relationships', async () => {
-    await page.visitCatEdit({cat_id: 1})
+    await page.visitCatEdit({ cat_id: 1 })
 
     expect(page.owners(0).id).to.equal('1')
     expect(page.owners(0).name).to.equal('Pat Sullivan')
@@ -149,7 +142,7 @@ describe('Acceptance: Admin Relationships', () => {
 
   it('should create new model as a relationship to parent', async () => {
     await page
-      .visitCatEdit({cat_id: 1})
+      .visitCatEdit({ cat_id: 1 })
       .clickCreateToyRelationship()
       .fillInName('Bell')
       .clickSave()
@@ -162,7 +155,7 @@ describe('Acceptance: Admin Relationships', () => {
   it(
     'should not display "Create" if singular relationship model exists',
     async () => {
-      await page.visitCatEdit({cat_id: 1})
+      await page.visitCatEdit({ cat_id: 1 })
 
       expect(findAll('a[data-test=button-create]')).to.have.length(0)
     }
@@ -185,7 +178,10 @@ describe('Acceptance: Admin Relationships', () => {
 
       expect(page.courses().count).to.equal(1)
 
-      await page.clickCreateCourseRelationship().fillInTitle('New Course!').clickSave()
+      await page
+        .clickCreateCourseRelationship()
+        .fillInTitle('New Course!')
+        .clickSave()
 
       expect(page.courses().count).to.equal(2)
     }

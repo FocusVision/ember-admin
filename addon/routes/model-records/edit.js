@@ -2,9 +2,7 @@ import Ember from 'ember'
 import WriteMixin from 'ember-admin/mixins/model-records/write'
 
 const {
-  get,
-  Route,
-  RSVP: { Promise }
+  Route
 } = Ember
 
 export default Route.extend(WriteMixin, {

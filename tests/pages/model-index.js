@@ -6,7 +6,7 @@ import {
   clickable,
   fillable,
   count
-} from 'ember-cli-page-object';
+} from 'ember-cli-page-object'
 
 export default create({
   visit: visitable('/admin'),
@@ -82,4 +82,4 @@ export default create({
   clickDelete: clickable('button[data-test=button-delete]'),
   clickCancel: clickable('button[data-test=button-cancel]'),
   clickCreate: clickable('a[data-test=button-create]')
-});
+})

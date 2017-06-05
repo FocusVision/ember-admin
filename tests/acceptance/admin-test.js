@@ -4,10 +4,7 @@ import { expect } from 'chai'
 import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
 import { visit, findAll } from 'ember-native-dom-helpers'
-import {
-  rowValuesEqual,
-  inputPropertiesEqual
-} from '../helpers/equality-helpers'
+import { rowValuesEqual } from '../helpers/equality-helpers'
 import Pretender from 'pretender'
 import page from '../pages/model-index'
 
@@ -18,7 +15,9 @@ const {
 describe('Acceptance: Admin', () => {
   let application
   let server
-  beforeEach(() => application = startApp())
+  beforeEach(() => {
+    application = startApp()
+  })
   afterEach(() => destroyApp(application))
 
   before(() => {
@@ -170,12 +169,11 @@ describe('Acceptance: Admin', () => {
 
     const rows = findAll('.cat table tr')
 
-    await  page.clickCreate().visitCats()
+    await page.clickCreate().visitCats()
 
     const newRows = findAll('.cat table tr')
 
-
-    expect(rows.length).to.equal(newRows.length) //Number of rows unaffected
+    expect(rows.length).to.equal(newRows.length) // Number of rows unaffected
     window.confirm = oldConfirm
   })
 
@@ -199,9 +197,7 @@ describe('Acceptance: Admin', () => {
 
   it('deleting a record & not confirming', async () => {
     const oldConfirm = window.confirm
-    window.confirm = () => {
-      return false
-    }
+    window.confirm = () => false
 
     await page.visitCatEdit({ cat_id: 1 }).clickDelete()
 
