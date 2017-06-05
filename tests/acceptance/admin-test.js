@@ -1,14 +1,16 @@
 import Ember from 'ember'
-import { describe, it, before, after } from 'mocha'
+import { describe, it, before, after, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
 import startApp from '../helpers/start-app'
-import { visit, click } from 'ember-native-dom-helpers'
+import destroyApp from '../helpers/destroy-app'
+import { visit, click, findAll } from 'ember-native-dom-helpers'
 import {
   rowValuesEqual,
   inputPropertiesEqual
 } from '../helpers/equality-helpers'
 import { fillInByPlaceholder } from '../helpers/fill-in-by'
 import Pretender from 'pretender'
+import page from '../pages/model-index'
 
 const {
   isEmpty,
@@ -19,8 +21,11 @@ let App
 let server
 
 describe('Acceptance: Admin', () => {
+  let application
+  beforeEach(() => application = startApp())
+  afterEach(() => destroyApp(application))
+
   before(() => {
-    App = startApp()
     const cats = [
       { id: 1, name: 'Felix', age: 10 },
       { id: 2, name: 'Nyan', age: 3 }
@@ -95,23 +100,27 @@ describe('Acceptance: Admin', () => {
   })
 
   after(() => {
-    run(App, 'destroy')
     server.shutdown()
   })
 
-  it('listing all models', async () => {
-    await visit('/admin')
 
-    const links = find('a')
-    expect(links.first().text()).to.equal('bird')
-    expect(links.last().text()).to.equal('toy')
+  it('listing all models', async () => {
+    await page.visit()
+
+    expect(page.modelLinks).to.include.members([
+      'bird',
+      'cat',
+      'course',
+      'dog',
+      'owner',
+      'toy'
+    ])
   })
 
   it('viewing a model\'s records', async () => {
-    await visit('/admin')
-    await click('a:contains("cat")')
+    await page.visit().clickModelTypeCat()
 
-    const rows = find('.cat table tr')
+    const rows = $(findAll('.cat table tr'))
     rowValuesEqual(
       expect,
       rows.eq(0),
@@ -121,63 +130,58 @@ describe('Acceptance: Admin', () => {
     rowValuesEqual(expect, rows.eq(2), '2', 'Nyan', '3', '', '', '')
   })
 
-  it('filtering records by value', () => {
-    visit('/admin/cat')
+  it('filtering records by value', async () => {
+    await page.visitCats().filterBy('Felix')
 
-    andThen(() => {
-      fillInByPlaceholder('Filter', 'Felix')
-    })
-
-    andThen(() => {
-      const rows = find('.cat table tr')
-
-      rowValuesEqual(
-        expect,
-        rows.eq(0),
-        'id', 'name', 'age', 'foo', 'bar', 'baz'
-      )
-      rowValuesEqual(expect, rows.eq(1), '1', 'Felix', '10', '', '', '')
-      expect(isEmpty(rows.eq(2))).to.be.true
-    })
+    const rows = $(find('.cat table tr'))
+    rowValuesEqual(
+      expect,
+      rows.eq(0),
+      'id', 'name', 'age', 'foo', 'bar', 'baz'
+    )
+    rowValuesEqual(expect, rows.eq(1), '1', 'Felix', '10', '', '', '')
+    expect(isEmpty(rows.eq(2))).to.be.true
   })
 
   it('editing a record', async () => {
-    await visit('/admin/cat')
-    click('.cat a:contains("Felix")')
+    await page
+      .visitCats()
+      .clickFirstCatRecord()
+      .fillInName('Hobbes')
+      .fillInAge('29')
+      .clickSave()
 
-    andThen(() => {
-      fillInByLabel('name', 'Hobbes')
-      fillInByLabel('age', 29)
-      click(find('button.save'))
-    })
-
-    andThen(() => {
-      const rows = find('.cat table tr')
+    andThen(() => {  // async issues with above require this :/
+      const rows = $(find('.cat table tr'))
       rowValuesEqual(expect, rows.eq(1), '1', 'Hobbes', '29', '', '', '')
     })
   })
 
-  // it('creating a new record', () => {
-  //   visit('/admin/cat')
-  //
-  //   andThen(() => {
-  //     const link = find('.cat a:contains("Create")')
-  //     click(link, 'cannot find "Create"')
-  //   })
-  //
-  //   andThen(() => {
-  //     fillInByLabel('name', 'Lion-O')
-  //     fillInByLabel('age', 30)
-  //     click(find('button.save'))
-  //   })
-  //
-  //   andThen(() => {})
-  //
-  //   andThen(() => {
-  //     const rows = find('.cat table tr')
-  //     rowValuesEqual(expect, rows.eq(3), '3', 'Lion-O', '30', '', '', '')
-  //   })
-  // })
+  it('creating a new record', async () => {
+    await page.visitCats()
+      .clickCreate()
+      .fillInName('Lion-O')
+      .fillInAge(30)
+      .clickSave()
+
+    // andThen(() => {
+    //   const link = find('.cat a:contains("Create")')
+    //   click(link, 'cannot find "Create"')
+    // })
+    //
+    // andThen(() => {
+    //   fillInByLabel('name', 'Lion-O')
+    //   fillInByLabel('age', 30)
+    //   click(find('button.save'))
+    // })
+
+    // andThen(() => {})
+
+    andThen(() => {
+      const rows = $(find('.cat table tr'))
+      rowValuesEqual(expect, rows.eq(3), '3', 'Lion-O', '30', '', '', '')
+    })
+  })
 
   // it('creating doesn\'t affect list', () => {
   //   visit('/admin/cat')

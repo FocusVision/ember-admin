@@ -19,20 +19,6 @@ export default Mixin.create(EmberDataRouteMixin, {
       this.render(defaultTemplatePath)
     }
   },
-
-  actions: {
-    save(callback) {
-      const promise = get(this, 'controller.model').save()
-      callback(promise)
-
-      promise.then(() => {
-        this.transitionTo('model-records', this.paramsFor('model-records').name)
-      })
-    },
-    cancel() {
-      this.transitionTo('model-records', this.paramsFor('model-records').name)
-    }
-  },
   willTransitionConfirm() {
     return window.confirm(
       'You have unsaved changes. Are you sure you want to continue?'
