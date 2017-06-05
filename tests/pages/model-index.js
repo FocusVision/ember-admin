@@ -13,6 +13,8 @@ export default create({
   visitCats: visitable('/admin/cat'),
   visitCatEdit: visitable('/admin/cat/:cat_id/edit'),
   visitCatNew: visitable('/admin/cat/new'),
+  visitBirdEdit: visitable('/admin/bird/:bird_id/edit'),
+  visitOwnerEdit: visitable('/admin/owner/:owner_id/edit'),
 
   modelLinks: text('a', {
     multiple: true
@@ -51,11 +53,16 @@ export default create({
     }
   }),
 
+  courses: collection({
+    itemScope: '.course table tbody tr'
+  }),
+
   toyCount: count('tr', { scope: '.toy table tbody' }),
 
   filterBy: fillable('input[data-test=filter-input]'),
   fillInName: fillable('input[data-test=edit-input-name]'),
   fillInAge: fillable('input[data-test=edit-input-age]'),
+  fillInTitle: fillable('input[data-test=edit-input-title]'),
 
   formLabelName: text('label[data-test=form-label-name]'),
 
@@ -69,6 +76,7 @@ export default create({
   }),
 
   clickCreateToyRelationship: clickable('a[data-test=button-create-toy]'),
+  clickCreateCourseRelationship: clickable('a[data-test=button-create-course]'),
 
   clickSave: clickable('button[data-test=button-save]'),
   clickDelete: clickable('button[data-test=button-delete]'),

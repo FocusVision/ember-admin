@@ -158,56 +158,36 @@ describe('Acceptance: Admin Relationships', () => {
     expect(page.toys(2).id).to.equal('3')
     expect(page.toys(2).name).to.equal('Bell')
   })
-  //
-  // it(
-  //   'should not display "Create" if singular relationship model exists',
-  //   () => {
-  //     visit('/admin/cat/1/edit')
-  //
-  //     andThen(() => {
-  //       const createLink = find('.owner a:contains("Create")')
-  //       expect.equal(0, createLink.length, 'should not find the Create link')
-  //     })
-  //   }
-  // )
-  //
-  // it(
-  //   'should not display "Create" if no inverse relationship exists',
-  //   () => {
-  //     visit('/admin/bird/1/edit')
-  //
-  //     andThen(() => {
-  //       const toysTable = find('.toy')
-  //       expect.equal(
-  //         1,
-  //         toysTable.length,
-  //         'should find the toy relationship table'
-  //       )
-  //       const createLink = find('.toy a:contains("Create")')
-  //       expect.equal(0, createLink.length, 'should not find the Create link')
-  //     })
-  //   }
-  // )
-  //
-  // it(
-  //   'should properly create Many-to-Many relationship with inverse',
-  //   () => {
-  //     visit('/admin/owner/1/edit')
-  //
-  //     andThen(() => {
-  //       const coursesTable = find('.course')
-  //       expect.equal(
-  //         1,
-  //         coursesTable.length,
-  //         'should find the course relationship table'
-  //       )
-  //       click('.course a:contains("Create")')
-  //     })
-  //
-  //     andThen(() => {
-  //       fillInByLabel('title', 'New Course!')
-  //       click(find('button.save'))
-  //     })
-  //   }
-  // )
+
+  it(
+    'should not display "Create" if singular relationship model exists',
+    async () => {
+      await page.visitCatEdit({cat_id: 1})
+
+      expect(findAll('a[data-test=button-create]')).to.have.length(0)
+    }
+  )
+
+  it(
+    'should not display "Create" if no inverse relationship exists',
+    async () => {
+      await page.visitBirdEdit({ bird_id: 1 })
+
+      expect(page.toys().count).to.equal(1)
+      expect(findAll('a[data-test=button-create]')).to.have.length(0)
+    }
+  )
+
+  it(
+    'should properly create Many-to-Many relationship with inverse',
+    async () => {
+      await page.visitOwnerEdit({ owner_id: 1 })
+
+      expect(page.courses().count).to.equal(1)
+
+      await page.clickCreateCourseRelationship().fillInTitle('New Course!').clickSave()
+
+      expect(page.courses().count).to.equal(2)
+    }
+  )
 })
