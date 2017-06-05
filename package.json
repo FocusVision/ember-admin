@@ -43,6 +43,7 @@
     "ember-native-dom-helpers": "^0.4.1",
     "ember-resolver": "^2.0.3",
     "ember-suave": "4.0.0",
+    "ember-source": "~2.12.0",
     "ember-test-with-data": "^1.3.3",
     "eslint": "^3.13.1",
     "eslint-config-focusvision": "git+ssh://git@invent.focusvision.com/Portland/eslint-config-focusvision.git",

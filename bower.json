@@ -1,7 +1,6 @@
 {
   "name": "ember-admin",
   "dependencies": {
-    "ember": "2.12.1",
     "pretender": "~0.10.0"
   }
 }
