@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/mirage-models/course';
+export { default } from 'ember-admin/mirage-models/course'

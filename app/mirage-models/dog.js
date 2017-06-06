@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/mirage-models/dog';
+export { default } from 'ember-admin/mirage-models/dog'

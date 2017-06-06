@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/mirage-models/owner';
+export { default } from 'ember-admin/mirage-models/owner'
