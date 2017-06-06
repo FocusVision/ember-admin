@@ -28,7 +28,7 @@ export default Controller.extend(
       if (name && id) {
         const meta = get(this, 'model').constructor.metaForProperty(name)
         this.admin.store.find(meta.type, id).then(model => {
-          if (meta.kind && meta.kind === 'hasMany') {
+          if (meta.kind === 'hasMany') {
             get(this, `model.${name}`).pushObject(model)
           } else {
             set(this, `model.${name}`, model)

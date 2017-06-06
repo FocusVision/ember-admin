@@ -65,7 +65,7 @@ export default Component.extend(ColumnsMixin, {
       const constructor = store.modelFor(get(this, 'recordType'))
       const { kind } = constructor.inverseFor(relationshipName, store)
 
-      if (kind && kind === 'belongsTo' && get(this, 'records.length') > 0) {
+      if (kind === 'belongsTo' && get(this, 'records.length') > 0) {
         return true
       }
     }

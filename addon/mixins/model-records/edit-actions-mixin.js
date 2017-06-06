@@ -2,8 +2,7 @@ import Ember from 'ember'
 
 const {
   Mixin,
-  get,
-  RSVP
+  get
 } = Ember
 
 export default Mixin.create({
@@ -39,8 +38,6 @@ export default Mixin.create({
               record.constructor.modelName
             )
           })
-      } else {
-        RSVP.reject()
       }
     }
   }
