@@ -4,7 +4,8 @@ import DS from 'ember-data'
 const {
   getOwner,
   isEmpty,
-  get
+  get,
+  inject: { service }
 } = Ember
 
 const {
@@ -12,6 +13,8 @@ const {
 } = DS
 
 export default Store.extend({
+  adminService: service('admin'),
+
   adapterFor(type) {
     if (!this.typeAdapter) {
       this.typeAdapter = {}
@@ -20,7 +23,7 @@ export default Store.extend({
     if (!this.typeAdapter[type]) {
       let namespaces = []
       const adapter = this._super(type)
-      const adminService = getOwner(this).lookup('service:admin')
+      const adminService = this.get('adminService')
 
       if (get(adapter, 'namespace')) {
         namespaces = get(adapter, 'namespace').split('/')
