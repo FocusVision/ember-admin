@@ -2,13 +2,15 @@ import Ember from 'ember'
 
 const {
   get,
-  Route
+  Route,
+  String: { singularize }
 } = Ember
 
 export default Route.extend({
-  model() {
+  model(params) {
+    const modelName = singularize(this.paramsFor('model-records').name)
     return this.admin.store
-      .findAll(this.paramsFor('model-records').name)
+      .findAll(modelName)
       .then(records => records.filter(item => !get(item, 'isNew')))
   }
 })

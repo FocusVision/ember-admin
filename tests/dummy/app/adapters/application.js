@@ -1,11 +1,12 @@
+import Ember from 'ember'
 import DS from 'ember-data'
 
 const {
-  RESTAdapter
+  JSONAPIAdapter
 } = DS
 
-export default RESTAdapter.extend({
-  shouldBackgroundReloadRecord() {
-    return true
+export default JSONAPIAdapter.extend({
+  pathForType: function(type) {
+    return Ember.String.pluralize(type)
   }
 })

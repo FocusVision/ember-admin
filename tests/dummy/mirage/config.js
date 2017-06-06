@@ -1,26 +1,24 @@
 export default function() {
+  this.namespace = '/admin'
 
-  // These comments are here to help you get started. Feel free to delete them.
+  this.get('/cats')
+  this.post('/cats')
+  this.get('/cats/:id')
+  this.patch('/cats/:id', function({ cats }, { params: { id }}) {
+    return cats.find(id).update(this.normalizedRequestAttrs())
+  })
+  this.delete('/cats/:id')
 
-  /*
-    Config (with defaults).
+  this.get('/dogs', function({ dogs }, request) {
+    return dogs.all()
+  })
+  this.get('/dogs/:id')
 
-    Note: these only affect routes defined *after* them!
-  */
+  this.get('/birds')
+  this.get('/birds/:id')
 
-  // this.urlPrefix = ''    // make this `http://localhost:8080`, for example, if your API is on a different server
-  // this.namespace = ''    // make this `/api`, for example, if your API is namespaced
-  // this.timing = 400      // delay for each request, automatically set to 0 during testing
-
-  /*
-    Shorthand cheatsheet:
-
-    this.get('/posts')
-    this.post('/posts')
-    this.get('/posts/:id')
-    this.put('/posts/:id') // or this.patch
-    this.del('/posts/:id')
-
-    http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
-  */
+  this.get('/toys')
+  this.get('/owners')
+  this.get('/owners/:id')
+  this.get('/courses')
 }

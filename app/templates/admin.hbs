@@ -1,7 +1,9 @@
 <div class="ember-admin">
   <h2>Admin</h2>
   {{#each filteredModels as |name|}}
-    {{link-to name 'model-records' name data-test=(concat 'models-list-item-' name)}}
+    <div data-test='models-list'>
+      {{link-to name 'model-records' name data-test=(concat 'models-list-item-' name)}}
+    </div>
   {{/each}}
   {{outlet}}
 </div>

@@ -15,8 +15,9 @@ export default create({
   visitCatNew: visitable('/admin/cat/new'),
   visitBirdEdit: visitable('/admin/bird/:bird_id/edit'),
   visitOwnerEdit: visitable('/admin/owner/:owner_id/edit'),
+  visitDogs: visitable('/admin/dogs'),
 
-  modelLinks: text('a', {
+  modelLinks: text('[data-test=models-list] a', {
     multiple: true
   }),
 
@@ -63,6 +64,7 @@ export default create({
   fillInName: fillable('input[data-test=edit-input-name]'),
   fillInAge: fillable('input[data-test=edit-input-age]'),
   fillInTitle: fillable('input[data-test=edit-input-title]'),
+
 
   formLabelName: text('label[data-test=form-label-name]'),
 
