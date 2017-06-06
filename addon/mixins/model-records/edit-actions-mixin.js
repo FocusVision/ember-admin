@@ -32,12 +32,12 @@ export default Mixin.create({
       if (canDestroy) {
         get(this, 'model')
           .destroyRecord()
-          .then(record => {
+          .then(record =>
             this.transitionToRoute(
               'model-records',
               record.constructor.modelName
             )
-          })
+          )
       }
     }
   }
