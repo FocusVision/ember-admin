@@ -1,55 +1,64 @@
-import Ember from 'ember';
-import { moduleFor, test } from 'ember-qunit';
-import RESTAdapter from 'ember-data/adapters/rest';
-
-let adminService;
+import DS from 'ember-data'
+import { expect } from 'chai'
+import { describe, it } from 'mocha'
+import { setupTest } from 'ember-mocha'
 
 const {
-  get
-} = Ember;
+  RESTAdapter
+} = DS
 
-moduleFor('ember-admin@store:admin', 'Unit | Store | admin', {
-  needs: ['service:admin'],
-  setup() {
-    this.inject.service('admin');
-    adminService = get(this, 'admin');
-  }
-});
+describe('Unit | Store | admin', () => {
+  setupTest('ember-admin@store:admin', {
+    needs: ['service:admin']
+  })
 
-test('defaults to "api" namespace', function(assert) {
-  let adapter = this.subject().adapterFor('dog');
-  assert.equal(adapter.namespace, 'admin');
-});
+  it('defaults to "admin" namespace', function() {
+    const adapter = this.subject().adapterFor('dog')
 
-test('appends ember-admin\'s namespace to the end of the adapter namespaces', function(assert) {
-  let {
-    container: { owner }
-  } = this;
+    expect(adapter.namespace).to.equal('admin')
+  })
 
-  owner.register('adapter:dog', RESTAdapter.create({ namespace: 'api/v1' }), { instantiate: false });
-  let adapter = this.subject().adapterFor('dog');
-  assert.equal(adapter.namespace, 'api/v1/admin');
-});
+  it(
+    "appends ember-admin's namespace to the end of the adapter namespaces",
+    function() {
+      this.registry.register(
+        'adapter:dog',
+        RESTAdapter.extend({ namespace: 'api/v1' })
+      )
+      const adapter = this.subject().adapterFor('dog')
 
-test('allow overriding of default namespace', function(assert) {
-  adminService.namespace = 'hobbes';
-  let adapter = this.subject().adapterFor('dog');
-  assert.equal(adapter.namespace, 'hobbes');
-});
+      expect(adapter.namespace).to.equal('api/v1/admin')
+    }
+  )
 
-test('allow `null` namespace', function(assert) {
-  adminService.namespace = undefined;
-  let adapter = this.subject().adapterFor('dog');
-  assert.equal(adapter.namespace, undefined);
-});
+  it('allows overriding of default namespace', function() {
+    const store = this.subject()
+    store.set('adminService.namespace', 'hobbes')
+    const adapter = store.adapterFor('dog')
 
-test('empty admin namespace does not add tralining slash to adapter namespace', function(assert) {
-  let {
-    container: { owner }
-  } = this;
+    expect(adapter.namespace).to.equal('hobbes')
+  })
 
-  owner.register('adapter:dog', RESTAdapter.create({ namespace: 'api/v1' }), { instantiate: false });
-  adminService.namespace = '';
-  let adapter = this.subject().adapterFor('dog');
-  assert.equal(adapter.namespace, 'api/v1');
-});
+  it('allows `null` namespace', function() {
+    const store = this.subject()
+    store.set('adminService.namespace', undefined)
+    const adapter = store.adapterFor('dog')
+
+    expect(adapter.namespace).to.equal(undefined)
+  })
+
+  it(
+    'empty admin namespace does not add tralining slash to adapter namespace',
+    function() {
+      const store = this.subject()
+      store.set('adminService.namespace', '')
+      this.registry.register(
+        'adapter:dog',
+        RESTAdapter.extend({ namespace: 'api/v1' })
+      )
+      const adapter = this.subject().adapterFor('dog')
+
+      expect(adapter.namespace).to.equal('api/v1')
+    }
+  )
+})

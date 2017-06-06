@@ -1,26 +1,24 @@
-export { rowValuesEqual, inputPropertiesEqual };
+export { rowValuesEqual, inputPropertiesEqual }
 
-function rowValuesEqual(assert, row) {
-  let values = Array.prototype.slice.call(arguments, 2, arguments.length);
-  let columns = row.find('th, td');
-  let columnText;
+function rowValuesEqual(expect, row, ...args) {
+  const values = args
+  const columns = row.find('th, td')
 
-  assert.equal(columns.length, values.length, `expected ${values.length} columns: (${values.join(', ')})`);
+  expect(columns.length).to.equal(values.length)
 
   for (let i = 0; i < columns.length; i++) {
-    columnText = columns.eq(i).text().trim();
-    assert.equal(columnText, values[i], `expected column(${(i + 1)}) with value: ${values[i]}`);
+    const columnText = columns.eq(i).text().trim()
+    expect(columnText).to.equal(values[i])
   }
 }
 
-function inputPropertiesEqual(assert, inputs) {
-  let values = Array.prototype.slice.call(arguments, 2, arguments.length);
-  let labelText;
+function inputPropertiesEqual(expect, inputs, ...args) {
+  const values = args
 
-  assert.equal(inputs.length, values.length, `expected ${values.length} inputs: (${values.join(', ')})`);
+  expect(inputs.length).to.equal(values.length)
 
   for (let i = 0; i < inputs.length; i++) {
-    labelText = inputs.eq(i).parent().text().trim();
-    assert.equal(labelText, values[i], `expected input(${(i + 1)}) for property: ${values[i]}`);
+    const labelText = inputs.eq(i).parent().text().trim()
+    expect(labelText).to.equal(values[i])
   }
 }

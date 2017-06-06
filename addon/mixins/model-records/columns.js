@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import RecordTypeMixin from 'ember-admin/mixins/model-records/model-record';
-import { includes } from 'ember-admin/utils/array';
+import Ember from 'ember'
+import RecordTypeMixin from 'ember-admin/mixins/model-records/model-record'
+import { includes } from 'ember-admin/utils/array'
 
 const {
   Mixin,
@@ -9,63 +9,61 @@ const {
   computed,
   computed: { filter },
   getOwner
-} = Ember;
+} = Ember
 
 function columnIncludes(columnType, parameter) {
-  return columnType && includes(columnType, parameter);
+  return columnType && includes(columnType, parameter)
 }
 
 export default Mixin.create(RecordTypeMixin, {
   columns: computed('model', function() {
-    let adapter = getOwner(this).lookup('data-adapter:main');
-    let recordType = this.get('recordType');
-    let type = adapter.getModelTypes().findBy('name', recordType);
-    let { klass } = type;
+    const adapter = getOwner(this).lookup('data-adapter:main')
+    const recordType = this.get('recordType')
+    const type = adapter.getModelTypes().findBy('name', recordType)
+    const { klass } = type
 
-    let keys = emberArray(['id']);
+    const keys = emberArray(['id'])
 
-    klass.eachAttribute(function(key) {
-      keys.push(key);
-    });
+    klass.eachAttribute(key => {
+      keys.push(key)
+    })
 
-    return keys;
+    return keys
   }),
 
   filteredColumns: filter('columns', function(name) {
-    let modelName = get(this, 'model-record.name');
-    let allowColumn = true;
+    const modelName = get(this, 'model-record.name')
+    let allowColumn = true
 
-    /*jshint -W024 */
-    let {
+    const {
       admin: {
         includedColumns: adminIncludedColumns,
         excludedColumns: adminExcludedColumns
       },
       includedColumns,
       excludedColumns
-    } = this;
-    /*jshint +W024 */
+    } = this
 
     if (adminIncludedColumns) {
       if (!columnIncludes(adminIncludedColumns[modelName], name)) {
-        allowColumn = false;
+        allowColumn = false
       }
     }
 
     if (adminExcludedColumns) {
       if (columnIncludes(adminExcludedColumns[modelName], name)) {
-        allowColumn = false;
+        allowColumn = false
       }
     }
 
     if (columnIncludes(excludedColumns, name)) {
-      allowColumn = false;
+      allowColumn = false
     }
 
     if (columnIncludes(includedColumns, name)) {
-      allowColumn = true;
+      allowColumn = true
     }
 
-    return allowColumn;
+    return allowColumn
   })
-});
+})

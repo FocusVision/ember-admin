@@ -1,11 +1,11 @@
-import DS from 'ember-data';
+import DS from 'ember-data'
 
 const {
   attr,
   Model
-} = DS;
+} = DS
 
 export default Model.extend({
   name: attr('string'),
-  age:  attr('number')
-});
+  age: attr('number')
+})

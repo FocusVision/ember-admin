@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/controllers/admin';
+export { default } from 'ember-admin/controllers/admin'

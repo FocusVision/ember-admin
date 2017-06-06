@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 const {
   Service
-} = Ember;
+} = Ember
 
 export default Service.extend({
   includedModels: null,
@@ -12,4 +12,4 @@ export default Service.extend({
   excludedColumns: null,
 
   namespace: 'admin'
-});
+})

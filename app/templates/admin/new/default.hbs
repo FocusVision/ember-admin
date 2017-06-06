@@ -6,12 +6,12 @@
       <div class="model-column {{column}}">
         <label>
           {{column}}
-          {{admin-input record=this columnValue=column}}
+          {{admin-input record=this columnValue=column data-test=(concat 'edit-input-' column)}}
         </label>
       </div>
     {{/each}}
 
-    {{async-button action="save" default="Save" pending="Saving..." fulfilled="Saved" rejected="Error" class="save"}}
-    <button {{action "cancel"}} class="cancel">Cancel</button>
+    {{async-button action=(action 'save') default="Save" pending="Saving..." fulfilled="Saved" rejected="Error" data-test='button-save'}}
+    <button {{action "cancel"}} data-test='button-cancel'>Cancel</button>
   </form>
 </div>

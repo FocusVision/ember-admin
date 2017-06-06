@@ -1,16 +1,14 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 const {
   get,
   Route
-} = Ember;
+} = Ember
 
 export default Route.extend({
   model() {
-    return this.admin.store.findAll(this.paramsFor('model-records').name).then(function(records) {
-      return records.filter(function(item) {
-        return !get(item, 'isNew');
-      });
-    });
+    return this.admin.store
+      .findAll(this.paramsFor('model-records').name)
+      .then(records => records.filter(item => !get(item, 'isNew')))
   }
-});
+})

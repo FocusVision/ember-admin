@@ -3,20 +3,20 @@
 
   <form>
     {{#each filteredColumns as |column|}}
-    <div class="model-column {{column}}">
-        <label>
+    <div class='model-column {{column}}'>
+        <label data-test={{concat 'form-label-' column}}>
           {{column}}
-          {{admin-input record=this columnValue=column}}
+          {{admin-input record=this columnValue=column data-test=(concat 'edit-input-' column)}}
         </label>
       </div>
     {{/each}}
 
-    {{async-button action="save" default="Save" pending="Saving..." fulfilled="Saved" rejected="Error" class="save"}}
-    {{async-button action="destroyRecord" default="Delete" pending="Deleting..." fulfilled="Deleted" class="delete"}}
-    <button {{action "cancel"}} class="cancel">Cancel</button>
+    {{async-button action=(action 'save') default='Save' pending='Saving...' fulfilled='Saved' rejected='Error' class='save' data-test='button-save'}}
+    {{async-button action=(action 'destroyRecord') default='Delete' pending='Deleting...' fulfilled='Deleted' class='delete' data-test='button-delete'}}
+    <button {{action 'cancel'}} class='cancel' data-test='button-cancel'>Cancel</button>
   </form>
 
-  <div class="relationships">
+  <div class='relationships'>
     <h2>Relationships</h2>
 
     {{#each relationshipTypes as |relationshipType|}}
