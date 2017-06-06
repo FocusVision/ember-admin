@@ -31,7 +31,6 @@
     "ember-cli-mirage": "^0.3.3",
     "ember-cli-mocha": "^0.13.2",
     "ember-cli-page-object": "^1.10.0",
-    "ember-cli-pretender": "^0.5.0",
     "ember-cli-release": "^0.2.9",
     "ember-cli-shims": "^1.0.2",
     "ember-cli-sri": "^2.1.0",
