@@ -8,4 +8,4 @@ module.exports = {
     'beforeEach': true,
     'server': true
   }
-};
+}
