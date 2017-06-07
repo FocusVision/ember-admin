@@ -1,5 +1,4 @@
 import Ember from 'ember'
-import RecordTypeMixin from 'ember-admin/mixins/model-records/record-type'
 import ColumnsMixin from 'ember-admin/mixins/model-records/columns'
 import ResourceControllerMixin
   from 'ember-admin/mixins/model-records/resource-controller-mixin'
@@ -12,7 +11,6 @@ const {
 } = Ember
 
 export default Controller.extend(
-  RecordTypeMixin,
   ColumnsMixin,
   ResourceControllerMixin,
   {

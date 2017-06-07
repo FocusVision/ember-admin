@@ -2,10 +2,15 @@ import Ember from 'ember'
 
 const {
   Mixin,
-  get
+  get,
+  computed: { alias },
+  inject: { controller }
 } = Ember
 
 export default Mixin.create({
+  modelRecords: controller('model-records'),
+  recordType: alias('modelRecords.recordType'),
+
   actions: {
     save() {
       return get(this, 'model')
