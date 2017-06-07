@@ -3,9 +3,10 @@ module.exports = {
     embertest: true
   },
   globals: {
+    server: true,
     '$': true,
     'afterEach': true,
     'beforeEach': true,
     'server': true
   }
-};
+}

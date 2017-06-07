@@ -4,7 +4,7 @@ import config from '../../config/environment'
 
 export default function startApp(attrs) {
   let attributes = Ember.merge({}, config.APP)
-  attributes = Ember.merge(attributes, attrs) // use defaults, but you can override;
+  attributes = Ember.merge(attributes, attrs) // use defaults, but you can override
 
   return Ember.run(() => {
     const application = Application.create(attributes)

@@ -4,8 +4,7 @@ import {
   visitable,
   text,
   clickable,
-  fillable,
-  count
+  fillable
 } from 'ember-cli-page-object'
 
 export default create({
@@ -15,8 +14,11 @@ export default create({
   visitCatNew: visitable('/admin/cat/new'),
   visitBirdEdit: visitable('/admin/bird/:bird_id/edit'),
   visitOwnerEdit: visitable('/admin/owner/:owner_id/edit'),
+  visitDogs: visitable('/admin/dogs'),
+  visitDogsEdit: visitable('/admin/dogs/:dog_id/edit'),
+  visitDogsNew: visitable('/admin/dogs/new'),
 
-  modelLinks: text('a', {
+  modelLinks: text('[data-test=models-list] a', {
     multiple: true
   }),
 
@@ -28,6 +30,7 @@ export default create({
       age: text('td', { at: 2 })
     }
   }),
+
   cats: collection({
     itemScope: '.cat table tbody tr',
     item: {
@@ -57,12 +60,11 @@ export default create({
     itemScope: '.course table tbody tr'
   }),
 
-  toyCount: count('tr', { scope: '.toy table tbody' }),
-
   filterBy: fillable('input[data-test=filter-input]'),
   fillInName: fillable('input[data-test=edit-input-name]'),
   fillInAge: fillable('input[data-test=edit-input-age]'),
   fillInTitle: fillable('input[data-test=edit-input-title]'),
+
 
   formLabelName: text('label[data-test=form-label-name]'),
 
