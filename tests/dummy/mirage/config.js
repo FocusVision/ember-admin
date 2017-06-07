@@ -10,28 +10,38 @@ export default function() {
   this.namespace = '/admin'
 
   this.get('/cats')
-  this.post('/cats')
   this.get('/cats/:id')
+  this.post('/cats')
   this.patch('/cats/:id', patch)
   this.delete('/cats/:id')
 
   this.get('/dogs')
-  this.post('/dogs')
   this.get('/dogs/:id')
+  this.post('/dogs')
+  this.patch('/dogs/:id', patch)
+  this.delete('/dogs/:id')
 
   this.get('/birds')
-  this.post('/birds')
   this.get('/birds/:id')
+  this.post('/birds')
+  this.patch('/birds/:id', patch)
+  this.delete('/birds/:id')
 
   this.get('/toys')
-  this.post('/toys')
   this.get('/toys/:id')
+  this.post('/toys')
+  this.patch('/toys/:id', patch)
+  this.delete('/toys/:id')
 
   this.get('/owners')
-  this.post('/owners')
   this.get('/owners/:id')
+  this.post('/owners')
+  this.patch('/owners/:id', patch)
+  this.delete('/owners/:id')
 
   this.get('/courses')
-  this.post('/courses')
   this.get('/courses/:id')
+  this.post('/courses')
+  this.patch('/courses/:id', patch)
+  this.delete('/courses/:id')
 }
