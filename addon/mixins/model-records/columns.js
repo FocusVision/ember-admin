@@ -1,5 +1,4 @@
 import Ember from 'ember'
-import RecordTypeMixin from 'ember-admin/mixins/model-records/model-record'
 import { includes } from 'ember-admin/utils/array'
 
 const {
@@ -15,7 +14,13 @@ function columnIncludes(columnType, parameter) {
   return columnType && includes(columnType, parameter)
 }
 
-export default Mixin.create(RecordTypeMixin, {
+export default Mixin.create({
+  modelRecord: computed('recordType', function() {
+    const adapter = getOwner(this).lookup('data-adapter:main')
+    const type = adapter.getModelTypes().findBy('name', get(this, 'recordType'))
+    return adapter.wrapModelType(type.klass, get(this, 'recordType'))
+  }),
+
   columns: computed('model', function() {
     const adapter = getOwner(this).lookup('data-adapter:main')
     const recordType = this.get('recordType')
@@ -32,7 +37,7 @@ export default Mixin.create(RecordTypeMixin, {
   }),
 
   filteredColumns: filter('columns', function(name) {
-    const modelName = get(this, 'model-record.name')
+    const modelName = get(this, 'modelRecord.name')
     let allowColumn = true
 
     const {
