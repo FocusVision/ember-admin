@@ -7,6 +7,6 @@ const {
 } = Ember
 
 export default Mixin.create({
-  'model-records': inject.controller(),
-  recordType: alias('model-records.recordType')
+  modelRecords: inject.controller('model-records'),
+  recordType: alias('modelRecords.recordType')
 })
