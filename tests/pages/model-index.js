@@ -4,8 +4,7 @@ import {
   visitable,
   text,
   clickable,
-  fillable,
-  count
+  fillable
 } from 'ember-cli-page-object'
 
 export default create({

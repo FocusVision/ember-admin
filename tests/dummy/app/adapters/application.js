@@ -6,7 +6,7 @@ const {
 } = DS
 
 export default JSONAPIAdapter.extend({
-  pathForType: function(type) {
+  pathForType(type) {
     return Ember.String.pluralize(type)
   }
 })

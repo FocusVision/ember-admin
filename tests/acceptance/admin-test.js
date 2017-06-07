@@ -1,9 +1,7 @@
-import Ember from 'ember'
-import { describe, it, before, after, beforeEach, afterEach } from 'mocha'
+import { describe, it, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
 import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
-import { visit, findAll } from 'ember-native-dom-helpers'
 import page from '../pages/model-index'
 
 describe('Acceptance: Admin', () => {
@@ -20,7 +18,7 @@ describe('Acceptance: Admin', () => {
     await page.visit()
 
     expect(page.modelLinks).to.include.members(
-      ['bird' ,'cat', 'course', 'dog', 'owner', 'toy']
+      ['bird', 'cat', 'course', 'dog', 'owner', 'toy']
     )
   })
 

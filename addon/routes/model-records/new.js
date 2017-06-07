@@ -8,7 +8,9 @@ const {
 
 export default Route.extend(WriteMixin, {
   model() {
-    return this.admin.store.createRecord(singularize(this.paramsFor('model-records').name))
+    return this.admin.store.createRecord(
+      singularize(this.paramsFor('model-records').name)
+    )
   },
   templateAdminPath: 'admin/new'
 })

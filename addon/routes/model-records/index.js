@@ -7,7 +7,7 @@ const {
 } = Ember
 
 export default Route.extend({
-  model(params) {
+  model() {
     const modelName = singularize(this.paramsFor('model-records').name)
     return this.admin.store
       .findAll(modelName)
