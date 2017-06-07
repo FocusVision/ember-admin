@@ -7,10 +7,10 @@ const {
 } = Ember
 
 export default Route.extend(WriteMixin, {
+  templateAdminPath: 'admin/edit',
   model(params) {
     const modelName = singularize(this.paramsFor('model-records').name)
     return this.admin.store
       .find(modelName, params.id)
-  },
-  templateAdminPath: 'admin/edit'
+  }
 })
