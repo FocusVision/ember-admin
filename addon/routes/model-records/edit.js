@@ -1,5 +1,6 @@
 import Ember from 'ember'
-import ResourceRouteMixin from 'ember-admin/mixins/model-records/resource-route-mixin'
+import ResourceRouteMixin
+  from 'ember-admin/mixins/model-records/resource-route-mixin'
 
 const {
   Route,

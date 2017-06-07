@@ -3,7 +3,6 @@ import EmberDataRouteMixin from 'ember-data-route'
 
 const {
   computed,
-  defineProperty,
   getOwner,
   Mixin,
   String: { singularize }
@@ -11,10 +10,6 @@ const {
 
 export default Mixin.create(EmberDataRouteMixin, {
   templateAdminPath: null,
-
-  didReceiveAttrs(...args) {
-    this._super(...args)
-  },
 
   recordType: computed(function() {
     return singularize(this.paramsFor('model-records').name)
@@ -39,16 +34,9 @@ export default Mixin.create(EmberDataRouteMixin, {
       defaultTemplatePath
   }),
 
-  // renderTemplate() {
-  //   const {
-  //     templatePath,
-  //     defaultTemplatePath
-  //   } = this.getProperties('templatePath', 'defaultTemplatePath')
-  //
-  //   return getOwner(this).lookup(`template:${templatePath}`) ?
-  //     this.render(templatePath) :
-  //     this.render(defaultTemplatePath)
-  // },
+  renderTemplate() {
+    this.render(this.get('templateName'))
+  },
 
   willTransitionConfirm() {
     return window.confirm(
