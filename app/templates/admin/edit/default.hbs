@@ -3,10 +3,10 @@
 
   <form>
     {{#each filteredColumns as |column|}}
-    <div class='model-column {{column}}'>
-        <label data-test={{concat 'form-label-' column}}>
-          {{column}}
-          {{admin-input record=this columnValue=column data-test=(concat 'edit-input-' column)}}
+    <div class='model-column {{column.key}}'>
+        <label data-test={{concat 'form-label-' column.key}}>
+          {{column.key}} - {{column.type}}
+          {{admin-input record=this columnValue=column.key data-test=(concat 'edit-input-' column.key)}}
         </label>
       </div>
     {{/each}}
