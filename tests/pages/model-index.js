@@ -16,6 +16,8 @@ export default create({
   visitBirdEdit: visitable('/admin/bird/:bird_id/edit'),
   visitOwnerEdit: visitable('/admin/owner/:owner_id/edit'),
   visitDogs: visitable('/admin/dogs'),
+  visitDogsEdit: visitable('/admin/dogs/:dog_id/edit'),
+  visitDogsNew: visitable('/admin/dogs/new'),
 
   modelLinks: text('[data-test=models-list] a', {
     multiple: true

@@ -9,9 +9,7 @@ export default function() {
   })
   this.delete('/cats/:id')
 
-  this.get('/dogs', function({ dogs }, request) {
-    return dogs.all()
-  })
+  this.get('/dogs')
   this.get('/dogs/:id')
 
   this.get('/birds')

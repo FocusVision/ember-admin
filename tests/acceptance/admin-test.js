@@ -4,7 +4,6 @@ import { expect } from 'chai'
 import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
 import { visit, findAll } from 'ember-native-dom-helpers'
-import { rowValuesEqual } from '../helpers/equality-helpers'
 import page from '../pages/model-index'
 
 describe('Acceptance: Admin', () => {
@@ -12,102 +11,17 @@ describe('Acceptance: Admin', () => {
 
   beforeEach(() => {
     application = startApp()
-
     server.create('cat', { name: 'Felix', age: 10 })
     server.create('cat', { name: 'Nyan', age: 3 })
   })
   afterEach(() => destroyApp(application))
 
-  before(() => {
-    // const cats = [
-    //   { id: 1, name: 'Felix', age: 10 },
-    //   { id: 2, name: 'Nyan', age: 3 }
-    // ]
-    //
-    // server = new Pretender(function() {
-    //   this.get('/admin/cats', () =>
-    //     [200, { 'Content-Type': 'application/json' }, JSON.stringify({ cats })]
-    //   )
-    //
-    //   this.get('/admin/cats/1', () => {
-    //     const cat = { id: 1, name: 'Felix', age: 10 }
-    //
-    //     return [
-    //       200,
-    //       { 'Content-Type': 'application/json' },
-    //       JSON.stringify({ cats: [cat] })
-    //     ]
-    //   })
-    //
-    //   this.put('/admin/cats/1', () => {
-    //     const cat = { id: 1, name: 'Hobbes', age: 29 }
-    //     cats[0] = cat
-    //
-    //     return [
-    //       200,
-    //       { 'Content-Type': 'application/json' },
-    //       JSON.stringify({ cats: [cat] })
-    //     ]
-    //   })
-    //
-    //   this.post('/admin/cats', () => {
-    //     const cat = { id: 3, name: 'Lion-O', age: 30 }
-    //     return [
-    //       200,
-    //       { 'Content-Type': 'application/json' },
-    //       JSON.stringify({ cats: [cat] })
-    //     ]
-    //   })
-    //
-    //   this.delete('/admin/cats/1', () => {
-    //     cats.splice(0, 1)
-    //     return [
-    //       204,
-    //       { 'Content-Type': 'application/json' },
-    //       ''
-    //     ]
-    //   })
-    //
-    //   this.get('/admin/dogs', () => {
-    //     const dogs = [
-    //       { id: 1, name: 'Boomer', age: 2 }
-    //     ]
-    //     return [
-    //       200,
-    //       { 'Content-Type': 'application/json' },
-    //       JSON.stringify({ dogs })
-    //     ]
-    //   })
-    //
-    //   this.get('/admin/dogs/1', () => {
-    //     const dogs = [
-    //       { id: 1, name: 'Boomer', age: 2 }
-    //     ]
-    //     return [
-    //       200,
-    //       { 'Content-Type': 'application/json' },
-    //       JSON.stringify({ dogs })
-    //     ]
-    //   })
-    // })
-  })
-
-  after(() => {
-    // server.shutdown()
-  })
-
-
   it('listing all models', async () => {
     await page.visit()
 
-    expect(page.modelLinks).to.include.members([
-      'bird',
-      'cat',
-      'course',
-      'dog',
-      'owner',
-      'toy'
-    ])
+    expect(page.modelLinks).to.include.members(
+      ['bird' ,'cat', 'course', 'dog', 'owner', 'toy']
+    )
   })
 
   it('viewing a model\'s records', async () => {
@@ -280,19 +194,21 @@ describe('Acceptance: Admin', () => {
   it('can override index template', async () => {
     server.create('dog')
 
-    await visit('/admin/dogs')
+    await page.visitDogs()
 
     expect(find('h3.index').text()).to.equal('Dogs Index')
   })
 
   it('can override new template', async () => {
-    await visit('/admin/dogs/new')
+    await page.visitDogsNew()
 
     expect(find('h3.new').text()).to.equal('Dogs New')
   })
 
   it('can override edit template', async () => {
-    await visit('/admin/dogs/1/edit')
+    server.create('dog')
+
+    await page.visitDogsEdit({ dog_id: 1 })
 
     expect(find('h3.edit').text()).to.equal('Dogs Edit')
   })
