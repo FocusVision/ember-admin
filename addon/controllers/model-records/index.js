@@ -5,4 +5,10 @@ const {
   Controller
 } = Ember
 
-export default Controller.extend(RecordTypeMixin)
+export default Controller.extend(RecordTypeMixin, {
+  // TODO: Move this into a PaginationAndFilteringMixin
+  queryParams: ['filter', 'page', 'size'],
+  filter: {},
+  page: 1,
+  size: 30
+})

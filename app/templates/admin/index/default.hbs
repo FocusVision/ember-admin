@@ -8,7 +8,11 @@
     {{/if}}
   {{/unless}}
 
-  <table>
+  {{#if pageCount}}
+    {{fv-paginator current=page total=pageCount surrounding=1}}
+  {{/if}}
+
+  <table class='fv-table'>
     <thead>
       <tr>
         {{#each filteredColumns as |column|}}

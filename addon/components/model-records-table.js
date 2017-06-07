@@ -7,12 +7,15 @@ const {
   isBlank,
   isNone,
   computed,
+  computed: { alias },
   getOwner,
   Component
 } = Ember
 
 export default Component.extend(ColumnsMixin, {
   includedColumns: ['id'],
+
+  pageCount: alias('records.meta.page-count'),
 
   didReceiveAttrs(...args) {
     this._super(...args)

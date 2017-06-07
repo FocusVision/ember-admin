@@ -210,4 +210,26 @@ describe('Acceptance: Admin', () => {
 
     expect(find('h3.edit').text()).to.equal('Dogs Edit')
   })
+
+  describe('pagination', () => {
+    it('shows paginator on index page', async () => {
+      await page.visitCats()
+
+      expect(page.paginatorIsVisible).to.be.true
+      expect(page.paginatorPages().count).to.eq(1)
+    })
+
+    it('paginator modifies query params', async () => {
+      server.createList('cat', 31)
+
+      await page
+        .visitCats()
+        .paginatorPages(2)
+        .click()
+
+      expect(page.paginatorIsVisible).to.be.true
+      expect(page.paginatorPages().count).to.eq(3)
+      expect(currentURL()).to.eq('/admin/cat?page=2')
+    })
+  })
 })

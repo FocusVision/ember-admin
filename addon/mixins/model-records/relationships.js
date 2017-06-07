@@ -19,25 +19,25 @@ function relationshipMacro(type) {
       .filter(group => group.name === type)
       .reduce((relationships, group) => {
         group.properties.forEach(property => {
-          let records = get(this, `model.${property}`)
+          get(this, `model.${property}`).then(records => {
+            // This might have to be written in such a way
+            // as to provide an observer for 'model.'+property
+            // and push onto the array when that property is available
+            if (!isArray(records)) {
+              records = emberArray([records])
+            }
 
-          // This might have to be written in such a way
-          // as to provide an observer for 'model.'+property
-          // and push onto the array when that property is available
-          if (!isArray(records)) {
-            records = emberArray([records])
-          }
+            const store = getOwner(this).lookup('store:admin')
+            const constructor = get(this, 'model.constructor')
+            const inverse = constructor.inverseFor(property, store)
+            const meta = constructor.metaForProperty(property)
 
-          const store = getOwner(this).lookup('store:admin')
-          const constructor = get(this, 'model.constructor')
-          const inverse = constructor.inverseFor(property, store)
-          const meta = constructor.metaForProperty(property)
-
-          pushObject(relationships, {
-            name: property,
-            records,
-            type: meta.type,
-            inverse: inverse && inverse.name
+            pushObject(relationships, {
+              name: property,
+              records,
+              type: meta.type,
+              inverse: inverse && inverse.name
+            })
           })
         })
 

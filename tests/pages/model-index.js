@@ -1,6 +1,7 @@
 import {
   create,
   collection,
+  isVisible,
   visitable,
   text,
   clickable,
@@ -58,6 +59,14 @@ export default create({
 
   courses: collection({
     itemScope: '.course table tbody tr'
+  }),
+
+  paginatorIsVisible: isVisible('[data-test=fv-paginator]'),
+  paginatorPages: collection({
+    itemScope: '[data-test=fv-paginator-page]',
+    item: {
+      click: clickable('[data-test=link-to]')
+    }
   }),
 
   filterBy: fillable('input[data-test=filter-input]'),
