@@ -4,7 +4,6 @@ import { includes } from 'ember-admin/utils/array'
 const {
   Mixin,
   A,
-  get,
   computed,
   computed: { filter },
   getOwner
@@ -41,7 +40,7 @@ export default Mixin.create({
   }),
 
   /*
-  *
+  * construct array of model columns with key:type
   */
   columns: computed('model', function() {
     const cols = [{ key: 'id', type: 'number' }]
@@ -54,7 +53,7 @@ export default Mixin.create({
   }),
 
   filteredColumns: filter('columns', function({ key }) {
-    const modelName = this.get('currentModel.name')
+    const modelName = this.get('recordType')
     let allowColumn = true
 
     const {

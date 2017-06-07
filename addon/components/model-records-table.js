@@ -32,7 +32,7 @@ export default Component.extend(ColumnsMixin, {
     }
 
     const filter = get(this, 'filter').toLowerCase()
-    const columns = get(this, 'filteredColumns')
+    const columns = get(this, 'filteredColumns').map(col => col.key)
 
     return get(this, 'records').filter(record => {
       let value
