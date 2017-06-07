@@ -31,6 +31,7 @@ export default create({
       age: text('td', { at: 2 })
     }
   }),
+
   cats: collection({
     itemScope: '.cat table tbody tr',
     item: {
@@ -59,8 +60,6 @@ export default create({
   courses: collection({
     itemScope: '.course table tbody tr'
   }),
-
-  toyCount: count('tr', { scope: '.toy table tbody' }),
 
   filterBy: fillable('input[data-test=filter-input]'),
   fillInName: fillable('input[data-test=edit-input-name]'),

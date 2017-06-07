@@ -16,7 +16,13 @@ export default function() {
   this.get('/birds/:id')
 
   this.get('/toys')
+  this.post('/toys')
+  this.get('/toys/:id')
+
   this.get('/owners')
   this.get('/owners/:id')
+
   this.get('/courses')
+  this.post('/courses')
+  this.get('/courses/:id')
 }
