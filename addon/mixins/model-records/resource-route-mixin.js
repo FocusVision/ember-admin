@@ -38,6 +38,7 @@ export default Mixin.create(EmberDataRouteMixin, {
       templatePath :
       defaultTemplatePath
   }),
+
   // renderTemplate() {
   //   const {
   //     templatePath,
