@@ -12,9 +12,10 @@ export default Mixin.create({
   recordType: alias('modelRecords.recordType'),
 
   actions: {
-    didUpdate(key, value) {
+    onFieldUpdate(key, value) {
       this.get('model').set(key, value)
     },
+
     save() {
       return get(this, 'model')
         .save()

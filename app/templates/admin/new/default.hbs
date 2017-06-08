@@ -6,7 +6,7 @@
       <div class="model-column {{column.key}}">
         <label>
           {{column.key}}
-          {{admin-fields/admin-field-base model=model column=column didUpdate=(action 'didUpdate')}}
+          {{admin-fields/admin-field-base model=model column=column onUpdate=(action 'onFieldUpdate')}}
         </label>
       </div>
     {{/each}}

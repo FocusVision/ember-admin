@@ -1,4 +1,4 @@
 {{component fieldComponentName
-  value=value
-  action=(action 'didUpdate' key value)
-  keyUp=(action 'didUpdate' key value)}}
+  value=(mut (get model key))
+  onUpdate=(action 'onUpdate' key value)
+  data-test=(concat 'edit-input-' key)}}

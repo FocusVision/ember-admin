@@ -11,16 +11,11 @@ const {
 export default Component.extend({
   layout,
   tagName: '',
+
   model: null,
   column: null,
-
   key: alias('column.key'),
   type: alias('column.type'),
-  value: computed('model', 'key', function() {
-    return this.get(`model.${this.get('type')}`)
-  }),
-
-  didUpdate() {},
 
   templates: ['string', 'boolean'],
   fieldComponentName: computed('type', function() {
@@ -29,10 +24,11 @@ export default Component.extend({
     return `admin-fields/admin-field-${resolvedType}`
   }),
 
+  onUpdate() {},
+
   actions: {
-    didUpdate(key, value) {
-      debugger
-      this.didUpdate(key, value)
+    onUpdate(key, value) {
+      this.onUpdate(key, value)
     }
   }
 })
