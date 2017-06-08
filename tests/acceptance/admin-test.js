@@ -32,10 +32,10 @@ describe('Acceptance: Admin', () => {
         ['id', 'name', 'age', 'fleas', 'bar', 'baz']
       )
       expect(page.cats(0).text.split(' ')).to.include.members(
-        ['Felix', '10']
+        ['Felix', '10', 'false']
       )
       expect(page.cats(1).text.split(' ')).to.include.members(
-        ['Nyan', '3']
+        ['Nyan', '3', 'false']
       )
     })
 
@@ -45,7 +45,7 @@ describe('Acceptance: Admin', () => {
 
       expect(page.cats().count).to.equal(1)
       expect(page.cats(0).text.split(' ')).to.include.members(
-        ['Felix', '10']
+        ['Felix', '10', 'false']
       )
     })
   })
