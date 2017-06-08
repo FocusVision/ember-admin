@@ -1,22 +1,15 @@
 import Ember from 'ember'
-import PaginatedRouteMixin
-  from 'ember-admin/mixins/model-records/paginated-route'
+import ResourceListRouteMixin
+  from 'ember-admin/mixins/model-records/resource-list-route'
 
 const {
   Route
 } = Ember
 
-export default Route.extend(PaginatedRouteMixin, {
+export default Route.extend(ResourceListRouteMixin, {
   model(params) {
-    const queryParams = {}
-    const keys = ['page', 'filter', 'size']
-    keys.forEach(key => {
-      if (params[key]) {
-        queryParams[key] = params[key]
-      }
-    })
     return this
       .modelFor('model-records.show')
-      .query(params.relationship_name, queryParams)
+      .query(params.relationship_name, this.extractQueryParams(params))
   }
 })

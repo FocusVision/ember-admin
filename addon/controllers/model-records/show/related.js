@@ -1,13 +1,13 @@
 import Ember from 'ember'
-import PaginatedControllerMixin
-  from 'ember-admin/mixins/model-records/paginated-controller'
+import ResourceListControllerMixin
+  from 'ember-admin/mixins/model-records/resource-list-controller'
 
 const {
   computed,
   Controller
 } = Ember
 
-export default Controller.extend(PaginatedControllerMixin, {
+export default Controller.extend(ResourceListControllerMixin, {
   excludedColumns: ['id'],
 
   recordType: computed('model', function() {
