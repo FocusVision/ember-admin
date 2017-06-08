@@ -1,4 +1,5 @@
 {{component fieldComponentName
+  column=column
   value=(mut (get model key))
-  onUpdate=(action 'onUpdate' key value)
+  onUpdate=onUpdate
   data-test=(concat 'edit-input-' key)}}

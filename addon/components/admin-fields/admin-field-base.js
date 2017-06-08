@@ -25,10 +25,4 @@ export default Component.extend({
   }),
 
   onUpdate() {},
-
-  actions: {
-    onUpdate(key, value) {
-      this.onUpdate(key, value)
-    }
-  }
 })
