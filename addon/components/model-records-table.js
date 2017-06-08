@@ -4,16 +4,21 @@ import ColumnsMixin from 'ember-admin/mixins/model-records/columns'
 const {
   get,
   set,
-  isBlank,
   isNone,
   computed,
   computed: { alias },
   getOwner,
+  run: { debounce },
   Component
 } = Ember
 
 export default Component.extend(ColumnsMixin, {
   includedColumns: ['id'],
+
+  updateQueryParams() {
+    const filter = this.get('filter')
+    this.transitionToRoute({ queryParams: { 'filter[keyword]': filter }})
+  },
 
   pageCount: alias('records.meta.page-count'),
 
@@ -29,29 +34,6 @@ export default Component.extend(ColumnsMixin, {
 
     set(this, 'layout', owner.resolveRegistration(`template:${templatePath}`))
   },
-
-  filteredRecords: computed('records', 'filter', function() {
-    if (isBlank(get(this, 'filter'))) {
-      return get(this, 'records')
-    }
-
-    const filter = get(this, 'filter').toLowerCase()
-    const columns = get(this, 'filteredColumns')
-
-    return get(this, 'records').filter(record => {
-      let value
-
-      for (let i = 0; i < columns.length; i++) {
-        value = (get(record, columns[i]) || '').toString().toLowerCase()
-
-        if (value.indexOf(filter) > -1) {
-          return true
-        }
-      }
-
-      return false
-    })
-  }),
 
   relationshipGiven: computed('relationshipName', 'relationshipId', function() {
     return get(this, 'relationshipName') && get(this, 'relationshipId')
@@ -75,5 +57,11 @@ export default Component.extend(ColumnsMixin, {
     }
 
     return false
-  })
+  }),
+
+  actions: {
+    filterChange() {
+      debounce(this, this.updateQueryParams, 1000)
+    }
+  }
 })

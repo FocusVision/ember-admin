@@ -6,10 +6,18 @@ const patch = function(schema, request) {
     .update(this.normalizedRequestAttrs())
 }
 
+const getCats = ({ cats }, { queryParams }) => {
+  const keyword = queryParams['filter[keyword]']
+  if (keyword) {
+    return cats.where({ name: keyword })
+  }
+  return cats.all()
+}
+
 export default function() {
   this.namespace = '/admin'
 
-  this.get('/cats')
+  this.get('/cats', getCats)
   this.get('/cats/:id')
   this.post('/cats')
   this.patch('/cats/:id', patch)
