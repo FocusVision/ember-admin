@@ -14,7 +14,7 @@
     <thead>
       <tr>
         {{#each filteredColumns as |column|}}
-          <th>{{column}}</th>
+          <th>{{column.key}}</th>
         {{/each}}
       </tr>
     </thead>
@@ -24,7 +24,7 @@
           {{#each filteredColumns as |column|}}
           <td>
             {{#link-to 'model-records.show.edit' recordType record.id data-test='record-list-item'}}
-              {{property-print record=record column=column}}
+              {{property-print record=record column=column.key}}
             {{/link-to}}
           </td>
           {{/each}}

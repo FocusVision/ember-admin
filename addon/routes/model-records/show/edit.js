@@ -1,11 +1,12 @@
 import Ember from 'ember'
-import WriteMixin from 'ember-admin/mixins/model-records/write'
+import ResourceRouteMixin
+  from 'ember-admin/mixins/model-records/resource-route-mixin'
 
 const {
   Route
 } = Ember
 
-export default Route.extend(WriteMixin, {
+export default Route.extend(ResourceRouteMixin, {
   model() {
     return this.modelFor('model-records.show')
   },

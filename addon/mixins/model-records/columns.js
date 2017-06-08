@@ -1,38 +1,70 @@
 import Ember from 'ember'
-import RecordTypeMixin from 'ember-admin/mixins/model-records/model-record'
 import { includes } from 'ember-admin/utils/array'
 
 const {
   Mixin,
-  A: emberArray,
-  get,
+  A,
   computed,
   computed: { filter },
+  inject: { service },
   getOwner
 } = Ember
 
-function columnIncludes(columnType, parameter) {
-  return columnType && includes(columnType, parameter)
-}
+const columnIncludes = (columnType, parameter) =>
+  columnType && includes(columnType, parameter)
 
-export default Mixin.create(RecordTypeMixin, {
-  columns: computed('model', function() {
-    const adapter = getOwner(this).lookup('data-adapter:main')
-    const recordType = this.get('recordType')
-    const type = adapter.getModelTypes().findBy('name', recordType)
-    const { klass } = type
 
-    const keys = emberArray(['id'])
+const keyIsDisabled = (serializerAttrs, key) =>
+  serializerAttrs && serializerAttrs[key] && !serializerAttrs[key].serialize
 
-    klass.eachAttribute(key => {
-      keys.push(key)
-    })
+export default Mixin.create({
+  store: service(),
+  recordType: null, // Defined in consuming
 
-    return keys
+  /*
+  * Returns the main data adapter
+  * from which we can get all registered models
+  * and related info
+  */
+  adapter: computed(function() {
+    return getOwner(this).lookup('data-adapter:main')
   }),
 
-  filteredColumns: filter('columns', function(name) {
-    const modelName = get(this, 'model-record.name')
+  serializer: computed(function() {
+    return this.get('store').serializerFor(this.get('recordType'))
+  }),
+
+  /*
+  * Returns array of registered models
+  */
+  registeredModels: computed(function() {
+    return this.get('adapter').getModelTypes()
+  }),
+
+  /*
+  * Returns the model based `recordType`
+  */
+  currentModel: computed('recordType', function() {
+    return this.get('registeredModels').findBy('name', this.get('recordType'))
+  }),
+
+  /*
+  * construct array of model columns with key:type:disabled
+  */
+  columns: computed('model', function() {
+    const cols = [{ key: 'id', type: 'number' }]
+    const serializerAttrs = this.get('serializer.attrs')
+
+    this.get('currentModel').klass.eachAttribute((key, { type }) => {
+      const disabled = keyIsDisabled(serializerAttrs, key)
+      cols.push({ key, type, disabled })
+    })
+
+    return A(cols)
+  }),
+
+  filteredColumns: filter('columns', function({ key }) {
+    const modelName = this.get('recordType')
     let allowColumn = true
 
     const {
@@ -45,22 +77,22 @@ export default Mixin.create(RecordTypeMixin, {
     } = this
 
     if (adminIncludedColumns) {
-      if (!columnIncludes(adminIncludedColumns[modelName], name)) {
+      if (!columnIncludes(adminIncludedColumns[modelName], key)) {
         allowColumn = false
       }
     }
 
     if (adminExcludedColumns) {
-      if (columnIncludes(adminExcludedColumns[modelName], name)) {
+      if (columnIncludes(adminExcludedColumns[modelName], key)) {
         allowColumn = false
       }
     }
 
-    if (columnIncludes(excludedColumns, name)) {
+    if (columnIncludes(excludedColumns, key)) {
       allowColumn = false
     }
 
-    if (columnIncludes(includedColumns, name)) {
+    if (columnIncludes(includedColumns, key)) {
       allowColumn = true
     }
 

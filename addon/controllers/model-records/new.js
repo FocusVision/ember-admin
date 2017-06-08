@@ -1,8 +1,7 @@
 import Ember from 'ember'
-import RecordTypeMixin from 'ember-admin/mixins/model-records/record-type'
 import ColumnsMixin from 'ember-admin/mixins/model-records/columns'
-import EditActionsMixin
-  from 'ember-admin/mixins/model-records/edit-actions-mixin'
+import ResourceControllerMixin
+  from 'ember-admin/mixins/model-records/resource-controller-mixin'
 
 const {
   get,
@@ -12,9 +11,8 @@ const {
 } = Ember
 
 export default Controller.extend(
-  RecordTypeMixin,
   ColumnsMixin,
-  EditActionsMixin,
+  ResourceControllerMixin,
   {
     excludedColumns: ['id'],
     queryParams: ['relationship-name', 'relationship-id'],

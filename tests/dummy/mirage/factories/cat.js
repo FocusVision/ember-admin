@@ -2,13 +2,13 @@ import { Factory, faker } from 'ember-cli-mirage'
 
 const {
   name: { firstName },
-  random: { number }
+  random: { number, arrayElement }
 } = faker
 
 export default Factory.extend({
   name: firstName,
   age: () => number({ min: 1, max: 20 }),
-  foo: '',
+  fleas: () => arrayElement([true, false]),
   bar: '',
   baz: ''
 })

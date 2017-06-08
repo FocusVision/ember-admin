@@ -73,10 +73,10 @@ export default create({
   }),
 
   filterBy: fillable('input[data-test=filter-input]'),
-  fillInName: fillable('input[data-test=edit-input-name]'),
-  fillInAge: fillable('input[data-test=edit-input-age]'),
-  fillInTitle: fillable('input[data-test=edit-input-title]'),
-
+  fillInName: fillable('input[data-test=admin-field-string-name]'),
+  fillInAge: fillable('input[data-test=admin-field-string-age]'),
+  fillInTitle: fillable('input[data-test=admin-field-string-title]'),
+  clickFleas: clickable('input[data-test=admin-field-boolean-fleas]'),
 
   formLabelName: text('label[data-test=form-label-name]'),
 
