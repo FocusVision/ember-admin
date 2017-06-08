@@ -86,4 +86,15 @@ describe('Acceptance: Admin Relationships', () => {
       expect(page.courses().count).to.equal(2)
     }
   )
+
+  describe('pagination', () => {
+    it('shows paginator on has-many page', async () => {
+      await page
+        .visitCatEdit({ cat_id: 1 })
+        .clickToys()
+
+      expect(page.paginatorIsVisible).to.be.true
+      expect(page.paginatorPages().count).to.eq(1)
+    })
+  })
 })

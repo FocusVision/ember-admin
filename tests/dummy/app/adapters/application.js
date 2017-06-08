@@ -10,6 +10,7 @@ const {
 } = HasManyQuery
 
 export default JSONAPIAdapter.extend(RESTAdapterMixin, {
+  coalesceFindRequests: true,
   pathForType(type) {
     return Ember.String.pluralize(type)
   }
