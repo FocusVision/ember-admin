@@ -1,14 +1,12 @@
 import Ember from 'ember'
+import PaginatedRouteMixin
+  from 'ember-admin/mixins/model-records/paginated-route'
 
 const {
   Route
 } = Ember
 
-export default Route.extend({
-  queryParams: {
-    filter: { refreshModel: true },
-    page: { refreshModel: true }
-  },
+export default Route.extend(PaginatedRouteMixin, {
   model(params) {
     const queryParams = {}
     const keys = ['page', 'filter', 'size']
