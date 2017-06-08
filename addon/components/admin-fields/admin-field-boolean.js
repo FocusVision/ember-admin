@@ -7,14 +7,17 @@ const {
   Component,
   computed,
   isEmpty,
-  computed: { notEmpty }
+  computed: { notEmpty, alias }
 } = Ember
 
 export default Component.extend({
   layout,
   tagName: 'select',
-  attributeBindings: ['dataTest:data-test'],
-  dataTest: 'admin-field-boolean',
+  attributeBindings: ['dataTest:data-test', 'disabled'],
+  dataTest: computed(function() {
+    return `admin-field-boolean-${this.get('column.key')}`
+  }),
+  disabled: alias('column.disabled'),
 
   data: A([true, false]),
   value: null,

@@ -10,6 +10,8 @@ const {
 export default Model.extend({
   name: attr('string'),
   age: attr('number'),
+  fleas: attr('boolean'),
+  foo: attr('string'),
   toys: hasMany('toy'),
   owner: belongsTo('owner')
 })

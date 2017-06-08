@@ -20,7 +20,7 @@ describe('Integration | Component | admin fields/admin fields', () => {
 
   context('if type is `string`', () => {
     it('has initial value', function() {
-      this.set('column', { key: 'name', type: 'string' })
+      this.set('column', { key: 'name', type: 'string', disabled: false })
 
       this.render(hbs`
         {{admin-fields/admin-field-base
@@ -33,8 +33,22 @@ describe('Integration | Component | admin fields/admin fields', () => {
       expect(this.$('input').val()).to.be.equal('Mr. T')
     })
 
+    it('disabled columns disable the input', async function() {
+      this.set('column', { key: 'name', type: 'string', disabled: true })
+
+      this.render(hbs`
+        {{admin-fields/admin-field-base
+          column=column
+          model=model
+          onUpdate=(action onFieldUpdate)
+        }}
+      `)
+
+      expect(this.$('input').attr('disabled')).to.be.ok
+    })
+
     it('updates model attr on update', async function() {
-      this.set('column', { key: 'name', type: 'string' })
+      this.set('column', { key: 'name', type: 'string', disabled: false })
 
       this.render(hbs`
         {{admin-fields/admin-field-base
@@ -51,7 +65,7 @@ describe('Integration | Component | admin fields/admin fields', () => {
 
   context('if type is `boolean`', () => {
     it('has initial value if unset', function() {
-      this.set('column', { key: 'hasBling', type: 'boolean' })
+      this.set('column', { key: 'hasBling', type: 'boolean', disabled: false })
       this.set('model.hasBling', null)
 
       this.render(hbs`
@@ -68,7 +82,7 @@ describe('Integration | Component | admin fields/admin fields', () => {
     })
 
     it('has initial value if true', function() {
-      this.set('column', { key: 'hasBling', type: 'boolean' })
+      this.set('column', { key: 'hasBling', type: 'boolean', disabled: false })
 
       this.render(hbs`
         {{admin-fields/admin-field-base
@@ -83,7 +97,7 @@ describe('Integration | Component | admin fields/admin fields', () => {
     })
 
     it('has initial value if false', function() {
-      this.set('column', { key: 'hasBling', type: 'boolean' })
+      this.set('column', { key: 'hasBling', type: 'boolean', disabled: false })
       this.set('model.hasBling', false)
 
       this.render(hbs`
@@ -101,7 +115,7 @@ describe('Integration | Component | admin fields/admin fields', () => {
     })
 
     it('updates model attr on select', async function() {
-      this.set('column', { key: 'hasBling', type: 'boolean' })
+      this.set('column', { key: 'hasBling', type: 'boolean', disabled: false })
       this.set('onFieldUpdate', (key, val) => {
         expect(key).to.equal('hasBling')
         expect(val).to.equal(false)
@@ -117,6 +131,20 @@ describe('Integration | Component | admin fields/admin fields', () => {
 
       await this.$('select[data-test=admin-field-boolean]')
         .val('false').trigger('change')
+    })
+
+    it('disabled columns disable select', function() {
+      this.set('column', { key: 'hasBling', type: 'boolean', disabled: true })
+
+      this.render(hbs`
+        {{admin-fields/admin-field-base
+          column=column
+          model=model
+          onUpdate=(action onFieldUpdate)
+        }}
+      `)
+
+      expect(this.$('select').attr('disabled')).to.be.ok
     })
   })
 })

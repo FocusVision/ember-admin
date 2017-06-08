@@ -1,7 +1,11 @@
 import Ember from 'ember'
 
 const {
-  TextField
+  TextField,
+  computed: { alias }
 } = Ember
 
-export default TextField.extend()
+export default TextField.extend({
+  attributeBindings: ['disabled'],
+  disabled: alias('column.disabled')
+})

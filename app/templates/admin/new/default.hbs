@@ -3,9 +3,9 @@
 
   <form>
     {{#each filteredColumns as |column|}}
-      <div class="model-column {{column.key}}">
+      <div class="model-column {{column.key}} {{if column.disabled 'disabled'}}">
         <label>
-          {{column.key}}
+          {{column.key}}{{column.disabled}}fghdfghdfhg
           {{admin-fields/admin-field-base model=model column=column onUpdate=(action 'onFieldUpdate')}}
         </label>
       </div>

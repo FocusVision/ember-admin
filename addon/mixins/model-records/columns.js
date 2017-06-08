@@ -6,14 +6,19 @@ const {
   A,
   computed,
   computed: { filter },
+  inject: { service },
   getOwner
 } = Ember
 
-function columnIncludes(columnType, parameter) {
-  return columnType && includes(columnType, parameter)
-}
+const columnIncludes = (columnType, parameter) =>
+  columnType && includes(columnType, parameter)
+
+
+const keyIsDisabled = (serializerAttrs, key) =>
+  serializerAttrs && serializerAttrs[key] && !serializerAttrs[key].serialize
 
 export default Mixin.create({
+  store: service(),
   recordType: null, // Defined in consuming
 
   /*
@@ -23,6 +28,10 @@ export default Mixin.create({
   */
   adapter: computed(function() {
     return getOwner(this).lookup('data-adapter:main')
+  }),
+
+  serializer: computed(function() {
+    return this.get('store').serializerFor(this.get('recordType'))
   }),
 
   /*
@@ -40,13 +49,15 @@ export default Mixin.create({
   }),
 
   /*
-  * construct array of model columns with key:type
+  * construct array of model columns with key:type:disabled
   */
   columns: computed('model', function() {
     const cols = [{ key: 'id', type: 'number' }]
+    const serializerAttrs = this.get('serializer.attrs')
 
     this.get('currentModel').klass.eachAttribute((key, { type }) => {
-      cols.push({ key, type })
+      const disabled = keyIsDisabled(serializerAttrs, key)
+      cols.push({ key, type, disabled })
     })
 
     return A(cols)

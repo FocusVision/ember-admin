@@ -35,7 +35,7 @@ describe('Acceptance: Admin', () => {
         ['Felix', '10', 'false']
       )
       expect(page.cats(1).text.split(' ')).to.include.members(
-        ['Nyan', '3', 'false']
+        ['Nyan', '3', 'true']
       )
     })
 
@@ -238,6 +238,24 @@ describe('Acceptance: Admin', () => {
       await page.visitDogsEdit({ dog_id: 1 })
 
       expect(find('h3.edit').text()).to.equal('Dogs Edit')
+    })
+  })
+
+  context('disabled fields', () => {
+    it('string can be disabled', async () => {
+      await page.visitDogsNew()
+
+      expect(
+        $('input[data-test=admin-field-string-foo]:disabled').length
+      ).to.be.ok
+    })
+
+    it('boolean can be disabled', async () => {
+      await page.visitDogsNew()
+
+      expect(
+        $('select[data-test=admin-field-boolean-fleas]:disabled').length
+      ).to.be.ok
     })
   })
 })
