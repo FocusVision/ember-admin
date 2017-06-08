@@ -6,7 +6,7 @@
       <div class="model-column {{column.key}}">
         <label>
           {{column.key}}
-          {{admin-input record=this columnValue=column.key data-test=(concat 'edit-input-' column.key)}}
+          {{admin-fields/admin-field-base model=model column=column didUpdate=(action 'didUpdate')}}
         </label>
       </div>
     {{/each}}

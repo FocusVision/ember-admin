@@ -1,3 +1,7 @@
 import Ember from 'ember'
 
-export default Ember.Component.extend()
+const {
+  TextField
+} = Ember
+
+export default TextField.extend()
