@@ -15,13 +15,6 @@ const {
 export default Component.extend(ColumnsMixin, {
   includedColumns: ['id'],
 
-  updateQueryParams() {
-    const filter = this.get('filter')
-    this.transitionToRoute({ queryParams: { 'filter[keyword]': filter }})
-  },
-
-  pageCount: alias('records.meta.page-count'),
-
   didReceiveAttrs(...args) {
     this._super(...args)
 
@@ -58,6 +51,13 @@ export default Component.extend(ColumnsMixin, {
 
     return false
   }),
+
+  pageCount: alias('records.meta.page-count'),
+
+  updateQueryParams() {
+    const filter = this.get('filter')
+    this.transitionToRoute({ queryParams: { 'filter[keyword]': filter }})
+  },
 
   actions: {
     filterChange() {
