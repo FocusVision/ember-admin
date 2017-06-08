@@ -34,7 +34,7 @@ describe('Acceptance: Admin Relationships', () => {
     await page
       .visitCatEdit({ cat_id: 1 })
       .clickToys()
-      .clickCreate()
+      .clickCreateRelatedToy()
       .fillInName('Bell')
       .clickSave()
 
@@ -57,7 +57,9 @@ describe('Acceptance: Admin Relationships', () => {
       const toys = server.createList('toy', 1, { name: 'Bird toy' })
       server.create('bird', { toys })
 
-      await page.visitBirdEdit({ bird_id: 1 })
+      await page
+        .visitBirdEdit({ bird_id: 1 })
+        .clickToys()
 
       expect(page.toys().count).to.equal(1)
       expect(findAll('a[data-test=button-create]')).to.have.length(0)
@@ -70,12 +72,14 @@ describe('Acceptance: Admin Relationships', () => {
       const courses = server.createList('course', 1)
       server.create('owner', { courses })
 
-      await page.visitOwnerEdit({ owner_id: 2 })
+      await page
+        .visitOwnerEdit({ owner_id: 2 })
+        .clickCourses()
 
       expect(page.courses().count).to.equal(1)
 
       await page
-        .clickCreateCourseRelationship()
+        .clickCreateRelatedCourse()
         .fillInTitle('New Course!')
         .clickSave()
 

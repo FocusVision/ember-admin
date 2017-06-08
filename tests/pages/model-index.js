@@ -59,6 +59,7 @@ export default create({
     }
   }),
 
+  clickCourses: clickable('[data-test=has-many-courses] a'),
   courses: collection({
     itemScope: '.course table tbody tr'
   }),
@@ -88,8 +89,8 @@ export default create({
     at: 2
   }),
 
-  clickCreateToyRelationship: clickable('a[data-test=button-create-toy]'),
-  clickCreateCourseRelationship: clickable('a[data-test=button-create-course]'),
+  clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
+  clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
 
   clickSave: clickable('button[data-test=button-save]'),
   clickDelete: clickable('button[data-test=button-delete]'),
