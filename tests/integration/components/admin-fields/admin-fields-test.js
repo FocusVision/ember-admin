@@ -4,8 +4,8 @@ import { setupComponentTest } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
 import { fillIn } from 'ember-native-dom-helpers'
 
-describe('Integration | Component | admin fields/admin field base', function() {
-  setupComponentTest('admin-fields/admin-field-base', {
+describe('Integration | Component | admin fields/admin fields', function() {
+  setupComponentTest('admin-fields/admin-fields', {
     integration: true
   })
 
