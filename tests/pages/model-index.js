@@ -49,6 +49,8 @@ export default create({
     }
   }),
 
+  hasManyToys: isVisible('[data-test=has-many-toys]'),
+  clickToys: clickable('[data-test=has-many-toys] a'),
   toys: collection({
     itemScope: '.toy table tbody tr',
     item: {

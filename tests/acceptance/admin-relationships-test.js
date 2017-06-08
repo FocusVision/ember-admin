@@ -27,14 +27,14 @@ describe('Acceptance: Admin Relationships', () => {
 
     expect(page.owners().count).to.equal(1)
     expect(page.owners().text).to.include(ownerName)
-    expect(page.toys().count).to.equal(2)
-    expect(page.toys().text.split(' ')).to.include.members(toyNames)
+    expect(page.hasManyToys).to.be.true
   })
 
   it('should create new model as a relationship to parent', async () => {
     await page
       .visitCatEdit({ cat_id: 1 })
-      .clickCreateToyRelationship()
+      .clickToys()
+      .clickCreate()
       .fillInName('Bell')
       .clickSave()
 
