@@ -1,11 +1,10 @@
 import Ember from 'ember'
-import WriteMixin from 'ember-admin/mixins/model-records/write'
 
 const {
   Route
 } = Ember
 
-export default Route.extend(WriteMixin, {
+export default Route.extend({
   queryParams: {
     filter: { refreshModel: true },
     page: { refreshModel: true }
@@ -21,6 +20,5 @@ export default Route.extend(WriteMixin, {
     return this
       .modelFor('model-records.show')
       .query(params.relationship_name, queryParams)
-  },
-  templateAdminPath: 'admin/related'
+  }
 })
