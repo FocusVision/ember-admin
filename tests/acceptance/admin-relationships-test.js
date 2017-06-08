@@ -97,4 +97,15 @@ describe('Acceptance: Admin Relationships', () => {
       expect(page.paginatorPages().count).to.eq(1)
     })
   })
+
+  describe('filtering', () => {
+    it('filters on has-many page', async () => {
+      await page
+        .visitCatEdit({ cat_id: 1 })
+        .clickToys()
+        .filterBy('Ball')
+
+      expect(currentURL()).to.eq('/admin/cat/1/toys?filter%5Bkeyword%5D=Ball')
+    })
+  })
 })

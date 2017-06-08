@@ -61,7 +61,7 @@ export default Component.extend(ColumnsMixin, {
 
   actions: {
     filterChange() {
-      debounce(this, this.updateQueryParams, 1000)
+      debounce(this, this.updateQueryParams, 500)
     }
   }
 })

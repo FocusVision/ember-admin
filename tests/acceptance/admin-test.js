@@ -37,7 +37,9 @@ describe('Acceptance: Admin', () => {
   })
 
   it('filtering records by value', async () => {
-    await page.visitCats().filterBy('Felix')
+    await page
+      .visitCats()
+      .filterBy('Felix')
 
     expect(page.cats().count).to.equal(1)
     expect(page.cats(0).text.split(' ')).to.include.members(

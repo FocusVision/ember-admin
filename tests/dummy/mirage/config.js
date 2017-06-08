@@ -6,13 +6,16 @@ const patch = function(schema, request) {
     .update(this.normalizedRequestAttrs())
 }
 
-const getCats = ({ cats }, { queryParams }) => {
+const getResources = (model, { queryParams }) => {
   const keyword = queryParams['filter[keyword]']
   if (keyword) {
-    return cats.where({ name: keyword })
+    return model.where({ name: keyword })
   }
-  return cats.all()
+  return model.all()
 }
+
+const getCats = ({ cats }, ...args) => getResources(cats, ...args)
+const getToys = ({ toys }, ...args) => getResources(toys, ...args)
 
 export default function() {
   this.namespace = '/admin'
@@ -35,7 +38,7 @@ export default function() {
   this.patch('/birds/:id', patch)
   this.delete('/birds/:id')
 
-  this.get('/toys')
+  this.get('/toys', getToys)
   this.get('/toys/:id')
   this.post('/toys')
   this.patch('/toys/:id', patch)
