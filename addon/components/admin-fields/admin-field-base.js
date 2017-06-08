@@ -24,5 +24,5 @@ export default Component.extend({
     return `admin-fields/admin-field-${resolvedType}`
   }),
 
-  onUpdate() {},
+  onUpdate() {}
 })

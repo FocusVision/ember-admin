@@ -1,10 +1,11 @@
+import Ember from 'ember'
 import { expect } from 'chai'
 import { context, describe, it, beforeEach } from 'mocha'
 import { setupComponentTest } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
 import { fillIn } from 'ember-native-dom-helpers'
 
-describe('Integration | Component | admin fields/admin fields', function() {
+describe('Integration | Component | admin fields/admin fields', () => {
   setupComponentTest('admin-fields/admin-fields', {
     integration: true
   })
@@ -17,7 +18,7 @@ describe('Integration | Component | admin fields/admin fields', function() {
     this.set('onFieldUpdate', () => {})
   })
 
-  context('if type is `string`', function() {
+  context('if type is `string`', () => {
     it('has initial value', function() {
       this.set('column', { key: 'name', type: 'string' })
 
@@ -48,7 +49,7 @@ describe('Integration | Component | admin fields/admin fields', function() {
     })
   })
 
-  context('if type is `boolean`', function() {
+  context('if type is `boolean`', () => {
     it('has initial value if unset', function() {
       this.set('column', { key: 'hasBling', type: 'boolean' })
       this.set('model.hasBling', null)
@@ -61,7 +62,9 @@ describe('Integration | Component | admin fields/admin fields', function() {
         }}
       `)
 
-      expect(this.$('select option:selected').text().trim()).to.be.equal('Select')
+      expect(
+        this.$('select option:selected'
+      ).text().trim()).to.be.equal('Select')
     })
 
     it('has initial value if true', function() {
@@ -92,7 +95,9 @@ describe('Integration | Component | admin fields/admin fields', function() {
       `)
 
       expect(this.$('select').val()).to.be.equal('false')
-      expect(this.$('select option:selected').text().trim()).to.be.equal('false')
+      expect(
+        this.$('select option:selected'
+      ).text().trim()).to.be.equal('false')
     })
 
     it('updates model attr on select', async function() {
@@ -110,7 +115,6 @@ describe('Integration | Component | admin fields/admin fields', function() {
         }}
       `)
 
-      const value = find("select option:eq(1)")
       await this.$('select[data-test=admin-field-boolean]')
         .val('false').trigger('change')
     })

@@ -10,7 +10,7 @@ const {
 export default Model.extend({
   name: attr('string'),
   age: attr('number'),
-  foo: attr('boolean', { default: false }),
+  fleas: attr('boolean', { default: false }),
   bar: attr('string'),
   baz: attr('string'),
   toys: hasMany('toy', { async: true }),

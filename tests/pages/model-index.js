@@ -64,7 +64,7 @@ export default create({
   fillInName: fillable('input[data-test=edit-input-name]'),
   fillInAge: fillable('input[data-test=edit-input-age]'),
   fillInTitle: fillable('input[data-test=edit-input-title]'),
-
+  selectFleas: fillable('select[data-test=admin-field-boolean]'),
 
   formLabelName: text('label[data-test=form-label-name]'),
 

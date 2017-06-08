@@ -10,7 +10,7 @@ const {
   computed: { notEmpty }
 } = Ember
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'select',
   attributeBindings: ['dataTest:data-test'],
