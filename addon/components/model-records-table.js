@@ -21,9 +21,10 @@ export default Component.extend(ColumnsMixin, {
     this._super(...args)
 
     const owner = getOwner(this)
-    let templatePath = `admin/index/${get(this, 'recordType')}`
+    const templateAdminPath = get(this, 'templateAdminPath') || 'admin/index'
+    let templatePath = `${templateAdminPath}/${get(this, 'recordType')}`
     if (!owner.resolveRegistration(`template:${templatePath}`)) {
-      templatePath = 'admin/index/default'
+      templatePath = `${templateAdminPath}/default`
     }
 
     set(this, 'layout', owner.resolveRegistration(`template:${templatePath}`))
