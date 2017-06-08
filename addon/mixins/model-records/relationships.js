@@ -48,8 +48,5 @@ function relationshipMacro(type) {
 
 export default Mixin.create({
   hasMany: relationshipMacro('Has Many'),
-  belongsTo: relationshipMacro('Belongs To'),
-  relationshipTypes: computed('recordType', 'id', function() {
-    return [get(this, 'hasMany'), get(this, 'belongsTo')]
-  })
+  belongsTo: relationshipMacro('Belongs To')
 })
