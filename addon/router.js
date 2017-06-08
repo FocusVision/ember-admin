@@ -4,7 +4,10 @@ export default function(router) {
       'model-records',
       { path: ':name', resetNamespace: true },
       function() {
-        this.route('edit', { path: ':id/edit' })
+        this.route('show', { path: ':id' }, function() {
+          this.route('edit')
+          this.route('related', { path: ':relationship_name' })
+        })
         this.route('new')
       }
     )

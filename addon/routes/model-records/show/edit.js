@@ -2,15 +2,12 @@ import Ember from 'ember'
 import WriteMixin from 'ember-admin/mixins/model-records/write'
 
 const {
-  Route,
-  String: { singularize }
+  Route
 } = Ember
 
 export default Route.extend(WriteMixin, {
-  model(params) {
-    const modelName = singularize(this.paramsFor('model-records').name)
-    return this.admin.store
-      .find(modelName, params.id)
+  model() {
+    return this.modelFor('model-records.show')
   },
   templateAdminPath: 'admin/edit'
 })
