@@ -1,18 +1,15 @@
 import Ember from 'ember'
+import PaginatedControllerMixin
+  from 'ember-admin/mixins/model-records/paginated-controller'
 
 const {
   computed,
   Controller
 } = Ember
 
-export default Controller.extend({
+export default Controller.extend(PaginatedControllerMixin, {
   excludedColumns: ['id'],
 
-  // TODO: Move this into a PaginationAndFilteringMixin
-  queryParams: ['filter', 'page', 'size'],
-  filter: null,
-  page: 1,
-  size: 30,
   recordType: computed('model', function() {
     return this.get('model.relationship.belongsToType')
   })
