@@ -1,16 +1,17 @@
 import Ember from 'ember'
-import WriteMixin from 'ember-admin/mixins/model-records/write'
+import ResourceRouteMixin
+  from 'ember-admin/mixins/model-records/resource-route-mixin'
 
 const {
   Route,
   String: { singularize }
 } = Ember
 
-export default Route.extend(WriteMixin, {
+export default Route.extend(ResourceRouteMixin, {
+  templateAdminPath: 'admin/new',
   model() {
     return this.admin.store.createRecord(
       singularize(this.paramsFor('model-records').name)
     )
-  },
-  templateAdminPath: 'admin/new'
+  }
 })
