@@ -1,42 +1,17 @@
 import Ember from 'ember'
-import layout
-  from 'ember-admin/templates/components/admin-fields/admin-field-boolean'
 
 const {
-  A,
-  Component,
+  Checkbox,
   computed,
-  isEmpty,
-  computed: { notEmpty, alias }
+  computed: { alias }
 } = Ember
 
-export default Component.extend({
-  layout,
-  tagName: 'select',
+export default Checkbox.extend({
+  checked: alias('value'),
   attributeBindings: ['dataTest:data-test', 'disabled'],
+
+  disabled: alias('column.disabled'),
   dataTest: computed(function() {
     return `admin-field-boolean-${this.get('column.key')}`
-  }),
-  disabled: alias('column.disabled'),
-
-  data: A([true, false]),
-  value: null,
-  boolValue: computed('value', function() {
-    const value = this.get('value')
-
-    if (isEmpty(value)) {
-      return null
-    }
-
-    return value || value === 'true'
-  }),
-  placeholderText: 'Select',
-  hasInitialValue: notEmpty('value'),
-
-  onUpdate: () => {},
-
-  change(e) {
-    const value = e.target.value === 'true'
-    this.onUpdate(this.get('column.key'), value)
-  }
+  })
 })

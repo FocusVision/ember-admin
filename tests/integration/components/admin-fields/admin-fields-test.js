@@ -64,7 +64,7 @@ describe('Integration | Component | admin fields/admin fields', () => {
   })
 
   context('if type is `boolean`', () => {
-    it('has initial value if unset', function() {
+    it('is unchecked if unset', function() {
       this.set('column', { key: 'hasBling', type: 'boolean', disabled: false })
       this.set('model.hasBling', null)
 
@@ -77,11 +77,11 @@ describe('Integration | Component | admin fields/admin fields', () => {
       `)
 
       expect(
-        this.$('select option:selected'
-      ).text().trim()).to.be.equal('Select')
+        this.$('input[type=checkbox]:checked').length
+      ).to.not.be.ok
     })
 
-    it('has initial value if true', function() {
+    it('is checked if true', function() {
       this.set('column', { key: 'hasBling', type: 'boolean', disabled: false })
 
       this.render(hbs`
@@ -92,11 +92,12 @@ describe('Integration | Component | admin fields/admin fields', () => {
         }}
       `)
 
-      expect(this.$('select').val()).to.be.equal('true')
-      expect(this.$('select option:selected').text().trim()).to.be.equal('true')
+      expect(
+        this.$('input[type=checkbox]:checked').length
+      ).to.be.ok
     })
 
-    it('has initial value if false', function() {
+    it('is unchecked value if false', function() {
       this.set('column', { key: 'hasBling', type: 'boolean', disabled: false })
       this.set('model.hasBling', false)
 
@@ -108,18 +109,13 @@ describe('Integration | Component | admin fields/admin fields', () => {
         }}
       `)
 
-      expect(this.$('select').val()).to.be.equal('false')
       expect(
-        this.$('select option:selected'
-      ).text().trim()).to.be.equal('false')
+        this.$('input[type=checkbox]:checked').length
+      ).to.not.be.ok
     })
 
     it('updates model attr on select', async function() {
       this.set('column', { key: 'hasBling', type: 'boolean', disabled: false })
-      this.set('onFieldUpdate', (key, val) => {
-        expect(key).to.equal('hasBling')
-        expect(val).to.equal(false)
-      })
 
       this.render(hbs`
         {{admin-fields/admin-field-base
@@ -129,11 +125,12 @@ describe('Integration | Component | admin fields/admin fields', () => {
         }}
       `)
 
-      await this.$('select[data-test=admin-field-boolean]')
-        .val('false').trigger('change')
+      await this.$('input[type=checkbox]').trigger('click')
+
+      expect(this.get('model.hasBling')).to.equal(false)
     })
 
-    it('disabled columns disable select', function() {
+    it('disabled columns disable checkbox', function() {
       this.set('column', { key: 'hasBling', type: 'boolean', disabled: true })
 
       this.render(hbs`
@@ -144,7 +141,9 @@ describe('Integration | Component | admin fields/admin fields', () => {
         }}
       `)
 
-      expect(this.$('select').attr('disabled')).to.be.ok
+      expect(
+        this.$('input[type=checkbox]:disabled').length
+      ).to.be.ok
     })
   })
 })

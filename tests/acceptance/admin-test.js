@@ -57,7 +57,7 @@ describe('Acceptance: Admin', () => {
         .clickFirstCatRecord()
         .fillInName('Hobbes')
         .fillInAge('29')
-        .selectFleas('true')
+        .clickFleas()
         .clickSave()
 
       expect(page.cats().count).to.equal(2)
@@ -79,7 +79,7 @@ describe('Acceptance: Admin', () => {
         .clickCreate()
         .fillInName('Lion-O')
         .fillInAge(30)
-        .selectFleas('true')
+        .clickFleas('true')
         .clickSave()
 
       expect(page.cats().count).to.equal(3)
@@ -91,7 +91,6 @@ describe('Acceptance: Admin', () => {
     it('setting boolean to false remains false', async () => {
       await page.visitCats()
         .clickCreate()
-        .selectFleas('false')
         .clickSave()
 
       expect(page.cats().count).to.equal(3)
@@ -254,7 +253,7 @@ describe('Acceptance: Admin', () => {
       await page.visitDogsNew()
 
       expect(
-        $('select[data-test=admin-field-boolean-fleas]:disabled').length
+        $('input[data-test=admin-field-boolean-fleas]:disabled').length
       ).to.be.ok
     })
   })
