@@ -1,40 +1,83 @@
-<div class="{{recordType}} index">
-  {{input value=filter placeholder="Filter" data-test='filter-input' input=(action 'filterChange')}}
-  {{#unless hideCreate}}
-    {{#if relationshipGiven}}
-      {{link-to 'Create' 'model-records.new' recordType (query-params relationship-name=relationshipName relationship-id=relationshipId) data-test=(concat 'button-create-' recordType)}}
-    {{else}}
-      {{link-to 'Create' 'model-records.new' recordType data-test='button-create'}}
-    {{/if}}
-  {{/unless}}
+<h2 class='admin-page-title'>
+  {{recordType}}
+  <br/>
+  <small>
+    {{recordType}}
+  </small>
+</h2>
 
-  {{#if page}}
-    {{fv-paginator current=page total=pageCount surrounding=1}}
-  {{/if}}
+<div class='admin-page'>
+  <div class="{{recordType}} index">
 
-  <table class='fv-table'>
-    <thead>
-      <tr>
-        {{#each filteredColumns as |column|}}
-          <th>{{column.key}}</th>
-        {{/each}}
-      </tr>
-    </thead>
-    <tbody>
-      {{#each records as |record|}}
-        <tr>
-          {{#each filteredColumns as |column|}}
-          <td>
-            {{#link-to 'model-records.show.edit' recordType record.id data-test='record-list-item'}}
-              {{property-print record=record column=column.key}}
-            {{/link-to}}
-          </td>
+    <div class='admin-page-header fv-padded-box'>
+
+      {{input
+        value=filter
+        placeholder="Filter"
+        data-test='filter-input'
+        input=(action 'filterChange')
+        class='admin-filter fv-text-control'
+      }}
+
+      {{#unless hideCreate}}
+        {{#if relationshipGiven}}
+          {{link-to
+            'Create'
+            'model-records.new'
+            recordType
+            (query-params
+              relationship-name=relationshipName
+              relationship-id=relationshipId)
+            class='fv-button fv-button-default pull-right'
+            data-test=(concat 'button-create-' recordType)
+          }}
+        {{else}}
+          {{link-to
+            'Create'
+            'model-records.new'
+            recordType
+            class='fv-button fv-button-default pull-right'
+            data-test='button-create'
+          }}
+        {{/if}}
+      {{/unless}}
+
+      {{#if page}}
+        {{fv-paginator
+          current=page
+          total=pageCount
+          surrounding=1
+          class='fv-pull-right'
+        }}
+      {{/if}}
+    </div>
+
+    <div class='fv-padded-box'>
+      <table class='fv-table'>
+        <thead>
+          <tr>
+            {{#each filteredColumns as |column|}}
+              <th>{{column.key}}</th>
+            {{/each}}
+          </tr>
+        </thead>
+        <tbody>
+          {{#each records as |record|}}
+            <tr>
+              {{#each filteredColumns as |column|}}
+              <td>
+                {{#link-to 'model-records.show.edit' recordType record.id data-test='record-list-item'}}
+                  {{property-print record=record column=column.key}}
+                {{/link-to}}
+              </td>
+              {{/each}}
+            </tr>
           {{/each}}
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{#unless records}}
-    No records!
-  {{/unless}}
+        </tbody>
+      </table>
+      {{#unless records}}
+        No records!
+      {{/unless}}
+    </div>
+  </div>
 </div>

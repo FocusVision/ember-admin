@@ -1,9 +1,28 @@
 <div class="ember-admin">
-  <h2>Admin</h2>
-  {{#each filteredModels as |name|}}
-    <div data-test='models-list'>
-      {{link-to name 'model-records' name data-test=(concat 'models-list-item-' name)}}
-    </div>
-  {{/each}}
-  {{outlet}}
+  {{#fv-grid fluid=true as |grid|}}
+    {{#grid.row}}
+    {{/grid.row}}
+    {{#grid.row}}
+      {{#grid.column col='lg-2'}}
+
+        <nav class='vertical-nav'>
+          <h6>Admin</h6>
+
+          <ul class='unstyled-list' data-test='models-list'>
+            {{#each filteredModels as |name|}}
+              <li>
+                {{link-to name 'model-records' name data-test=(concat 'models-list-item-' name)}}
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
+
+      {{/grid.column}}
+      {{#grid.column col='lg-10'}}
+
+        {{outlet}}
+
+      {{/grid.column}}
+    {{/grid.row}}
+  {{/fv-grid}}
 </div>
