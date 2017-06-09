@@ -1,6 +1,6 @@
 import Ember from 'ember'
 import ResourceListRouteMixin
-  from 'ember-admin/mixins/model-records/resource-list-route'
+  from 'ember-admin/mixins/model-records/index-route-mixin'
 
 const {
   Route

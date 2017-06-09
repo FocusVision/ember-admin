@@ -8,8 +8,8 @@ const {
 } = Ember
 
 export default Mixin.create({
-  modelRecords: controller('model-records'),
-  recordType: alias('modelRecords.recordType'),
+  // modelRecords: controller('model-records'),
+  // recordType: alias('modelRecords.recordType'),
 
   actions: {
     onFieldUpdate(key, value) {

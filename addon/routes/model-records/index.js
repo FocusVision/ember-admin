@@ -1,6 +1,6 @@
 import Ember from 'ember'
 import ResourceListRouteMixin
-  from 'ember-admin/mixins/model-records/resource-list-route'
+  from 'ember-admin/mixins/model-records/index-route-mixin'
 
 const {
   Route,
@@ -9,7 +9,6 @@ const {
 
 export default Route.extend(ResourceListRouteMixin, {
   model(params) {
-    const modelName = singularize(this.paramsFor('model-records').name)
     return this.admin.store
       .query(modelName, params)
   }
