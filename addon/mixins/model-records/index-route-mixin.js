@@ -1,7 +1,9 @@
 import Ember from 'ember'
 
 const {
-  Mixin
+  Mixin,
+  computed,
+  String: { singularize }
 } = Ember
 
 export default Mixin.create({

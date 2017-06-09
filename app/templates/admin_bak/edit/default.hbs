@@ -22,11 +22,11 @@
     {{#each belongsTo as |relationship|}}
     <h4 data-test='belongs-to-{{relationship.name}}'>{{relationship.name}}</h4>
       <!-- TODO: This shouldn't use a table for a to-one relationship -->
-      {{model-records-table
+      <!-- {{model-records-table
         recordType=relationship.type
         records=relationship.records
         relationshipName=relationship.inverse
-        relationshipId=model.id}}
+        relationshipId=model.id}} -->
     {{/each}}
     {{#each hasMany as |relationship|}}
       <h4 data-test='has-many-{{relationship.name}}'>

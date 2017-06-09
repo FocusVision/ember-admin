@@ -1,14 +1,9 @@
 import Ember from 'ember'
-import ResourceListControllerMixin
+import IndexControllerMixin
   from 'ember-admin/mixins/model-records/index-controller-mixin'
 
 const {
-  computed: { alias },
-  Controller,
-  inject: { controller }
+  Controller
 } = Ember
 
-export default Controller.extend(ResourceListControllerMixin, {
-  modelRecords: controller('model-records'),
-  recordType: alias('modelRecords.recordType')
-})
+export default Controller.extend(IndexControllerMixin)

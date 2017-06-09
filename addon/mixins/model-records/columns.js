@@ -13,7 +13,6 @@ const {
 const columnIncludes = (columnType, parameter) =>
   columnType && includes(columnType, parameter)
 
-
 const keyIsDisabled = (serializerAttrs, key) =>
   serializerAttrs && serializerAttrs[key] && !serializerAttrs[key].serialize
 

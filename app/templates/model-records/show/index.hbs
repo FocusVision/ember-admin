@@ -1,0 +1,16 @@
+<div class="{{recordType}} index">
+  {{admin-filter-keyword
+    value=filterKeyword
+    onChange=(action 'onFilterChange')}}
+
+  {{link-to 'Create' 'model-records.new' recordType data-test='button-create'}}
+
+  {{fv-paginator
+    current=page
+    total=pageCount
+    surrounding=1}}
+
+  {{admin-table
+    recordType=recordType
+    records=model}}
+</div>

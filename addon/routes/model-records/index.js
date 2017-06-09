@@ -1,5 +1,5 @@
 import Ember from 'ember'
-import ResourceListRouteMixin
+import IndexRouteMixin
   from 'ember-admin/mixins/model-records/index-route-mixin'
 
 const {
@@ -7,9 +7,8 @@ const {
   String: { singularize }
 } = Ember
 
-export default Route.extend(ResourceListRouteMixin, {
+export default Route.extend(IndexRouteMixin, {
   model(params) {
-    return this.admin.store
-      .query(modelName, params)
+    return this.admin.store.query(this.get('recordType'), params)
   }
 })

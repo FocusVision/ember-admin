@@ -1,8 +1,10 @@
 import Ember from 'ember'
 
 const {
+  computed,
   computed: { alias },
-  Mixin
+  Mixin,
+  String: { singularize }
 } = Ember
 
 export default Mixin.create({
