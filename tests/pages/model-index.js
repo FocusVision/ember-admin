@@ -1,6 +1,7 @@
 import {
   create,
   collection,
+  isVisible,
   visitable,
   text,
   clickable,
@@ -48,6 +49,8 @@ export default create({
     }
   }),
 
+  hasManyToys: isVisible('[data-test=has-many-toys]'),
+  clickToys: clickable('[data-test=has-many-toys] a'),
   toys: collection({
     itemScope: '.toy table tbody tr',
     item: {
@@ -56,8 +59,17 @@ export default create({
     }
   }),
 
+  clickCourses: clickable('[data-test=has-many-courses] a'),
   courses: collection({
     itemScope: '.course table tbody tr'
+  }),
+
+  paginatorIsVisible: isVisible('[data-test=fv-paginator]'),
+  paginatorPages: collection({
+    itemScope: '[data-test=fv-paginator-page]',
+    item: {
+      click: clickable('[data-test=link-to]')
+    }
   }),
 
   filterBy: fillable('input[data-test=filter-input]'),
@@ -77,8 +89,8 @@ export default create({
     at: 2
   }),
 
-  clickCreateToyRelationship: clickable('a[data-test=button-create-toy]'),
-  clickCreateCourseRelationship: clickable('a[data-test=button-create-course]'),
+  clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
+  clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
 
   clickSave: clickable('button[data-test=button-save]'),
   clickDelete: clickable('button[data-test=button-delete]'),

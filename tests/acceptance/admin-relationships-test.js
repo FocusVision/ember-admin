@@ -27,14 +27,14 @@ describe('Acceptance: Admin Relationships', () => {
 
     expect(page.owners().count).to.equal(1)
     expect(page.owners().text).to.include(ownerName)
-    expect(page.toys().count).to.equal(2)
-    expect(page.toys().text.split(' ')).to.include.members(toyNames)
+    expect(page.hasManyToys).to.be.true
   })
 
   it('should create new model as a relationship to parent', async () => {
     await page
       .visitCatEdit({ cat_id: 1 })
-      .clickCreateToyRelationship()
+      .clickToys()
+      .clickCreateRelatedToy()
       .fillInName('Bell')
       .clickSave()
 
@@ -57,7 +57,9 @@ describe('Acceptance: Admin Relationships', () => {
       const toys = server.createList('toy', 1, { name: 'Bird toy' })
       server.create('bird', { toys })
 
-      await page.visitBirdEdit({ bird_id: 1 })
+      await page
+        .visitBirdEdit({ bird_id: 1 })
+        .clickToys()
 
       expect(page.toys().count).to.equal(1)
       expect(findAll('a[data-test=button-create]')).to.have.length(0)
@@ -70,16 +72,40 @@ describe('Acceptance: Admin Relationships', () => {
       const courses = server.createList('course', 1)
       server.create('owner', { courses })
 
-      await page.visitOwnerEdit({ owner_id: 2 })
+      await page
+        .visitOwnerEdit({ owner_id: 2 })
+        .clickCourses()
 
       expect(page.courses().count).to.equal(1)
 
       await page
-        .clickCreateCourseRelationship()
+        .clickCreateRelatedCourse()
         .fillInTitle('New Course!')
         .clickSave()
 
       expect(page.courses().count).to.equal(2)
     }
   )
+
+  describe('pagination', () => {
+    it('shows paginator on has-many page', async () => {
+      await page
+        .visitCatEdit({ cat_id: 1 })
+        .clickToys()
+
+      expect(page.paginatorIsVisible).to.be.true
+      expect(page.paginatorPages().count).to.eq(1)
+    })
+  })
+
+  describe('filtering', () => {
+    it('filters on has-many page', async () => {
+      await page
+        .visitCatEdit({ cat_id: 1 })
+        .clickToys()
+        .filterBy('Ball')
+
+      expect(currentURL()).to.eq('/admin/cat/1/toys?filter%5Bkeyword%5D=Ball')
+    })
+  })
 })

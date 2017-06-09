@@ -19,11 +19,11 @@
       </tr>
     </thead>
     <tbody>
-      {{#each filteredRecords as |record|}}
+      {{#each records as |record|}}
         <tr>
           {{#each filteredColumns as |column|}}
           <td>
-            {{#link-to 'model-records.edit' recordType record.id data-test='record-list-item'}}
+            {{#link-to 'model-records.show.edit' recordType record.id data-test='record-list-item'}}
               {{property-print record=record column=column.key}}
             {{/link-to}}
           </td>

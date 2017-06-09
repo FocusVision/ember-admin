@@ -4,10 +4,11 @@ import ColumnsMixin from 'ember-admin/mixins/model-records/columns'
 const {
   get,
   set,
-  isBlank,
   isNone,
   computed,
+  computed: { alias },
   getOwner,
+  run: { debounce },
   Component
 } = Ember
 
@@ -18,36 +19,14 @@ export default Component.extend(ColumnsMixin, {
     this._super(...args)
 
     const owner = getOwner(this)
-    let templatePath = `admin/index/${get(this, 'recordType')}`
+    const templateAdminPath = get(this, 'templateAdminPath') || 'admin/index'
+    let templatePath = `${templateAdminPath}/${get(this, 'recordType')}`
     if (!owner.resolveRegistration(`template:${templatePath}`)) {
-      templatePath = 'admin/index/default'
+      templatePath = `${templateAdminPath}/default`
     }
 
     set(this, 'layout', owner.resolveRegistration(`template:${templatePath}`))
   },
-
-  filteredRecords: computed('records', 'filter', function() {
-    if (isBlank(get(this, 'filter'))) {
-      return get(this, 'records')
-    }
-
-    const filter = get(this, 'filter').toLowerCase()
-    const columns = get(this, 'filteredColumns').map(col => col.key)
-
-    return get(this, 'records').filter(record => {
-      let value
-
-      for (let i = 0; i < columns.length; i++) {
-        value = (get(record, columns[i]) || '').toString().toLowerCase()
-
-        if (value.indexOf(filter) > -1) {
-          return true
-        }
-      }
-
-      return false
-    })
-  }),
 
   relationshipGiven: computed('relationshipName', 'relationshipId', function() {
     return get(this, 'relationshipName') && get(this, 'relationshipId')
@@ -71,5 +50,18 @@ export default Component.extend(ColumnsMixin, {
     }
 
     return false
-  })
+  }),
+
+  pageCount: alias('records.meta.page-count'),
+
+  updateQueryParams() {
+    const filter = this.get('filter')
+    this.transitionToRoute({ queryParams: { 'filter[keyword]': filter }})
+  },
+
+  actions: {
+    filterChange() {
+      debounce(this, this.updateQueryParams, 500)
+    }
+  }
 })

@@ -1,5 +1,5 @@
 <div class='edit'>
-  <h2>Edit {{id}}</h2>
+  <h2>Edit {{model.id}}</h2>
 
   <form>
     {{#each filteredColumns as |column|}}
@@ -19,11 +19,26 @@
   <div class='relationships'>
     <h2>Relationships</h2>
 
-    {{#each relationshipTypes as |relationshipType|}}
-      {{#each relationshipType as |relationship|}}
-        <h4>{{relationship.name}}</h4>
-        {{model-records-table recordType=relationship.type records=relationship.records relationshipName=relationship.inverse relationshipId=model.id}}
-      {{/each}}
+    {{#each belongsTo as |relationship|}}
+    <h4 data-test='belongs-to-{{relationship.name}}'>{{relationship.name}}</h4>
+      <!-- TODO: This shouldn't use a table for a to-one relationship -->
+      {{model-records-table
+        recordType=relationship.type
+        records=relationship.records
+        relationshipName=relationship.inverse
+        relationshipId=model.id}}
+    {{/each}}
+    {{#each hasMany as |relationship|}}
+      <h4 data-test='has-many-{{relationship.name}}'>
+        {{#link-to
+          'model-records.show.related'
+          recordType
+          model.id
+          relationship.name
+          }}
+          {{relationship.name}}
+        {{/link-to}}
+      </h4>
     {{/each}}
   </div>
 </div>

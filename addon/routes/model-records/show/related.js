@@ -3,14 +3,13 @@ import ResourceListRouteMixin
   from 'ember-admin/mixins/model-records/resource-list-route'
 
 const {
-  Route,
-  String: { singularize }
+  Route
 } = Ember
 
 export default Route.extend(ResourceListRouteMixin, {
   model(params) {
-    const modelName = singularize(this.paramsFor('model-records').name)
-    return this.admin.store
-      .query(modelName, this.extractQueryParams(params))
+    return this
+      .modelFor('model-records.show')
+      .query(params.relationship_name, this.extractQueryParams(params))
   }
 })
