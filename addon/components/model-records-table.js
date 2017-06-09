@@ -8,7 +8,6 @@ const {
   computed,
   computed: { alias },
   getOwner,
-  run: { debounce },
   Component
 } = Ember
 
@@ -52,16 +51,5 @@ export default Component.extend(ColumnsMixin, {
     return false
   }),
 
-  pageCount: alias('records.meta.page-count'),
-
-  updateQueryParams() {
-    const filter = this.get('filter')
-    this.transitionToRoute({ queryParams: { 'filter[keyword]': filter }})
-  },
-
-  actions: {
-    filterChange() {
-      debounce(this, this.updateQueryParams, 500)
-    }
-  }
+  pageCount: alias('records.meta.page-count')
 })

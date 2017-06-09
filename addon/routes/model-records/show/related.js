@@ -10,6 +10,6 @@ export default Route.extend(ResourceListRouteMixin, {
   model(params) {
     return this
       .modelFor('model-records.show')
-      .query(params.relationship_name, this.extractQueryParams(params))
+      .query(params.relationship_name, params)
   }
 })

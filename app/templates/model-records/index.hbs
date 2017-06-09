@@ -1,5 +1,7 @@
+{{admin-filter-keyword
+  value=filterKeyword
+  onChange=(action 'onFilterChange')}}
 {{model-records-table
   recordType=recordType
   records=model
-  page=page
-  transitionToRoute=(action 'transitionToRoute')}}
+  page=page}}

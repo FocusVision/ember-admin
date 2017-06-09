@@ -6,13 +6,14 @@ const {
 
 export default Mixin.create({
   queryParams: {
-    'filter[keyword]': { refreshModel: true },
-    page: { refreshModel: true },
-    size: { refreshModel: true }
+    'filter[keyword]': { refreshModel: true, replace: true },
+    page: { refreshModel: true, replace: true },
+    size: { refreshModel: true, replace: true }
   },
+
   extractQueryParams(params) {
     const queryParams = {}
-    const keys = ['page', 'filter[keyword]', 'size']
+    const keys = ['filter[keyword]', 'page', 'size']
     keys.forEach(key => {
       if (params[key]) {
         queryParams[key] = params[key]

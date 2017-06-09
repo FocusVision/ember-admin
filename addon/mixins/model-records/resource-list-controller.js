@@ -1,17 +1,21 @@
 import Ember from 'ember'
 
 const {
+  computed: { alias },
   Mixin
 } = Ember
 
 export default Mixin.create({
   queryParams: ['filter[keyword]', 'page', 'size'],
-  filter: null,
   page: 1,
   size: 30,
+
+  'filter[keyword]': '',
+  filterKeyword: alias('filter[keyword]'),
+
   actions: {
-    transitionToRoute(...args) {
-      return this.transitionToRoute(...args)
+    onFilterChange(value) {
+      this.transitionToRoute({ queryParams: { 'filter[keyword]': value }})
     }
   }
 })

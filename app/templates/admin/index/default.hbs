@@ -1,5 +1,4 @@
 <div class="{{recordType}} index">
-  {{input value=filter placeholder="Filter" data-test='filter-input' input=(action 'filterChange')}}
   {{#unless hideCreate}}
     {{#if relationshipGiven}}
       {{link-to 'Create' 'model-records.new' recordType (query-params relationship-name=relationshipName relationship-id=relationshipId) data-test=(concat 'button-create-' recordType)}}
