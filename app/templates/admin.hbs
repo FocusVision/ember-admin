@@ -8,7 +8,7 @@
         <nav class='vertical-nav'>
           <h6>Admin</h6>
 
-          <ul class='unstyled-list' data-test='models-list'>
+          <ul data-test='models-list'>
             {{#each filteredModels as |name|}}
               <li>
                 {{link-to name 'model-records' name data-test=(concat 'models-list-item-' name)}}

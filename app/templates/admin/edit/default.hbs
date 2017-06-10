@@ -1,21 +1,49 @@
-<div class='edit'>
-  <h2>Edit {{model.id}}</h2>
+<div class='admin-page edit'>
+  <div class='admin-page-header fv-padded-box clearfix'>
+    <h2 class='fv-pull-left'>{{model.id}}</h2>
 
-  <form>
-    {{#each filteredColumns as |column|}}
-    <div class="model-column {{column.key}} {{if column.disabled 'disabled'}}" >
-        <label data-test={{concat 'form-label-' column.key}}>
-          {{column.key}}
+    <div class='fv-pull-right'>
+      {{async-button
+        action=(action 'save')
+        default='Save'
+        pending='Saving...'
+        fulfilled='Saved'
+        rejected='Error'
+        class='save fv-button fv-button-primary fv-pull-right'
+        data-test='button-save'
+      }}
+      {{async-button
+        action=(action 'destroyRecord')
+        default='Delete'
+        pending='Deleting...'
+        fulfilled='Deleted'
+        class='delete fv-button fv-button-default fv-pull-right'
+        data-test='button-delete'
+      }}
+      <button
+        {{action 'cancel'}}
+        class='cancel fv-button fv-button-default fv-pull-right'
+        data-test='button-cancel'>
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class='fv-padded-box'>
+    <form>
+      {{#each filteredColumns as |column|}}
+      <div class="model-column {{column.key}} {{if column.disabled 'disabled'}}" >
+          <label data-test={{concat 'form-label-' column.key}}>
+            {{column.key}}
+          </label>
           {{admin-fields/admin-field-base model=model column=column onUpdate=(action 'onFieldUpdate')}}
-        </label>
-      </div>
-    {{/each}}
+        </div>
+      {{/each}}
+    </form>
+  </div>
+</div>
 
-    {{async-button action=(action 'save') default='Save' pending='Saving...' fulfilled='Saved' rejected='Error' class='save' data-test='button-save'}}
-    {{async-button action=(action 'destroyRecord') default='Delete' pending='Deleting...' fulfilled='Deleted' class='delete' data-test='button-delete'}}
-    <button {{action 'cancel'}} class='cancel' data-test='button-cancel'>Cancel</button>
-  </form>
-
+<div class='admin-page fv-padded-box edit'>
   <div class='relationships'>
     <h2>Relationships</h2>
 
@@ -28,17 +56,19 @@
         relationshipName=relationship.inverse
         relationshipId=model.id}}
     {{/each}}
-    {{#each hasMany as |relationship|}}
-      <h4 data-test='has-many-{{relationship.name}}'>
-        {{#link-to
-          'model-records.show.related'
-          recordType
-          model.id
-          relationship.name
-          }}
-          {{relationship.name}}
-        {{/link-to}}
-      </h4>
-    {{/each}}
+    <ul class='unstyled-list' data-test='has-many-{{relationship.name}}'>
+      {{#each hasMany as |relationship|}}
+        <li>
+          {{#link-to
+            'model-records.show.related'
+            recordType
+            model.id
+            relationship.name
+            }}
+            {{relationship.name}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+    </ul>
   </div>
 </div>
