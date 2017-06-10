@@ -5,6 +5,10 @@ model-records/index
   placeholder=(concat 'Filter by ' recordType)
   onChange=(action 'onFilterChange')}}
 
+{{admin-table
+  recordType=recordType
+  records=model}}
+
 <!-- {{model-records-table
   recordType=recordType
   records=model
