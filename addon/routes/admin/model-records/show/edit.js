@@ -8,7 +8,7 @@ const {
 
 export default Route.extend(ResourceRouteMixin, {
   model() {
-    return this.modelFor('model-records.show')
+    return this.modelFor('admin.model-records.show')
   },
   templateAdminPath: 'admin/edit'
 })

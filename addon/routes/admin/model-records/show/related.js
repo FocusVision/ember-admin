@@ -9,7 +9,7 @@ const {
 export default Route.extend(ResourceListRouteMixin, {
   model(params) {
     return this
-      .modelFor('model-records.show')
+      .modelFor('admin.model-records.show')
       .query(params.relationship_name, this.extractQueryParams(params))
   }
 })

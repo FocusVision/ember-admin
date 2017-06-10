@@ -9,9 +9,9 @@ const {
 } = Ember
 
 export default Controller.extend(
+  ResourceControllerMixin,
   ColumnsMixin,
   RelationshipsMixin,
-  ResourceControllerMixin,
   {
     excludedColumns: ['id']
   }

@@ -31,7 +31,7 @@
     {{#each hasMany as |relationship|}}
       <h4 data-test='has-many-{{relationship.name}}'>
         {{#link-to
-          'model-records.show.related'
+          'admin.model-records.show.related'
           recordType
           model.id
           relationship.name

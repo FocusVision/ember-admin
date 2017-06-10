@@ -12,7 +12,7 @@ export default Mixin.create(EmberDataRouteMixin, {
   templateAdminPath: null,
 
   recordType: computed(function() {
-    return singularize(this.paramsFor('model-records').name)
+    return singularize(this.paramsFor('admin.model-records').name)
   }),
 
   templatePath: computed('recordType', function() {
@@ -36,6 +36,11 @@ export default Mixin.create(EmberDataRouteMixin, {
 
   renderTemplate() {
     this.render(this.get('templateName'))
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model)
+    controller.set('recordType', this.get('recordType'))
   },
 
   willTransitionConfirm() {

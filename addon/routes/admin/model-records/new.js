@@ -10,7 +10,7 @@ const {
 export default Route.extend(ResourceRouteMixin, {
   templateAdminPath: 'admin/new',
   model() {
-    return this.admin.store.createRecord(
+    return this.get('admin.store').createRecord(
       singularize(this.paramsFor('model-records').name)
     )
   }

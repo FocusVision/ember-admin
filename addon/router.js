@@ -2,7 +2,7 @@ export default function(router) {
   router.route('admin', { resetNamespace: true }, function() {
     this.route(
       'model-records',
-      { path: ':name', resetNamespace: true },
+      { path: ':name' },
       function() {
         this.route('show', { path: ':id' }, function() {
           this.route('edit')

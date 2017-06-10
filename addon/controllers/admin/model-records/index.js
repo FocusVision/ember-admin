@@ -9,6 +9,6 @@ const {
 } = Ember
 
 export default Controller.extend(ResourceListControllerMixin, {
-  modelRecords: controller('model-records'),
+  modelRecords: controller('admin.model-records'),
   recordType: alias('modelRecords.recordType')
 })

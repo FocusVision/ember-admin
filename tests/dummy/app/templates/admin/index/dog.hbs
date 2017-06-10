@@ -4,9 +4,9 @@
   {{input value=filter placeholder="Filter" data-test='filter-input'}}
   {{#unless hideCreate}}
     {{#if relationshipGiven}}
-      {{link-to 'Create' 'model-records.new' recordType (query-params relationship-name=relationshipName relationship-id=relationshipId) data-test=(concat 'button-create-' recordType)}}
+      {{link-to 'Create' 'admin.model-records.new' recordType (query-params relationship-name=relationshipName relationship-id=relationshipId) data-test=(concat 'button-create-' recordType)}}
     {{else}}
-      {{link-to 'Create' 'model-records.new' recordType data-test='button-create'}}
+      {{link-to 'Create' 'admin.model-records.new' recordType data-test='button-create'}}
     {{/if}}
   {{/unless}}
 
@@ -23,7 +23,7 @@
         <tr>
           {{#each filteredColumns as |column|}}
           <td>
-            {{#link-to 'model-records.show.edit' recordType record.id data-test='record-list-item'}}
+            {{#link-to 'admin.model-records.show.edit' recordType record.id data-test='record-list-item'}}
               {{property-print record=record column=column.key}}
             {{/link-to}}
           </td>

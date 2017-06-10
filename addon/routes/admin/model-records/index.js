@@ -9,8 +9,10 @@ const {
 
 export default Route.extend(ResourceListRouteMixin, {
   model(params) {
-    const modelName = singularize(this.paramsFor('model-records').name)
-    return this.admin.store
-      .query(modelName, this.extractQueryParams(params))
+    const modelName = singularize(this.paramsFor('admin.model-records').name)
+    return this.get('admin.store').query(
+      modelName,
+      this.extractQueryParams(params)
+    )
   }
 })

@@ -8,7 +8,7 @@ const {
 } = Ember
 
 export default Mixin.create({
-  modelRecords: controller('model-records'),
+  modelRecords: controller('admin.model-records'),
   recordType: alias('modelRecords.recordType'),
 
   actions: {
@@ -21,7 +21,7 @@ export default Mixin.create({
         .save()
         .then(record => {
           this.transitionToRoute(
-            'model-records',
+            'admin.model-records',
             record.constructor.modelName
           )
         })
@@ -29,7 +29,7 @@ export default Mixin.create({
 
     cancel() {
       this.transitionToRoute(
-        'model-records',
+        'admin.model-records',
         get(this, 'model').constructor.modelName
       )
     },
@@ -43,7 +43,7 @@ export default Mixin.create({
           .destroyRecord()
           .then(record =>
             this.transitionToRoute(
-              'model-records',
+              'admin.model-records',
               record.constructor.modelName
             )
           )
