@@ -1,4 +1,10 @@
 model-records/index
+
+{{admin-filter-keyword
+  value=filterKeyword
+  placeholder=(concat 'Filter by ' recordType)
+  onChange=(action 'onFilterChange')}}
+
 <!-- {{model-records-table
   recordType=recordType
   records=model
