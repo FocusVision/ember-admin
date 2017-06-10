@@ -13,7 +13,7 @@ export default Controller.extend({
     const {
       includedModels,
       excludedModels
-    } = this.admin
+    } = this.get('admin')
 
     return get(this, 'model').reduce((collection, name) => {
       if (includedModels) {

@@ -8,8 +8,10 @@ const {
 } = Ember
 
 export default Route.extend(ResourceRouteMixin, {
+  templateAdminPath: 'admin/model-records/show/',
   model(params) {
     const modelName = singularize(this.paramsFor('admin.model-records').name)
+
     return this.get('admin.store').find(modelName, params.id)
   }
 })

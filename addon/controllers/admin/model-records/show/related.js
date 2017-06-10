@@ -1,13 +1,13 @@
 import Ember from 'ember'
-import ResourceListControllerMixin
-  from 'ember-admin/mixins/model-records/resource-list-controller'
+import IndexControllerMixin
+  from 'ember-admin/mixins/model-records/index-controller-mixin'
 
 const {
   computed,
   Controller
 } = Ember
 
-export default Controller.extend(ResourceListControllerMixin, {
+export default Controller.extend(IndexControllerMixin, {
   excludedColumns: ['id'],
 
   recordType: computed('model', function() {

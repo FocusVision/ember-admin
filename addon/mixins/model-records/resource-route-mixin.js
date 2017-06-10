@@ -5,38 +5,18 @@ const {
   computed,
   getOwner,
   Mixin,
-  String: { singularize }
+  String: { singularize },
+  inject: { service }
 } = Ember
 
 export default Mixin.create(EmberDataRouteMixin, {
+  admin: service(),
+
   templateAdminPath: null,
 
   recordType: computed(function() {
     return singularize(this.paramsFor('admin.model-records').name)
   }),
-
-  templatePath: computed('recordType', function() {
-    return `${this.get('templateAdminPath')}/${this.get('recordType')}`
-  }),
-
-  defaultTemplatePath: computed(function() {
-    return `${this.get('templateAdminPath')}/default`
-  }),
-
-  templateName: computed('templatePath', function() {
-    const {
-      templatePath,
-      defaultTemplatePath
-    } = this.getProperties('templatePath', 'defaultTemplatePath')
-
-    return getOwner(this).lookup(`template:${templatePath}`) ?
-      templatePath :
-      defaultTemplatePath
-  }),
-
-  renderTemplate() {
-    this.render(this.get('templateName'))
-  },
 
   setupController(controller, model) {
     this._super(controller, model)

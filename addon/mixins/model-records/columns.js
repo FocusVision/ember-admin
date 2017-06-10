@@ -19,6 +19,7 @@ const keyIsDisabled = (serializerAttrs, key) =>
 
 export default Mixin.create({
   store: service(),
+  admin: service(),
   recordType: null, // Defined in consuming
 
   /*
@@ -74,7 +75,7 @@ export default Mixin.create({
       },
       includedColumns,
       excludedColumns
-    } = this
+    } = this.get('admin')
 
     if (adminIncludedColumns) {
       if (!columnIncludes(adminIncludedColumns[modelName], key)) {

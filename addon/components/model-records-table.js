@@ -9,10 +9,12 @@ const {
   computed: { alias },
   getOwner,
   run: { debounce },
-  Component
+  Component,
+  inject: { service }
 } = Ember
 
 export default Component.extend(ColumnsMixin, {
+  admin: service(),
   includedColumns: ['id'],
 
   didReceiveAttrs(...args) {

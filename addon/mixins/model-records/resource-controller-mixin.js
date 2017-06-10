@@ -4,10 +4,12 @@ const {
   Mixin,
   get,
   computed: { alias },
-  inject: { controller }
+  inject: { controller, service }
 } = Ember
 
 export default Mixin.create({
+  admin: service(),
+
   modelRecords: controller('admin.model-records'),
   recordType: alias('modelRecords.recordType'),
 
