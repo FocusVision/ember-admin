@@ -1,5 +1,4 @@
 import Ember from 'ember'
-import ColumnsMixin from 'ember-admin/mixins/model-records/columns'
 
 const {
   get,
@@ -13,7 +12,7 @@ const {
   inject: { service }
 } = Ember
 
-export default Component.extend(ColumnsMixin, {
+export default Component.extend({
   admin: service(),
   includedColumns: ['id'],
 

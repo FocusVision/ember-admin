@@ -1,6 +1,5 @@
 import Ember from 'ember'
 import RelationshipsMixin from 'ember-admin/mixins/model-records/relationships'
-import ColumnsMixin from 'ember-admin/mixins/model-records/columns'
 import ResourceControllerMixin
   from 'ember-admin/mixins/model-records/resource-controller-mixin'
 
@@ -10,9 +9,5 @@ const {
 
 export default Controller.extend(
   ResourceControllerMixin,
-  ColumnsMixin,
-  RelationshipsMixin,
-  {
-    excludedColumns: ['id']
-  }
-)
+  RelationshipsMixin, {
+})

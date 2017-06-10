@@ -12,7 +12,7 @@
     {{/each}}
 
     {{async-button action=(action 'save') default='Save' pending='Saving...' fulfilled='Saved' rejected='Error' class='save' data-test='button-save'}}
-    {{async-button action=(action 'destroyRecord') default='Delete' pending='Deleting...' fulfilled='Deleted' class='delete' data-test='button-delete'}}
+    {{async-button action=(action 'delete') default='Delete' pending='Deleting...' fulfilled='Deleted' class='delete' data-test='button-delete'}}
     <button {{action 'cancel'}} class='cancel' data-test='button-cancel'>Cancel</button>
   </form>
 

@@ -36,13 +36,13 @@ export default Mixin.create({
       )
     },
 
-    destroyRecord() {
+    delete() {
       const canDestroy = window
         .confirm('Are you sure you want to destroy this record?')
 
       if (canDestroy) {
         get(this, 'model')
-          .destroyRecord()
+          .delete()
           .then(record =>
             this.transitionToRoute(
               'admin.model-records',

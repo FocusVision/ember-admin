@@ -1,0 +1,33 @@
+{{async-button
+  type='submit'
+  action=(action 'save')
+  default='Save'
+  pending='Saving...'
+  fulfilled='Saved'
+  rejected='Error'
+  class='save'
+  data-test='button-save'
+}}
+{{async-button
+  action=(action 'delete')
+  default='Delete'
+  pending='Deleting...'
+  fulfilled='Deleted'
+  class='delete'
+  data-test='button-delete'
+}}
+<button
+  onclick={{action 'cancel'}}
+  class='cancel'
+  data-test='button-cancel'>
+  Cancel
+</button>
+
+{{#each filteredColumns as |column|}}
+  <div class="model-column {{column.key}} {{if column.disabled 'disabled'}}">
+    <label data-test={{concat 'form-label-' column.key}}>
+      {{column.key}}
+    </label>
+    {{admin-fields/admin-field-base model=model column=column onUpdate=(action 'onUpdate')}}
+  </div>
+{{/each}}
