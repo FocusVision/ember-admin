@@ -1,11 +1,11 @@
-admin
-{{outlet}}
-<!-- <div class="ember-admin">
-  <h2>Admin</h2>
+<ul data-test='models-list'>
   {{#each filteredModels as |name|}}
-    <div data-test='models-list'>
-      {{link-to name 'model-records' name data-test=(concat 'models-list-item-' name)}}
-    </div>
+    <li>
+      {{link-to name
+        'admin.model-records'
+        name
+        data-test=(concat 'models-list-item-' name)}}
+    </li>
   {{/each}}
-  {{outlet}}
-</div> -->
+</ul>
+{{outlet}}

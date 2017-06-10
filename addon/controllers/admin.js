@@ -4,35 +4,24 @@ import { includes, removeObject } from 'ember-admin/utils/array'
 const {
   get,
   computed,
-  A: emberArray,
-  Controller
+  A,
+  Controller,
+  inject: { service }
 } = Ember
 
 export default Controller.extend({
+  admin: service(),
+
   filteredModels: computed(function() {
-    const {
-      includedModels,
-      excludedModels
-    } = this.get('admin')
+    const { includedModels, excludedModels } = this.get('admin')
+    const models = this.get('model')
 
-    return get(this, 'model').reduce((collection, name) => {
-      if (includedModels) {
-        if (includes(includedModels, name)) {
-          collection.push(name)
-        }
+    if (includedModels) {
+      return models.filter(item => includes(includedModels, item))
+    } else if (excludedModels) {
+      return models.filter(item => !includes(excludedModels, item))
+    }
 
-        if (excludedModels && includes(excludedModels, name)) {
-          removeObject(collection, name)
-        }
-      } else if (excludedModels) {
-        if (!includes(excludedModels, name)) {
-          collection.push(name)
-        }
-      } else {
-        collection.push(name)
-      }
-
-      return collection
-    }, emberArray())
+    return models
   })
 })
