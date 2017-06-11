@@ -10,17 +10,19 @@ const {
 export default Mixin.create({
   admin: service(),
 
-  recordType: computed('model', function() {
-    return this.get('model.modelName') ||
-      this.get('model.constructor.modelName')
-  }),
-
   queryParams: ['filter[keyword]', 'page', 'size'],
+
+  pageCount: alias('model.meta.page-count'),
   page: 1,
   size: 30,
 
   'filter[keyword]': '',
   filterKeyword: alias('filter[keyword]'),
+
+  recordType: computed('model', function() {
+    return this.get('model.modelName') ||
+      this.get('model.constructor.modelName')
+  }),
 
   actions: {
     onFilterChange(value) {
