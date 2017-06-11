@@ -5,8 +5,18 @@ const {
   get,
   computed,
   computed: { alias },
-  inject: { controller, service }
+  inject: { controller, service },
+  A
 } = Ember
+
+const relationshipsFor = model => {
+  const relationships = []
+
+  model.get('constructor.relationshipsByName').forEach(relationship =>
+    relationships.push(relationship))
+
+  return A(relationships)
+}
 
 export default Mixin.create({
   admin: service(),
@@ -16,6 +26,10 @@ export default Mixin.create({
       this.get('model.modelName') ||
       this.get('model.constructor.modelName')
   }),
+
+  relationships: computed('model', function() {
+    return relationshipsFor(this.get('model'))
+  }).volatile(),
 
   actions: {
     onFieldUpdate(key, value) {
