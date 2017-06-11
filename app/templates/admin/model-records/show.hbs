@@ -13,25 +13,21 @@
   <div class='relationships'>
     <h2>Relationships</h2>
 
-    {{#each belongsTo as |relationship|}}
-      <h4 data-test='belongs-to-{{relationship.name}}'>{{relationship.name}}</h4>
-      {{admin-table
-        recordType=relationship.type
-        records=relationship.records}}
-    {{/each}}
-
-    {{#each hasMany as |relationship|}}
-      <h4 data-test='has-many-{{relationship.name}}'>
-        {{#link-to
-          'admin.model-records.show.related'
-          recordType
-          model.id
-          relationship.name
+    <ul>
+      {{#each relationships as |relationship|}}
+        <li data-test='has-many-{{relationship.key}}'>
+          {{#link-to
+            'admin.model-records.show.related'
+            recordType
+            model.id
+            relationship.key
           }}
-          {{relationship.name}}
-        {{/link-to}}
-      </h4>
-    {{/each}}
+            {{relationship.key}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+    </ul>
+
   </div>
 </div>
 
