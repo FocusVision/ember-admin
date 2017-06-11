@@ -10,21 +10,16 @@ const {
   A
 } = Ember
 
-const relationshipsFor = (model, kind) => {
-  const relationshipsForKind = []
-  model.get('constructor.relationshipsByName').forEach((relationship, name) => {
-    if (relationship.kind === kind) {
-      relationshipsForKind.push(relationship)
-    }
+const relationshipsFor = (model) => {
+  const relationships = []
+  model.get('constructor.relationshipsByName').forEach((relationship) => {
+    relationships.push(relationship)
   })
-  return A(relationshipsForKind)
+  return A(relationships)
 }
 
 export default Mixin.create({
-  hasMany: computed('model', function() {
-    return relationshipsFor(this.get('model'), 'hasMany')
-  }),
-  belongsTo: computed('model', function() {
-    return relationshipsFor(this.get('model'), 'belongsTo')
-  }),
+  relationships: computed('model', function() {
+    return relationshipsFor(this.get('model'))
+  }).volatile()
 })

@@ -12,7 +12,9 @@ export default Mixin.create({
   admin: service(),
 
   recordType: computed('model', function() {
-    return this.get('_recordType')
+    return this.get('model.relationship.belongsToType') ||
+      this.get('model.modelName') ||
+      this.get('model.constructor.modelName')
   }),
 
   actions: {

@@ -20,7 +20,8 @@ export default Mixin.create({
   filterKeyword: alias('filter[keyword]'),
 
   recordType: computed('model', function() {
-    return this.get('model.modelName') ||
+    return this.get('model.relationship.belongsToType') ||
+      this.get('model.modelName') ||
       this.get('model.constructor.modelName')
   }),
 

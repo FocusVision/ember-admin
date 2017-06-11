@@ -6,13 +6,4 @@ const {
   String: { singularize }
 } = Ember
 
-export default Route.extend({
-  setupController(controller, model) {
-    this._super(controller, model)
-    set(
-      controller,
-      'recordType',
-      singularize(this.paramsFor('model-records').name)
-    )
-  }
-})
+export default Route.extend()

@@ -5,9 +5,22 @@ import FilteredColumnsMixin
   from 'ember-admin/mixins/model-records/filtered-columns-mixin'
 
 const {
-  Component
+  Component,
+  isArray,
+  computed,
+  A
 } = Ember
 
 export default Component.extend(FilteredColumnsMixin, {
-  layout
+  layout,
+
+  normalizedRecords: computed('records', function() {
+    const records = this.get('records')
+
+    if (isArray(records)) {
+      return records
+    }
+
+    return A([records])
+  })
 })
