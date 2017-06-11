@@ -27,7 +27,7 @@ export default Mixin.create({
 
   actions: {
     onFilterChange(value) {
-      this.transitionToRoute({ queryParams: { 'filter[keyword]': value }})
+      this.set('filterKeyword', value)
     }
   }
 })
