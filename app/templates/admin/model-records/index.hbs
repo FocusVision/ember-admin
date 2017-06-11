@@ -1,13 +1,30 @@
 model-records/index
 
+{{recordType}}
+{{link-to
+  'Create'
+  'admin.model-records.new'
+  recordType
+  data-test='button-create'
+}}
+
+{{fv-paginator
+  current=page
+  total=pageCount
+  surrounding=1
+}}
+
 {{admin-filter-keyword
   value=filterKeyword
   placeholder=(concat 'Filter by ' recordType)
-  onChange=(action 'onFilterChange')}}
+  onChange=(action 'onFilterChange')
+  data-test='filter-input'
+}}
 
 {{admin-table
   recordType=recordType
-  records=model}}
+  records=model
+}}
 
 <!-- {{model-records-table
   recordType=recordType

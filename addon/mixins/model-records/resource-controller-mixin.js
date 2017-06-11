@@ -3,6 +3,7 @@ import Ember from 'ember'
 const {
   Mixin,
   get,
+  computed,
   computed: { alias },
   inject: { controller, service }
 } = Ember
@@ -10,8 +11,9 @@ const {
 export default Mixin.create({
   admin: service(),
 
-  modelRecords: controller('admin.model-records'),
-  recordType: alias('modelRecords.recordType'),
+  recordType: computed('model', function() {
+    return this.get('_recordType')
+  }),
 
   actions: {
     onFieldUpdate(key, value) {

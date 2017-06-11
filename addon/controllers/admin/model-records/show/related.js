@@ -8,9 +8,7 @@ const {
 } = Ember
 
 export default Controller.extend(IndexControllerMixin, {
-  excludedColumns: ['id'],
-
-  recordType: computed('model', function() {
+  recordType: computed('model.relationship', function() {
     return this.get('model.relationship.belongsToType')
   })
 })

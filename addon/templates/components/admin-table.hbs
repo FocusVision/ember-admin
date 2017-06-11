@@ -14,8 +14,8 @@
         <tr>
           {{#each filteredColumns as |column|}}
           <td>
-            {{#link-to 'admin.model-records.show.edit' recordType record.id data-test='record-list-item'}}
-              {{property-print record=record column=column.key}}
+            {{#link-to 'admin.model-records.show' recordType record.id data-test='record-list-item'}}
+              {{get record column.key}}
             {{/link-to}}
           </td>
           {{/each}}

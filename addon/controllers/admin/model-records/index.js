@@ -8,7 +8,4 @@ const {
   inject: { controller }
 } = Ember
 
-export default Controller.extend(IndexControllerMixin, {
-  modelRecords: controller('admin.model-records'),
-  recordType: alias('modelRecords.recordType')
-})
+export default Controller.extend(IndexControllerMixin)

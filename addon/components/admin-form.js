@@ -9,14 +9,10 @@ const {
 
 export default Component.extend(FilteredColumnsMixin, {
   layout,
-  tagName: 'form',
   excludedColumns: ['id'],
 
   model: null,
 
-  onSubmit(e) {
-    e.preventDefault()
-  },
   save() {},
   delete() {},
   cancel() {},
@@ -37,6 +33,10 @@ export default Component.extend(FilteredColumnsMixin, {
 
     onUpdate(key, val) {
       this.onUpdate(key, val)
+    },
+
+    preventDefault(e) {
+      e.preventDefault()
     }
   }
 })

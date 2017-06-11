@@ -12,15 +12,13 @@ const {
 export default Mixin.create(EmberDataRouteMixin, {
   admin: service(),
 
-  templateAdminPath: null,
-
   recordType: computed(function() {
     return singularize(this.paramsFor('admin.model-records').name)
   }),
 
   setupController(controller, model) {
     this._super(controller, model)
-    controller.set('recordType', this.get('recordType'))
+    controller.set('_recordType', this.get('recordType'))
   },
 
   willTransitionConfirm() {

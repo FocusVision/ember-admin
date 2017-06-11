@@ -62,7 +62,7 @@ export default Mixin.create({
   /*
   * construct array of model columns with key:type:disabled
   */
-  columns: computed('model', function() {
+  columns: computed('currentModel', function() {
     const cols = [].concat(this.get('defaultColumns'))
     const serializerAttrs = this.get('serializer.attrs')
 

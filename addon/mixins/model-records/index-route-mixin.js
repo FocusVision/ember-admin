@@ -16,15 +16,6 @@ export default Mixin.create({
     size: { refreshModel: true, replace: true }
   },
 
-  recordType: computed(function() {
-    return singularize(this.paramsFor('admin.model-records').name)
-  }),
-
-  setupController(controller, model) {
-    this._super(controller, model)
-    controller.set('recordType', this.get('recordType'))
-  },
-  
   extractQueryParams(params) {
     const queryParams = {}
     const keys = ['page', 'filter[keyword]', 'size']
