@@ -21,11 +21,7 @@ const relationshipsFor = model => {
 export default Mixin.create({
   admin: service(),
 
-  recordType: computed('model', function() {
-    return this.get('model.relationship.belongsToType') ||
-      this.get('model.modelName') ||
-      this.get('model.constructor.modelName')
-  }),
+  recordType: alias('admin.recordType'),
 
   relationships: computed('model', function() {
     return relationshipsFor(this.get('model'))

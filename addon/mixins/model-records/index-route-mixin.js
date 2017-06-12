@@ -2,6 +2,7 @@ import Ember from 'ember'
 
 const {
   computed,
+  computed: { alias },
   inject: { service },
   Mixin,
   String: { singularize }

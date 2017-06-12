@@ -1,34 +1,28 @@
-<div class='edit'>
-  <h2>Edit {{model.id}}</h2>
+<h2>Edit {{model.id}}</h2>
 
-  {{admin-form
-    recordType=recordType
-    model=model
-    save=(action 'save')
-    delete=(action 'delete')
-    cancel=(action 'cancel')
-    onUpdate=(action 'onFieldUpdate')
-  }}
+{{admin-form
+  model=model
+  recordType=admin.recordType
+  save=(action 'save')
+  delete=(action 'delete')
+  cancel=(action 'cancel')
+  onUpdate=(action 'onFieldUpdate')
+}}
 
-  <div class='relationships'>
-    <h2>Relationships</h2>
+<h2>Relationships</h2>
 
-    <ul>
-      {{#each relationships as |relationship|}}
-        <li data-test='has-many-{{relationship.key}}'>
-          {{#link-to
-            'admin.model-records.show.related'
-            recordType
-            model.id
-            relationship.key
-          }}
-            {{relationship.key}}
-          {{/link-to}}
-        </li>
-      {{/each}}
-    </ul>
-
-  </div>
-</div>
+<ul>
+  {{#each relationships as |relationship|}}
+    <li data-test='has-many-{{relationship.key}}'>
+      {{recordType}}{{model.id}}{{relationship.key}}
+      {{#link-to
+        'admin.model-records.show.related'
+        relationship.key
+      }}
+        {{relationship.key}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>
 
 {{outlet}}

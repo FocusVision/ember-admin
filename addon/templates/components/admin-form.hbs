@@ -9,14 +9,16 @@
     class='save'
     data-test='button-save'
   }}
-  {{async-button
-    action=(action 'delete')
-    default='Delete'
-    pending='Deleting...'
-    fulfilled='Deleted'
-    class='delete'
-    data-test='button-delete'
-  }}
+  {{#if delete}}
+    {{async-button
+      action=(action 'delete')
+      default='Delete'
+      pending='Deleting...'
+      fulfilled='Deleted'
+      class='delete'
+      data-test='button-delete'
+    }}
+  {{/if}}
   <button
     onclick={{action 'cancel'}}
     class='cancel'

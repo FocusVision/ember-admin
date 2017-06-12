@@ -19,12 +19,6 @@ export default Mixin.create({
   'filter[keyword]': '',
   filterKeyword: alias('filter[keyword]'),
 
-  recordType: computed('model', function() {
-    return this.get('model.relationship.belongsToType') ||
-      this.get('model.modelName') ||
-      this.get('model.constructor.modelName')
-  }),
-
   actions: {
     onFilterChange(value) {
       this.set('filterKeyword', value)

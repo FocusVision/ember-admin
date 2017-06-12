@@ -1,9 +1,7 @@
 import Ember from 'ember'
 
 const {
-  set,
-  Route,
-  String: { singularize }
+  Route
 } = Ember
 
 export default Route.extend()

@@ -21,8 +21,8 @@ export default Mixin.create({
   store: service(),
   admin: service(),
 
-  defaultIncludedColumns: ['id'],
-  defaultExcludedColumns: [],
+  includedColumns: [],
+  excludedColumns: [],
   defaultColumns: [{ key: 'id', type: 'number', disabled: true }],
 
   recordType: null,
@@ -37,15 +37,6 @@ export default Mixin.create({
   }),
 
   /*
-  * Returns the serializer for current record type
-  * from which we can get the `attrs` property to determine
-  * serialize setting per prop
-  */
-  serializer: computed(function() {
-    return this.get('store').serializerFor(this.get('recordType'))
-  }),
-
-  /*
   * Returns array of registered models
   */
   registeredModels: computed(function() {
@@ -56,7 +47,18 @@ export default Mixin.create({
   * Returns the model based `recordType`
   */
   currentModel: computed('recordType', function() {
-    return this.get('registeredModels').findBy('name', this.get('recordType'))
+    return this.get('registeredModels').findBy(
+      'name', this.get('recordType')
+    )
+  }),
+
+  /*
+  * Returns the serializer for current record type
+  * from which we can get the `attrs` property to determine
+  * serialize setting per prop
+  */
+  serializer: computed('recordType', function() {
+    return this.get('store').serializerFor(this.get('recordType'))
   }),
 
   /*
@@ -81,14 +83,14 @@ export default Mixin.create({
   * Defined in admin service
   * merged with defaults
   */
-  includedColumns: computed(function() {
-    return this.get('defaultIncludedColumns').concat(
+  _includedColumns: computed(function() {
+    return this.get('includedColumns').concat(
       this.get('admin.includedColumns') || []
     )
   }),
 
-  excludedColumns: computed(function() {
-    return this.get('defaultExcludedColumns').concat(
+  _excludedColumns: computed(function() {
+    return this.get('excludedColumns').concat(
       this.get('admin.excludedColumns') || []
     )
   }),
@@ -96,12 +98,12 @@ export default Mixin.create({
   filteredColumns: computed('columns', function() {
     const columns = this.get('columns')
 
-    if (isPresent(this.get('admin.includedColumns'))) {
+    if (isPresent(this.get('_includedColumns'))) {
       return columns.filter(({ key }) =>
-        includes(this.get('includedColumns'), key))
-    } else if (isPresent(this.get('admin.excludedColumns'))) {
+        includes(this.get('_includedColumns'), key))
+    } else if (isPresent(this.get('_excludedColumns'))) {
       return columns.filter(({ key }) =>
-        !includes(this.get('excludedColumns'), key))
+        !includes(this.get('_excludedColumns'), key))
     }
 
     return columns

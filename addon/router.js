@@ -6,7 +6,9 @@ export default function(router) {
       function() {
         this.route('show', { path: ':id' }, function() {
           this.route('edit')
-          this.route('related', { path: ':relationship_name' })
+          this.route('related', { path: ':relationship_name' }, function() {
+            this.route('new')
+          })
         })
         this.route('new')
       }

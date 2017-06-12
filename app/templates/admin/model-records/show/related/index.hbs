@@ -1,10 +1,7 @@
-{{recordType}}
-
 {{link-to
   'Create'
-  'admin.model-records.new'
-  recordType
-  data-test='button-create'
+  'admin.model-records.show.related.new'
+  data-test=(concat 'button-create-' recordType)
 }}
 
 {{fv-paginator
@@ -21,6 +18,5 @@
 }}
 
 {{admin-table
-  recordType=admin.recordType
-  records=model
-}}
+  recordType=admin.relationshipType
+  records=model}}
