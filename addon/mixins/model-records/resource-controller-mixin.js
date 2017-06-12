@@ -56,7 +56,7 @@ export default Mixin.create({
 
       if (canDestroy) {
         get(this, 'model')
-          .delete()
+          .destroyRecord()
           .then(record =>
             this.transitionToRoute(
               'admin.model-records',

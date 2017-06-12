@@ -9,13 +9,21 @@ const {
 
 export default Route.extend(IndexRouteMixin, {
   model(params) {
-    const modelName = singularize(
-      this.paramsFor('admin.model-records').name
-    )
+    const modelName = singularize(this._modelName())
 
     return this.get('admin.store').query(
       modelName,
       this.extractQueryParams(params)
     )
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model)
+
+    controller.set('recordType', this._modelName())
+  },
+
+  _modelName() {
+    return this.paramsFor('admin.model-records').name
   }
 })
