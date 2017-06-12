@@ -11,9 +11,9 @@ const {
 
 export default Route.extend(IndexRouteMixin, {
   model(params) {
-    const modelName = singularize(this._relationshipName())
+    const modelName = this._relationshipName()
 
-    return this.get('admin.store')
+    return this.modelFor('admin.model-records.show')
       .query(modelName, this.extractQueryParams(params))
   },
 
