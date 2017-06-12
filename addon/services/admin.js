@@ -38,14 +38,14 @@ export default Service.extend({
     return this.get('currentParams')['admin.model-records.show'].id
   }).volatile(),
 
-  relationshipName: computed(function() {
+  relationshipName: computed('currentParams', function() {
     const related =
       this.get('currentParams')['admin.model-records.show.related']
 
     return related.relationship_name
   }).volatile(),
 
-  relationshipType: computed(function() {
+  relationshipType: computed('currentParams', function() {
     return singularize(this.get('relationshipName'))
   }).volatile()
 })

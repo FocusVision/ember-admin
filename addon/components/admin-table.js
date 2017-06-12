@@ -14,13 +14,13 @@ const {
 export default Component.extend(FilteredColumnsMixin, {
   layout,
 
-  normalizedRecords: computed('records', function() {
-    const records = this.get('records')
+  normalizedModel: computed('model', function() {
+    const model = this.get('model')
 
-    if (isArray(records)) {
-      return records
+    if (isArray(model)) {
+      return model
     }
 
-    return A([records])
+    return A([model])
   })
 })
