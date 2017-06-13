@@ -25,8 +25,6 @@ export default Mixin.create({
   excludedColumns: [],
   defaultColumns: [{ key: 'id', type: 'number', disabled: true }],
 
-  recordType: null,
-
   /*
   * Returns the main data adapter
   * from which we can get all registered models

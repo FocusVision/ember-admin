@@ -5,19 +5,31 @@ import ResourceRouteMixin
 const {
   Route,
   get,
-  inject: { service }
+  inject: { service },
+  String: { singularize }
 } = Ember
 
 export default Route.extend(ResourceRouteMixin, {
   admin: service(),
 
   model(params) {
-    const parentModel = this.modelFor('admin.model-records.show')
-    const parentType = this.get('admin.recordType')
-    const relationshipType = this.get('admin.relationshipType')
+    return this.get('admin.store').createRecord(this._relationshipType())
+  },
 
-    return this.get('admin.store').createRecord(relationshipType, {
-        [parentType]: parentModel
-      })
+  setupController(controller, model) {
+    this._super(controller, model)
+
+    controller.setProperties({
+      parentModel: this.modelFor('admin.model-records.show'),
+      recordName: this.paramsFor('admin.model-records.show.related')
+        .relationship_name,
+      recordType: this._relationshipType()
+    })
+  },
+
+  _relationshipType() {
+    return singularize(
+      this.paramsFor('admin.model-records.show.related').relationship_name
+    )
   }
 })

@@ -9,8 +9,16 @@ const {
 
 export default Route.extend(ResourceRouteMixin, {
   model() {
-    return this.get('admin.store').createRecord(
-      singularize(this.paramsFor('admin.model-records').name)
-    )
+    return this.get('admin.store').createRecord(this._modelName())
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model)
+
+    controller.set('recordType', this._modelName())
+  },
+
+  _modelName() {
+    return singularize(this.paramsFor('admin.model-records').name)
   }
 })

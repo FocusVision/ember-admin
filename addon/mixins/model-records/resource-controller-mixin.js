@@ -21,8 +21,6 @@ const relationshipsFor = model => {
 export default Mixin.create({
   admin: service(),
 
-  recordType: alias('admin.recordType'),
-
   relationships: computed('model', function() {
     return relationshipsFor(this.get('model'))
   }).volatile(),

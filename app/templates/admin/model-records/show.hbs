@@ -2,7 +2,7 @@
 
 {{admin-form
   model=model
-  recordType=admin.recordType
+  recordType=recordType
   save=(action 'save')
   delete=(action 'delete')
   cancel=(action 'cancel')
@@ -14,7 +14,6 @@
 <ul>
   {{#each relationships as |relationship|}}
     <li data-test='has-many-{{relationship.key}}'>
-      {{recordType}}{{model.id}}{{relationship.key}}
       {{#link-to
         'admin.model-records.show.related'
         relationship.key
