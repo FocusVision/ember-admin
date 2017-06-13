@@ -11,7 +11,7 @@ const {
 export default Ember.Controller.extend(ResourceControllerMixin, {
   excludedColumns: ['id'],
 
-  relationshipKind: computed('', function() {
+  relationshipKind: computed('parentModel', function() {
     return this
       .get('parentModel')
       .get('constructor.relationshipsByName')
