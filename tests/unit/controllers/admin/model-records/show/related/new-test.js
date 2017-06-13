@@ -1,16 +1,14 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupTest } from 'ember-mocha';
+import { expect } from 'chai'
+import { describe, it } from 'mocha'
+import { setupTest } from 'ember-mocha'
 
 describe('Unit | Controller | admin/model records/show/related/new', function() {
   setupTest('controller:admin/model-records/show/related/new', {
-    // Specify the other units that are required for this test.
-    // needs: ['controller:foo']
-  });
+    needs: ['service:admin']
+  })
 
-  // Replace this with your real tests.
   it('exists', function() {
-    let controller = this.subject();
-    expect(controller).to.be.ok;
-  });
-});
+    let controller = this.subject()
+    expect(controller).to.be.ok
+  })
+})

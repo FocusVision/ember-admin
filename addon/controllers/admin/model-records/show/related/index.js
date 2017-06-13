@@ -3,10 +3,7 @@ import IndexControllerMixin
   from 'ember-admin/mixins/model-records/index-controller-mixin'
 
 const {
-  Controller,
-  computed,
-  computed: { alias },
-  String: { singularize }
+  Controller
 } = Ember
 
 export default Controller.extend(IndexControllerMixin)

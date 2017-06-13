@@ -4,9 +4,7 @@ import { includes } from 'ember-admin/utils/array'
 const {
   Mixin,
   A,
-  Component,
   computed,
-  computed: { filter, or },
   inject: { service },
   getOwner,
   isPresent
@@ -70,7 +68,8 @@ export default Mixin.create({
       cols.push({
         key,
         type,
-        disabled: keyIsDisabled(serializerAttrs, key)})
+        disabled: keyIsDisabled(serializerAttrs, key)
+      })
     })
 
     return A(cols)

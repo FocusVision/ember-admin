@@ -4,7 +4,6 @@ import ResourceRouteMixin
 
 const {
   Route,
-  get,
   inject: { service },
   String: { singularize }
 } = Ember
@@ -12,7 +11,7 @@ const {
 export default Route.extend(ResourceRouteMixin, {
   admin: service(),
 
-  model(params) {
+  model() {
     return this.get('admin.store').createRecord(this._relationshipType())
   },
 

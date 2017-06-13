@@ -7,8 +7,6 @@ const {
   String: { singularize }
 } = Ember
 
-
-
 export default Route.extend(IndexRouteMixin, {
   model(params) {
     const modelName = this._relationshipName()
