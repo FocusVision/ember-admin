@@ -3,9 +3,7 @@ import ResourceControllerMixin
   from 'ember-admin/mixins/model-records/resource-controller-mixin'
 
 const {
-  computed,
-  get,
-  guidFor
+  computed
 } = Ember
 
 export default Ember.Controller.extend(ResourceControllerMixin, {
@@ -27,7 +25,7 @@ export default Ember.Controller.extend(ResourceControllerMixin, {
       const parentModel = this.get('parentModel')
       const model = this.get('model')
 
-      return model.save().then((record) => {
+      return model.save().then(record => {
         if (this.get('relationshipKind').kind === 'belongsTo') {
           parentModel.set(this.get('recordName'), record)
         } else {

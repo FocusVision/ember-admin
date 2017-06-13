@@ -1,10 +1,8 @@
 import Ember from 'ember'
-import { includes, removeObject } from 'ember-admin/utils/array'
+import { includes } from 'ember-admin/utils/array'
 
 const {
-  get,
   computed,
-  A,
   Controller,
   inject: { service }
 } = Ember

@@ -11,12 +11,12 @@ import {
 export default create({
   visit: visitable('/admin'),
   visitCats: visitable('/admin/cat'),
-  visitCatEdit: visitable('/admin/cat/:cat_id/edit'),
+  visitCatEdit: visitable('/admin/cat/:cat_id'),
   visitCatNew: visitable('/admin/cat/new'),
-  visitBirdEdit: visitable('/admin/bird/:bird_id/edit'),
-  visitOwnerEdit: visitable('/admin/owner/:owner_id/edit'),
+  visitBirdEdit: visitable('/admin/bird/:bird_id'),
+  visitOwnerEdit: visitable('/admin/owner/:owner_id'),
   visitDogs: visitable('/admin/dogs'),
-  visitDogsEdit: visitable('/admin/dogs/:dog_id/edit'),
+  visitDogsEdit: visitable('/admin/dogs/:dog_id'),
   visitDogsNew: visitable('/admin/dogs/new'),
 
   modelLinks: text('[data-test=models-list] a', {
@@ -42,7 +42,7 @@ export default create({
   }),
 
   owners: collection({
-    itemScope: '.owner table tbody tr',
+    itemScope: '[data-test=admin-table-owner] table tbody tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 })
@@ -91,6 +91,8 @@ export default create({
 
   clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
   clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
+
+  clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
 
   clickSave: clickable('button[data-test=button-save]'),
   clickDelete: clickable('button[data-test=button-delete]'),

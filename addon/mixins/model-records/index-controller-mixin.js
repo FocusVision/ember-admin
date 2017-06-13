@@ -3,7 +3,6 @@ import Ember from 'ember'
 const {
   Mixin,
   inject: { service },
-  computed,
   computed: { alias }
 } = Ember
 

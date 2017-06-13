@@ -4,7 +4,7 @@ import ResourceRouteMixin
 
 const {
   Route,
-  String: { singularize },
+  String: { singularize }
 } = Ember
 
 export default Route.extend(ResourceRouteMixin, {

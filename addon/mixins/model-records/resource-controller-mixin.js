@@ -4,8 +4,7 @@ const {
   Mixin,
   get,
   computed,
-  computed: { alias },
-  inject: { controller, service },
+  inject: { service },
   A
 } = Ember
 
