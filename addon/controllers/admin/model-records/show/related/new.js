@@ -16,14 +16,26 @@ export default Ember.Controller.extend(ResourceControllerMixin, {
       .get(this.get('recordName'))
   }),
 
-  actions: {
-    onFieldUpdate(key, value) {
-      this.get('model').set(key, value)
-    },
+  inverseRelationshipName: computed('recordName', 'parentModel', function() {
+    return this.get('parentModel')
+      .relationshipFor(this.get('recordName'))
+      .options.inverse
+  }),
 
+  inverseRelationshipKind: computed('inverseRelationshipName', function() {
+    const model = this.get('model')
+    const inverse = this.get('inverseRelationshipName')
+    return model.relationshipFor(inverse) && model.relationshipFor(inverse).kind
+  }),
+
+  actions: {
     save() {
       const parentModel = this.get('parentModel')
       const model = this.get('model')
+
+      if (this.get('inverseRelationshipKind') === 'belongsTo') {
+        model.set(this.get('inverseRelationshipName'), parentModel)
+      }
 
       return model.save().then(record => {
         if (this.get('relationshipKind').kind === 'belongsTo') {

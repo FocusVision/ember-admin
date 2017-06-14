@@ -1,3 +1,4 @@
+import Mirage from 'ember-cli-mirage'
 import { describe, it, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
 import startApp from '../helpers/start-app'
@@ -32,18 +33,15 @@ describe('Acceptance: Admin Relationships', () => {
   })
 
   it('should create new model as a relationship to parent', async () => {
-    server.post('/toys', (_, request) => {
-      debugger
-    })
     await page
       .visitCatEdit({ cat_id: 1 })
       .clickToys()
       .clickCreateRelatedToy()
-      .fillInName('Bell')
-      .clickSave()
+      .fillInRelationshipName('Bell')
+      .clickSaveRelationship()
 
-    // expect(page.toys().count).to.equal(3)
-    // expect(page.toys(2).name).to.equal('Bell')
+    expect(page.toys().count).to.equal(3)
+    expect(page.toys(2).name).to.equal('Bell')
   })
 
   it(

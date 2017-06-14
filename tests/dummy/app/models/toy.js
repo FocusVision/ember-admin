@@ -10,5 +10,5 @@ const { ModelMixin } = HasManyQuery
 
 export default Model.extend(ModelMixin, {
   name: attr('string'),
-  cat: belongsTo('cat', { async: true })
+  cat: belongsTo('cat', { async: true, inverse: 'toys' })
 })

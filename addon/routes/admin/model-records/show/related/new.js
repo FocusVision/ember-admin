@@ -26,9 +26,11 @@ export default Route.extend(ResourceRouteMixin, {
     })
   },
 
+  _relationshipName() {
+    return this.paramsFor('admin.model-records.show.related').relationship_name
+  },
+
   _relationshipType() {
-    return singularize(
-      this.paramsFor('admin.model-records.show.related').relationship_name
-    )
+    return singularize(this._relationshipName())
   }
 })

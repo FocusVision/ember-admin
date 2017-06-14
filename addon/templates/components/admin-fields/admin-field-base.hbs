@@ -1,5 +1,6 @@
+{{model}}{{key}}
 {{component fieldComponentName
   column=column
-  value=(mut (get model key))
+  value=(get model key)
   onUpdate=onUpdate
   data-test=(concat 'admin-field-string-' key)}}

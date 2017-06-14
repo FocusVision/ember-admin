@@ -31,7 +31,10 @@
       <label data-test={{concat 'form-label-' column.key}}>
         {{column.key}}
       </label>
-      {{admin-fields/admin-field-base model=model column=column onUpdate=(action 'onUpdate')}}
+      {{admin-fields/admin-field-base
+        model=model
+        column=column
+        onUpdate=onUpdate}}
     </div>
   {{/each}}
 </form>

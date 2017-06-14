@@ -52,7 +52,7 @@ export default create({
   hasManyToys: isVisible('[data-test=has-many-toys]'),
   clickToys: clickable('[data-test=has-many-toys] a'),
   toys: collection({
-    itemScope: '.toy table tbody tr',
+    itemScope: '[data-test=admin-table-toy] table tbody tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 })
@@ -76,6 +76,7 @@ export default create({
   fillInName: fillable('input[data-test=admin-field-string-name]'),
   fillInAge: fillable('input[data-test=admin-field-string-age]'),
   fillInTitle: fillable('input[data-test=admin-field-string-title]'),
+  fillInName: fillable('input[data-test=admin-field-string-name]'),
   clickFleas: clickable('input[data-test=admin-field-boolean-fleas]'),
 
   formLabelName: text('label[data-test=form-label-name]'),
@@ -84,18 +85,23 @@ export default create({
   clickFirstCatRecord: clickable('a[data-test=record-list-item]', {
     at: 0
   }),
-
   clickLastToyRecord: clickable('a[data-test=record-list-item]', {
     at: 2
   }),
 
-  clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
-  clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
-
-  clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
-
   clickSave: clickable('button[data-test=button-save]'),
   clickDelete: clickable('button[data-test=button-delete]'),
   clickCancel: clickable('button[data-test=button-cancel]'),
-  clickCreate: clickable('a[data-test=button-create]')
+  clickCreate: clickable('a[data-test=button-create]'),
+
+  clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
+  clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
+  clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
+  clickSaveRelationship: clickable('button[data-test=button-save]', {
+    scope: '[data-test=admin-form-for-relationship]'
+  }),
+
+  fillInRelationshipName: fillable('input[data-test=admin-field-string-name]', {
+    scope: '[data-test=admin-form-for-relationship]'
+  })
 })
