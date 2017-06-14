@@ -55,7 +55,11 @@ export default Mixin.create({
   * serialize setting per prop
   */
   serializer: computed('recordType', function() {
-    return this.get('store').serializerFor(this.get('recordType'))
+    const recordType = this.get('recordType')
+
+    if (recordType) {
+      return this.get('store').serializerFor(this.get('recordType'))
+    }
   }),
 
   /*
@@ -64,8 +68,13 @@ export default Mixin.create({
   columns: computed('currentModel', function() {
     const cols = [].concat(this.get('defaultColumns'))
     const serializerAttrs = this.get('serializer.attrs')
+    const model = this.get('currentModel')
 
-    this.get('currentModel').klass.eachAttribute((key, { type }) => {
+    if (!model) {
+      return []
+    }
+
+    model.klass.eachAttribute((key, { type }) => {
       cols.push({
         key,
         type,

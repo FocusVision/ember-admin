@@ -3,7 +3,7 @@ import { describe, it } from 'mocha'
 import { setupComponentTest } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
 
-describe('Integration | Component | admin filter keyword', function() {
+describe('Integration | Component | admin filter keyword', () => {
   setupComponentTest('admin-filter-keyword', {
     integration: true
   })

@@ -1,8 +1,7 @@
 import { expect } from 'chai'
 import { describe, it } from 'mocha'
 import { setupTest } from 'ember-mocha'
-
-describe('Unit | Route | admin/model records/show/related/new', function() {
+describe('Unit | Route | admin/model records/show/related/new', () => {
   setupTest('route:admin/model-records/show/related/new', {
     needs: ['service:admin']
   })

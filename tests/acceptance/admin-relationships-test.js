@@ -1,9 +1,7 @@
-import Mirage from 'ember-cli-mirage'
 import { describe, it, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
 import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
-import { findAll } from 'ember-native-dom-helpers'
 import page from '../pages/model-index'
 
 describe('Acceptance: Admin Relationships', () => {
