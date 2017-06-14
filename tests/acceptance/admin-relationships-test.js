@@ -45,30 +45,6 @@ describe('Acceptance: Admin Relationships', () => {
   })
 
   it(
-    'should not display "Create" if singular relationship model exists',
-    async () => {
-      await page.visitCatEdit({ cat_id: 1 })
-
-      expect(findAll('a[data-test=button-create]')).to.have.length(0)
-    }
-  )
-
-  it(
-    'should not display "Create" if no inverse relationship exists',
-    async () => {
-      const toys = server.createList('toy', 1, { name: 'Bird toy' })
-      server.create('bird', { toys })
-
-      await page
-        .visitBirdEdit({ bird_id: 1 })
-        .clickToys()
-
-      expect(page.toys().count).to.equal(1)
-      expect(findAll('a[data-test=button-create]')).to.have.length(0)
-    }
-  )
-
-  it(
     'should properly create Many-to-Many relationship with inverse',
     async () => {
       const courses = server.createList('course', 1)
