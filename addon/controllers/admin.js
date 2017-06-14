@@ -15,7 +15,8 @@ export default Controller.extend({
     const models = this.get('model')
 
     if (includedModels) {
-      return models.filter(item => includes(includedModels, item))
+      return models.filter(item => includes(includedModels, item) &&
+        !includes(excludedModels, item))
     } else if (excludedModels) {
       return models.filter(item => !includes(excludedModels, item))
     }

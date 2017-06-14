@@ -6,6 +6,7 @@ const {
   A,
   computed,
   inject: { service },
+  getWithDefault,
   getOwner,
   isPresent
 } = Ember
@@ -80,15 +81,20 @@ export default Mixin.create({
   * Defined in admin service
   * merged with defaults
   */
+
   _includedColumns: computed(function() {
+    const adminIncludedColumns = this.get('admin.includedColumns') || {}
+
     return this.get('includedColumns').concat(
-      this.get('admin.includedColumns') || []
+      getWithDefault(adminIncludedColumns, this.get('recordType'), [])
     )
   }),
 
   _excludedColumns: computed(function() {
+    const adminExcludedColumns = this.get('admin.excludedColumns') || {}
+
     return this.get('excludedColumns').concat(
-      this.get('admin.excludedColumns') || []
+      getWithDefault(adminExcludedColumns, this.get('recordType'), [])
     )
   }),
 
@@ -97,10 +103,13 @@ export default Mixin.create({
 
     if (isPresent(this.get('_includedColumns'))) {
       return columns.filter(({ key }) =>
-        includes(this.get('_includedColumns'), key))
+        includes(this.get('_includedColumns'), key) &&
+        !includes(this.get('_excludedColumns'), key)
+      )
     } else if (isPresent(this.get('_excludedColumns'))) {
       return columns.filter(({ key }) =>
-        !includes(this.get('_excludedColumns'), key))
+        !includes(this.get('_excludedColumns'), key)
+      )
     }
 
     return columns

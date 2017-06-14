@@ -67,14 +67,13 @@ describe('Acceptance: Admin', () => {
 
     it('canceling edit', async () => {
       await page
-        .visitCats()
-        .clickFirstCatRecord()
+        .visitCatEdit({ cat_id: 1 })
         .clickCancel()
 
       expect(currentURL()).to.equal('/admin/cat')
     })
   })
-  
+
   context('new', () => {
     it('creating a new record', async () => {
       await page.visitCats()
@@ -150,7 +149,7 @@ describe('Acceptance: Admin', () => {
 
       await page.visitCatEdit({ cat_id: 1 }).clickDelete()
 
-      expect(currentURL()).to.equal('/admin/cat/1/edit')
+      expect(currentURL()).to.equal('/admin/cat/1')
       window.confirm = oldConfirm
     })
   })
@@ -196,7 +195,7 @@ describe('Acceptance: Admin', () => {
       await page.visitCats()
 
       expect(page.catHeaders().text.split(' ')).to.include.members(
-        ['id', 'name']
+        ['name']
       )
 
       await page.visitCatEdit({ cat_id: 1 })

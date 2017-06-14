@@ -24,16 +24,18 @@ export default create({
   }),
 
   catHeaders: collection({
-    itemScope: '[data-test=admin-table-cat] table thead',
+    scope: '[data-test=admin-table-cat] thead',
+    itemScope: 'tr',
     item: {
-      id: text('td', { at: 0 }),
-      name: text('td', { at: 1 }),
-      age: text('td', { at: 2 })
+      id: text('th', { at: 0 }),
+      name: text('th', { at: 1 }),
+      age: text('th', { at: 2 })
     }
   }),
 
   cats: collection({
-    itemScope: '[data-test=admin-table-cat] table tbody tr',
+    scope: '[data-test=admin-table-cat] tbody',
+    itemScope: 'tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 }),
