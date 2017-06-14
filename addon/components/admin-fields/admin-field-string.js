@@ -8,7 +8,7 @@ const {
 export default TextField.extend({
   attributeBindings: ['disabled'],
   disabled: alias('column.disabled'),
-  input(e) {
-    this.onUpdate(this.get('column.key'), e.target.value)
+  input({ target: { value }}) {
+    this.onUpdate(this.get('column.key'), value)
   }
 })

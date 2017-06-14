@@ -13,14 +13,11 @@ export default Component.extend({
   timeout: 500,
 
   value: null,
-  onChange() {}, // passed in
-  onChangeHandler(e) {
-    this.onChange(e.target.value)
-  },
+  onChange() {},
 
   actions: {
-    debounceInput(e) {
-      debounce(this, this.onChangeHandler, e, this.get('timeout'))
+    debounceInput({ target: { value }}) {
+      debounce(this, this.onChange, value, this.get('timeout'))
     }
   }
 })
