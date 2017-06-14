@@ -60,8 +60,9 @@ export default create({
   }),
 
   clickCourses: clickable('[data-test=has-many-courses] a'),
+
   courses: collection({
-    itemScope: '.course table tbody tr'
+    itemScope: '[data-test=admin-table-course] table tbody tr'
   }),
 
   paginatorIsVisible: isVisible('[data-test=fv-paginator]'),
@@ -102,6 +103,9 @@ export default create({
   }),
 
   fillInRelationshipName: fillable('input[data-test=admin-field-string-name]', {
+    scope: '[data-test=admin-form-for-relationship]'
+  }),
+  fillInRelationshipTitle: fillable('input[data-test=admin-field-string-title]', {
     scope: '[data-test=admin-form-for-relationship]'
   })
 })

@@ -58,8 +58,8 @@ describe('Acceptance: Admin Relationships', () => {
 
       await page
         .clickCreateRelatedCourse()
-        .fillInTitle('New Course!')
-        .clickSave()
+        .fillInRelationshipTitle('New Course!')
+        .clickSaveRelationship()
 
       expect(page.courses().count).to.equal(2)
     }
