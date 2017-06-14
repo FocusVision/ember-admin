@@ -24,7 +24,7 @@ export default create({
   }),
 
   catHeaders: collection({
-    itemScope: '.cat table thead',
+    itemScope: '[data-test=admin-table-cat] table thead',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 }),
@@ -33,7 +33,7 @@ export default create({
   }),
 
   cats: collection({
-    itemScope: '.cat table tbody tr',
+    itemScope: '[data-test=admin-table-cat] table tbody tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 }),

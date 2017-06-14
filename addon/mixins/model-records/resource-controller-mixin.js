@@ -33,18 +33,12 @@ export default Mixin.create({
       return get(this, 'model')
         .save()
         .then(record => {
-          this.transitionToRoute(
-            'admin.model-records',
-            record.constructor.modelName
-          )
+          this.transitionToRoute('admin.model-records')
         })
     },
 
     cancel() {
-      this.transitionToRoute(
-        'admin.model-records',
-        get(this, 'model').constructor.modelName
-      )
+      this.transitionToRoute('admin.model-records')
     },
 
     delete() {
@@ -54,12 +48,7 @@ export default Mixin.create({
       if (canDestroy) {
         get(this, 'model')
           .destroyRecord()
-          .then(record =>
-            this.transitionToRoute(
-              'admin.model-records',
-              record.constructor.modelName
-            )
-          )
+          .then(record => this.transitionToRoute('admin.model-records'))
       }
     }
   }

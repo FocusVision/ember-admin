@@ -39,7 +39,6 @@ describe('Acceptance: Admin', () => {
       )
     })
 
-
     it('filtering records by value', async () => {
       await page.visitCats().filterBy('Felix')
 
@@ -67,12 +66,15 @@ describe('Acceptance: Admin', () => {
     })
 
     it('canceling edit', async () => {
-      await page.visitCatEdit({ cat_id: 1 }).clickCancel()
+      await page
+        .visitCats()
+        .clickFirstCatRecord()
+        .clickCancel()
 
       expect(currentURL()).to.equal('/admin/cat')
     })
   })
-
+  
   context('new', () => {
     it('creating a new record', async () => {
       await page.visitCats()
