@@ -27,10 +27,6 @@ export default Component.extend(FilteredColumnsMixin, {
       this.cancel()
     },
 
-    onUpdate(key, val) {
-      this.onUpdate(key, val)
-    },
-
     preventDefault(e) {
       e.preventDefault()
     }
