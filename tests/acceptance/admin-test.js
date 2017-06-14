@@ -217,48 +217,6 @@ describe('Acceptance: Admin', () => {
     })
   })
 
-  context('custom templates', () => {
-    it('can override index template', async () => {
-      server.create('dog')
-
-      await page.visitDogs()
-
-      expect(find('h3.index').text()).to.equal('Dogs Index')
-    })
-
-    it('can override new template', async () => {
-      await page.visitDogsNew()
-
-      expect(find('h3.new').text()).to.equal('Dogs New')
-    })
-
-    it('can override edit template', async () => {
-      server.create('dog')
-
-      await page.visitDogsEdit({ dog_id: 1 })
-
-      expect(find('h3.edit').text()).to.equal('Dogs Edit')
-    })
-  })
-
-  context('disabled fields', () => {
-    it('string can be disabled', async () => {
-      await page.visitDogsNew()
-
-      expect(
-        $('input[data-test=admin-field-string-foo]:disabled').length
-      ).to.be.ok
-    })
-
-    it('boolean can be disabled', async () => {
-      await page.visitDogsNew()
-
-      expect(
-        $('input[data-test=admin-field-boolean-fleas]:disabled').length
-      ).to.be.ok
-    })
-  })
-
   describe('pagination', () => {
     it('shows paginator on index page', async () => {
       await page.visitCats()

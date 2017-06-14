@@ -2,7 +2,6 @@ import Ember from 'ember'
 
 const {
   Mixin,
-  get,
   computed,
   inject: { service },
   A
@@ -30,11 +29,9 @@ export default Mixin.create({
     },
 
     save() {
-      return get(this, 'model')
+      return this.get('model')
         .save()
-        .then(record => {
-          this.transitionToRoute('admin.model-records')
-        })
+        .then(() => this.transitionToRoute('admin.model-records'))
     },
 
     cancel() {
@@ -46,9 +43,9 @@ export default Mixin.create({
         .confirm('Are you sure you want to destroy this record?')
 
       if (canDestroy) {
-        get(this, 'model')
+        this.get('model')
           .destroyRecord()
-          .then(record => this.transitionToRoute('admin.model-records'))
+          .then(() => this.transitionToRoute('admin.model-records'))
       }
     }
   }
