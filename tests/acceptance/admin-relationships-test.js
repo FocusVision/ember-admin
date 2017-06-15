@@ -2,7 +2,6 @@ import { describe, it, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
 import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
-import { findAll } from 'ember-native-dom-helpers'
 import page from '../pages/model-index'
 
 describe('Acceptance: Admin Relationships', () => {
@@ -23,11 +22,12 @@ describe('Acceptance: Admin Relationships', () => {
   afterEach(() => destroyApp(application))
 
   it('should list relationships', async () => {
-    await page.visitCatEdit({ cat_id: 1 })
+    await page
+      .visitCatEdit({ cat_id: 1 })
+      .clickOwnerRelationship()
 
     expect(page.owners().count).to.equal(1)
     expect(page.owners().text).to.include(ownerName)
-    expect(page.hasManyToys).to.be.true
   })
 
   it('should create new model as a relationship to parent', async () => {
@@ -35,36 +35,12 @@ describe('Acceptance: Admin Relationships', () => {
       .visitCatEdit({ cat_id: 1 })
       .clickToys()
       .clickCreateRelatedToy()
-      .fillInName('Bell')
-      .clickSave()
+      .fillInRelationshipName('Bell')
+      .clickSaveRelationship()
 
     expect(page.toys().count).to.equal(3)
     expect(page.toys(2).name).to.equal('Bell')
   })
-
-  it(
-    'should not display "Create" if singular relationship model exists',
-    async () => {
-      await page.visitCatEdit({ cat_id: 1 })
-
-      expect(findAll('a[data-test=button-create]')).to.have.length(0)
-    }
-  )
-
-  it(
-    'should not display "Create" if no inverse relationship exists',
-    async () => {
-      const toys = server.createList('toy', 1, { name: 'Bird toy' })
-      server.create('bird', { toys })
-
-      await page
-        .visitBirdEdit({ bird_id: 1 })
-        .clickToys()
-
-      expect(page.toys().count).to.equal(1)
-      expect(findAll('a[data-test=button-create]')).to.have.length(0)
-    }
-  )
 
   it(
     'should properly create Many-to-Many relationship with inverse',
@@ -80,8 +56,8 @@ describe('Acceptance: Admin Relationships', () => {
 
       await page
         .clickCreateRelatedCourse()
-        .fillInTitle('New Course!')
-        .clickSave()
+        .fillInRelationshipTitle('New Course!')
+        .clickSaveRelationship()
 
       expect(page.courses().count).to.equal(2)
     }

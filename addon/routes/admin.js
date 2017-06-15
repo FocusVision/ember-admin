@@ -2,14 +2,18 @@ import Ember from 'ember'
 
 const {
   getOwner,
-  Route
+  Route,
+  computed
 } = Ember
 
 export default Route.extend({
-  model() {
-    return getOwner(this)
-      .lookup('data-adapter:main')
+  modelNames: computed(function() {
+    return getOwner(this).lookup('data-adapter:main')
       .getModelTypes()
       .map(type => type.name)
+  }),
+
+  model() {
+    return this.get('modelNames')
   }
 })

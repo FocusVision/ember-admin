@@ -1,0 +1,24 @@
+<h2>{{recordType}}</h2>
+
+{{link-to
+  'Create'
+  'admin.model-records.show.related.new'
+  data-test=(concat 'button-create-' recordType)
+}}
+
+{{fv-paginator
+  current=page
+  total=pageCount
+  surrounding=1
+}}
+
+{{admin-filter-keyword
+  value=filterKeyword
+  placeholder=(concat 'Filter by ' recordType)
+  onChange=(action 'onFilterChange')
+  data-test='filter-input'
+}}
+
+{{admin-table
+  recordType=recordType
+  model=model}}
