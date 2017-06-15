@@ -2,12 +2,8 @@ import Ember from 'ember'
 
 const {
   Mixin,
-  computed,
-  inject: { service },
-  A
+  inject: { service }
 } = Ember
-
-
 
 export default Mixin.create({
   admin: service(),
