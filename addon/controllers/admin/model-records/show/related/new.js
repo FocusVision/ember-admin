@@ -12,8 +12,8 @@ export default Ember.Controller.extend(ResourceControllerMixin, {
   relationshipKind: computed('parentModel', function() {
     return this
       .get('parentModel')
-      .get('constructor.relationshipsByName')
-      .get(this.get('recordName'))
+      .relationshipFor(this.get('recordName'))
+      .kind
   }),
 
   inverseRelationshipName: computed('recordName', 'parentModel', function() {
