@@ -1,0 +1,28 @@
+{{yield (hash
+  column=(component
+    'fv-table-column-definition'
+    registrar=this
+  )
+  actionsColumn=(component
+    'fv-table-column-definition'
+    registrar=this
+    className='fv-table-actions'
+  )
+)}}
+<thead>
+  <tr>
+    {{#each columns as |column|}}
+      <th>{{column.label}}</th>
+    {{/each}}
+  </tr>
+</thead>
+<tbody>
+  {{#each model as |row|}}
+    <tr>
+      {{#each columns as |column|}}
+        Yo! - {{column}}
+        <!-- {{fv-table-cell column=column data=rowData}} -->
+      {{/each}}
+    </tr>
+  {{/each}}
+</tbody>
