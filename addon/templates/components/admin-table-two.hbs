@@ -1,12 +1,7 @@
 {{yield (hash
   column=(component
-    'fv-table-column-definition'
+    'admin-table/admin-table-column'
     registrar=this
-  )
-  actionsColumn=(component
-    'fv-table-column-definition'
-    registrar=this
-    className='fv-table-actions'
   )
 )}}
 
@@ -19,12 +14,17 @@
 </thead>
 
 <tbody>
-  {{#each model as |row|}}
+  {{#each normalizedModel as |row|}}
     <tr>
       {{#each columns as |column|}}
-        Yo! - {{column}}
-        <!-- {{fv-table-cell column=column data=rowData}} -->
+        {{admin-table/admin-table-cell column=column model=row}}
       {{/each}}
     </tr>
   {{/each}}
 </tbody>
+
+<!-- actionsColumn=(component
+  'fv-table-column-definition'
+  registrar=this
+  className='fv-table-actions'
+) -->

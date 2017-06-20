@@ -19,11 +19,26 @@
   data-test='filter-input'
 }}
 
-{{admin-table
-  recordType=recordType
-  model=model}}
-
 {{#admin-table-two
+  recordType=recordType
   model=model as |table|}}
+  {{#admin-filter-columns
+    recordType=recordType as |columns|}}
 
+    {{#each columns.filteredColumns as |column|}}
+      {{table.column label=column.key key=column.key}}
+    {{/each}}
+
+  {{/admin-filter-columns}}
 {{/admin-table-two}}
+
+
+
+<!-- {{#fv-table data=model as |table|}}
+  {{table.column
+    label='Timestamp'
+    dataKey='secondsFromStart'
+    dataFormatter=timestampFormatter}}
+  {{table.column label='User' dataKey='email'}}
+  {{table.column label='Name' dataKey='text'}}
+{{/fv-table}} -->

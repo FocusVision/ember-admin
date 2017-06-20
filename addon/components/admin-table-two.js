@@ -1,7 +1,5 @@
 import Ember from 'ember'
-import layout from 'ember-admin/templates/components/admin-table'
-import FilteredColumnsMixin
-  from 'ember-admin/mixins/model-records/filtered-columns-mixin'
+import layout from 'ember-admin/templates/components/admin-table-two'
 
 const {
   Component,
@@ -10,16 +8,16 @@ const {
   A
 } = Ember
 
-export default Component.extend(FilteredColumnsMixin, {
+export default Component.extend({
   layout,
   tagName: 'table',
+
+  model: null,
+  columns: A(),
 
   dataTest: computed(function() {
     return `admin-table-${this.get('recordType')}`
   }),
-
-  model: null,
-  columns: computed(() => A()),
 
   normalizedModel: computed('model', function() {
     const model = this.get('model')
