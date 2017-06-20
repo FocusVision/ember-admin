@@ -28,17 +28,7 @@
     {{#each columns.filteredColumns as |column|}}
       {{table.column label=column.key key=column.key}}
     {{/each}}
+    {{table.actionsColumn label='' component='column-actions-relationship'}}
 
   {{/admin-filter-columns}}
 {{/admin-table-two}}
-
-
-
-<!-- {{#fv-table data=model as |table|}}
-  {{table.column
-    label='Timestamp'
-    dataKey='secondsFromStart'
-    dataFormatter=timestampFormatter}}
-  {{table.column label='User' dataKey='email'}}
-  {{table.column label='Name' dataKey='text'}}
-{{/fv-table}} -->

@@ -1,5 +1,5 @@
 {{#if column.component}}
-  {{component column.component model=model key=column.key}}
+  {{component column.component model=model column=column}}
 {{else}}
   {{get model column.key}}
 {{/if}}
