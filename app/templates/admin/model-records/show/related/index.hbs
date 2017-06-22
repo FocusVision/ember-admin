@@ -28,7 +28,11 @@
     {{#each columns.filteredColumns as |column|}}
       {{table.column label=column.key key=column.key}}
     {{/each}}
-    {{table.actionsColumn label='' component='column-actions-relationship'}}
+    {{table.actionsColumn
+      label='Actions'
+      component='column-actions-relationship'
+      
+    }}
 
   {{/admin-filter-columns}}
 {{/admin-table-two}}

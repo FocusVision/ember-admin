@@ -21,7 +21,7 @@
   {{#each normalizedModel as |row|}}
     <tr>
       {{#each columns as |column|}}
-        {{admin-table/admin-table-cell column=column model=row}}
+        {{admin-table/admin-table-cell column=column model=row options=options}}
       {{/each}}
     </tr>
   {{/each}}

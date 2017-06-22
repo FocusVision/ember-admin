@@ -6,5 +6,11 @@ const {
 } = Ember
 
 export default Component.extend({
-  layout
+  layout,
+
+  actions: {
+    removeRelationship() {
+      debugger
+    }
+  }
 })

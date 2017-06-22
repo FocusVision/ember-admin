@@ -3,8 +3,8 @@ import EmberDataRouteMixin from 'ember-data-route'
 
 const {
   Mixin,
-  inject: { service },
-  A
+  A,
+  inject: { service }
 } = Ember
 
 const relationshipsFor = model => {
