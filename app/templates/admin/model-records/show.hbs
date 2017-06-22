@@ -1,0 +1,27 @@
+<h2>Edit {{recordType}}</h2>
+
+{{admin-form
+  model=model
+  recordType=recordType
+  save=(action 'save')
+  delete=(action 'delete')
+  cancel=(action 'cancel')
+  onUpdate=(action 'onFieldUpdate')
+}}
+
+<h2>Relationships</h2>
+
+<ul>
+  {{#each relationships as |relationship|}}
+    <li data-test='has-many-{{relationship.key}}'>
+      {{#link-to
+        'admin.model-records.show.related'
+        relationship.key
+      }}
+        {{relationship.key}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>
+
+{{outlet}}

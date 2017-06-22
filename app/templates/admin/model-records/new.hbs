@@ -1,0 +1,9 @@
+<h2>New {{recordType}}</h2>
+
+{{admin-form
+  recordType=recordType
+  model=model
+  save=(action 'save')
+  cancel=(action 'cancel')
+  onUpdate=(action 'onFieldUpdate')
+}}

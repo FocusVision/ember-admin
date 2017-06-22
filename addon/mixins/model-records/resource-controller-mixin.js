@@ -2,14 +2,11 @@ import Ember from 'ember'
 
 const {
   Mixin,
-  get,
-  computed: { alias },
-  inject: { controller }
+  inject: { service }
 } = Ember
 
 export default Mixin.create({
-  modelRecords: controller('model-records'),
-  recordType: alias('modelRecords.recordType'),
+  admin: service(),
 
   actions: {
     onFieldUpdate(key, value) {
@@ -17,36 +14,23 @@ export default Mixin.create({
     },
 
     save() {
-      return get(this, 'model')
+      return this.get('model')
         .save()
-        .then(record => {
-          this.transitionToRoute(
-            'model-records',
-            record.constructor.modelName
-          )
-        })
+        .then(() => this.transitionToRoute('admin.model-records'))
     },
 
     cancel() {
-      this.transitionToRoute(
-        'model-records',
-        get(this, 'model').constructor.modelName
-      )
+      this.transitionToRoute('admin.model-records')
     },
 
-    destroyRecord() {
+    delete() {
       const canDestroy = window
         .confirm('Are you sure you want to destroy this record?')
 
       if (canDestroy) {
-        get(this, 'model')
+        this.get('model')
           .destroyRecord()
-          .then(record =>
-            this.transitionToRoute(
-              'model-records',
-              record.constructor.modelName
-            )
-          )
+          .then(() => this.transitionToRoute('admin.model-records'))
       }
     }
   }

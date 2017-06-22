@@ -1,0 +1,38 @@
+<ul data-test='models-list'>
+  {{#each filteredModels as |name|}}
+    <li>
+      {{link-to name
+        'admin.model-records'
+        name
+        data-test=(concat 'models-list-item-' name)}}
+    </li>
+  {{/each}}
+</ul>
+{{outlet}}
+<h2>{{recordType}}</h2>
+
+{{link-to
+  'Create'
+  'admin.model-records.new'
+  class='fv-button fv-button-default'
+  data-test='button-create'
+}}
+
+{{fv-paginator
+  class='fv-pull-right'
+  current=page
+  total=pageCount
+  surrounding=1
+}}
+
+{{admin-filter-keyword
+  value=filterKeyword
+  placeholder=(concat 'Filter by ' recordType)
+  onChange=(action 'onFilterChange')
+  data-test='filter-input'
+}}
+
+{{admin-table
+  recordType=recordType
+  model=model
+}}

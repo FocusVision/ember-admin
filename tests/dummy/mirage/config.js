@@ -1,4 +1,5 @@
 const jsonapiType = request => JSON.parse(request.requestBody).data.type
+
 const patch = function(schema, request) {
   const { params: { id }} = request
   return schema[jsonapiType(request)]

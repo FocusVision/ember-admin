@@ -11,12 +11,12 @@ import {
 export default create({
   visit: visitable('/admin'),
   visitCats: visitable('/admin/cat'),
-  visitCatEdit: visitable('/admin/cat/:cat_id/edit'),
+  visitCatEdit: visitable('/admin/cat/:cat_id'),
   visitCatNew: visitable('/admin/cat/new'),
-  visitBirdEdit: visitable('/admin/bird/:bird_id/edit'),
-  visitOwnerEdit: visitable('/admin/owner/:owner_id/edit'),
+  visitBirdEdit: visitable('/admin/bird/:bird_id'),
+  visitOwnerEdit: visitable('/admin/owner/:owner_id'),
   visitDogs: visitable('/admin/dogs'),
-  visitDogsEdit: visitable('/admin/dogs/:dog_id/edit'),
+  visitDogsEdit: visitable('/admin/dogs/:dog_id'),
   visitDogsNew: visitable('/admin/dogs/new'),
 
   modelLinks: text('[data-test=models-list] a', {
@@ -24,16 +24,18 @@ export default create({
   }),
 
   catHeaders: collection({
-    itemScope: '.cat table thead',
+    scope: '[data-test=admin-table-cat] thead',
+    itemScope: 'tr',
     item: {
-      id: text('td', { at: 0 }),
-      name: text('td', { at: 1 }),
-      age: text('td', { at: 2 })
+      id: text('th', { at: 0 }),
+      name: text('th', { at: 1 }),
+      age: text('th', { at: 2 })
     }
   }),
 
   cats: collection({
-    itemScope: '.cat table tbody tr',
+    scope: '[data-test=admin-table-cat] tbody',
+    itemScope: 'tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 }),
@@ -42,7 +44,7 @@ export default create({
   }),
 
   owners: collection({
-    itemScope: '.owner table tbody tr',
+    itemScope: '[data-test=admin-table-owner] table tbody tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 })
@@ -52,7 +54,7 @@ export default create({
   hasManyToys: isVisible('[data-test=has-many-toys]'),
   clickToys: clickable('[data-test=has-many-toys] a'),
   toys: collection({
-    itemScope: '.toy table tbody tr',
+    itemScope: '[data-test=admin-table-toy] table tbody tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 })
@@ -60,8 +62,9 @@ export default create({
   }),
 
   clickCourses: clickable('[data-test=has-many-courses] a'),
+
   courses: collection({
-    itemScope: '.course table tbody tr'
+    itemScope: '[data-test=admin-table-course] table tbody tr'
   }),
 
   paginatorIsVisible: isVisible('[data-test=fv-paginator]'),
@@ -84,16 +87,26 @@ export default create({
   clickFirstCatRecord: clickable('a[data-test=record-list-item]', {
     at: 0
   }),
-
   clickLastToyRecord: clickable('a[data-test=record-list-item]', {
     at: 2
   }),
 
-  clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
-  clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
-
   clickSave: clickable('button[data-test=button-save]'),
   clickDelete: clickable('button[data-test=button-delete]'),
   clickCancel: clickable('button[data-test=button-cancel]'),
-  clickCreate: clickable('a[data-test=button-create]')
+  clickCreate: clickable('a[data-test=button-create]'),
+
+  clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
+  clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
+  clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
+  clickSaveRelationship: clickable('button[data-test=button-save]', {
+    scope: '[data-test=admin-form-for-relationship]'
+  }),
+
+  fillInRelationshipName: fillable('input[data-test=admin-field-string-name]', {
+    scope: '[data-test=admin-form-for-relationship]'
+  }),
+  fillInRelationshipTitle: fillable('input[data-test=admin-field-string-title]',
+    { scope: '[data-test=admin-form-for-relationship]' }
+  )
 })

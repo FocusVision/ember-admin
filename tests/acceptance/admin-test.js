@@ -39,7 +39,6 @@ describe('Acceptance: Admin', () => {
       )
     })
 
-
     it('filtering records by value', async () => {
       await page.visitCats().filterBy('Felix')
 
@@ -67,7 +66,9 @@ describe('Acceptance: Admin', () => {
     })
 
     it('canceling edit', async () => {
-      await page.visitCatEdit({ cat_id: 1 }).clickCancel()
+      await page
+        .visitCatEdit({ cat_id: 1 })
+        .clickCancel()
 
       expect(currentURL()).to.equal('/admin/cat')
     })
@@ -148,7 +149,7 @@ describe('Acceptance: Admin', () => {
 
       await page.visitCatEdit({ cat_id: 1 }).clickDelete()
 
-      expect(currentURL()).to.equal('/admin/cat/1/edit')
+      expect(currentURL()).to.equal('/admin/cat/1')
       window.confirm = oldConfirm
     })
   })
@@ -194,7 +195,7 @@ describe('Acceptance: Admin', () => {
       await page.visitCats()
 
       expect(page.catHeaders().text.split(' ')).to.include.members(
-        ['id', 'name']
+        ['name']
       )
 
       await page.visitCatEdit({ cat_id: 1 })
@@ -213,48 +214,6 @@ describe('Acceptance: Admin', () => {
       expect(page.catHeaders().text.split(' ')).to.include.members(
         ['id', 'age', 'fleas', 'bar', 'baz']
       )
-    })
-  })
-
-  context('custom templates', () => {
-    it('can override index template', async () => {
-      server.create('dog')
-
-      await page.visitDogs()
-
-      expect(find('h3.index').text()).to.equal('Dogs Index')
-    })
-
-    it('can override new template', async () => {
-      await page.visitDogsNew()
-
-      expect(find('h3.new').text()).to.equal('Dogs New')
-    })
-
-    it('can override edit template', async () => {
-      server.create('dog')
-
-      await page.visitDogsEdit({ dog_id: 1 })
-
-      expect(find('h3.edit').text()).to.equal('Dogs Edit')
-    })
-  })
-
-  context('disabled fields', () => {
-    it('string can be disabled', async () => {
-      await page.visitDogsNew()
-
-      expect(
-        $('input[data-test=admin-field-string-foo]:disabled').length
-      ).to.be.ok
-    })
-
-    it('boolean can be disabled', async () => {
-      await page.visitDogsNew()
-
-      expect(
-        $('input[data-test=admin-field-boolean-fleas]:disabled').length
-      ).to.be.ok
     })
   })
 

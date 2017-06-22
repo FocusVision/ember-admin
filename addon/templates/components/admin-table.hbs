@@ -1,0 +1,29 @@
+{{#if model}}
+  <table class='fv-table'>
+    <thead>
+      <tr>
+        {{#each filteredColumns as |column|}}
+          <th>
+            {{column.key}}
+          </th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each normalizedModel as |record|}}
+        <tr>
+          {{#each filteredColumns as |column|}}
+          <td>
+            {{#link-to 'admin.model-records.show' recordType record.id data-test='record-list-item'}}
+              {{get record column.key}}
+            {{/link-to}}
+          </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+{{else}}
+  No records!
+{{/if}}

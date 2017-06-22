@@ -2,40 +2,26 @@ import Ember from 'ember'
 import EmberDataRouteMixin from 'ember-data-route'
 
 const {
-  computed,
-  getOwner,
   Mixin,
-  String: { singularize }
+  inject: { service },
+  A
 } = Ember
 
+const relationshipsFor = model => {
+  const relationships = []
+
+  model.get('constructor.relationshipsByName').forEach(relationship =>
+    relationships.push(relationship))
+
+  return A(relationships)
+}
+
 export default Mixin.create(EmberDataRouteMixin, {
-  templateAdminPath: null,
+  admin: service(),
 
-  recordType: computed(function() {
-    return singularize(this.paramsFor('model-records').name)
-  }),
-
-  templatePath: computed('recordType', function() {
-    return `${this.get('templateAdminPath')}/${this.get('recordType')}`
-  }),
-
-  defaultTemplatePath: computed(function() {
-    return `${this.get('templateAdminPath')}/default`
-  }),
-
-  templateName: computed('templatePath', function() {
-    const {
-      templatePath,
-      defaultTemplatePath
-    } = this.getProperties('templatePath', 'defaultTemplatePath')
-
-    return getOwner(this).lookup(`template:${templatePath}`) ?
-      templatePath :
-      defaultTemplatePath
-  }),
-
-  renderTemplate() {
-    this.render(this.get('templateName'))
+  setupController(controller, model) {
+    this._super(controller, model)
+    controller.set('relationships', relationshipsFor(model))
   },
 
   willTransitionConfirm() {

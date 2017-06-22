@@ -15,6 +15,6 @@ export default Model.extend(ModelMixin, {
   fleas: attr('boolean', { default: false }),
   bar: attr('string'),
   baz: attr('string'),
-  toys: hasMany('toy', { async: true }),
+  toys: hasMany('toy', { async: true, inverse: 'cat' }),
   owner: belongsTo('owner', { async: true })
 })
