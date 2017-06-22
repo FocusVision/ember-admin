@@ -9,6 +9,8 @@ const {
 export default Component.extend({
   layout,
 
+  classNames: ['fv-text-control'],
+  tagName: '',
   placeholder: 'Enter text...',
   timeout: 500,
 
