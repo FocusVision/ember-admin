@@ -1,4 +1,10 @@
-<h2>Edit {{recordType}}</h2>
+<h2>
+  {{#link-to 'admin.model-records' recordType}}
+    {{recordType}}
+  {{/link-to}}
+  -
+  {{model.id}}
+</h2>
 
 {{admin-form
   model=model
