@@ -23,7 +23,7 @@ export default Ember.Controller.extend(
           model.set(this.get('inverseRelationshipName'), parentModel)
         }
 
-        return model.save().then(record => {
+        model.save().then(record => {
           if (this.get('relationshipKind').kind === 'belongsTo') {
             parentModel.set(this.get('recordName'), record)
           } else {

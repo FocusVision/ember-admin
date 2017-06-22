@@ -25,5 +25,11 @@ export default Mixin.create({
     const inverse = this.get('inverseRelationshipName')
     return model.relationshipFor(inverse) &&
       model.relationshipFor(inverse).kind
-  })
+  }),
+
+  _inverseRelationshipKind(model) {
+    const inverse = this.get('inverseRelationshipName')
+    return model.relationshipFor(inverse) &&
+      model.relationshipFor(inverse).kind
+  }
 })

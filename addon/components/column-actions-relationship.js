@@ -9,8 +9,8 @@ export default Component.extend({
   layout,
 
   actions: {
-    removeRelationship() {
-      debugger
+    remove(model) {
+      this.column.actionsHash.remove(model)
     }
   }
 })
