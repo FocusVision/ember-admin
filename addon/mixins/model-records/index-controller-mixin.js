@@ -21,10 +21,6 @@ export default Mixin.create({
   actions: {
     onFilterChange(value) {
       this.set('filterKeyword', value)
-    },
-
-    removeRelationships() {
-      
     }
   }
 })

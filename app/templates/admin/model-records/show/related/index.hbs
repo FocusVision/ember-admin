@@ -20,18 +20,23 @@
 }}
 
 {{#admin-table-two
-  recordType=recordType
-  model=model as |table|}}
+  model=model
+  parentModel=parentModel
+  recordName=recordName
+  recordType=recordType as |table|}}
   {{#admin-filter-columns
     recordType=recordType as |columns|}}
 
     {{#each columns.filteredColumns as |column|}}
-      {{table.column label=column.key key=column.key}}
+      {{table.column
+        label=column.key
+        key=column.key
+      }}
     {{/each}}
+
     {{table.actionsColumn
       label='Actions'
       component='column-actions-relationship'
-      
     }}
 
   {{/admin-filter-columns}}

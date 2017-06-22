@@ -21,7 +21,15 @@
   {{#each normalizedModel as |row|}}
     <tr>
       {{#each columns as |column|}}
-        {{admin-table/admin-table-cell column=column model=row options=options}}
+        {{admin-table/admin-table-cell
+          model=row
+          column=column
+          options=(hash
+            parentModel=parentModel
+            recordName=recordName
+            recordType=recordType
+          )
+        }}
       {{/each}}
     </tr>
   {{/each}}

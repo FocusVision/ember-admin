@@ -1,5 +1,10 @@
 {{#if column.component}}
-  {{component column.component model=model column=column options=options}}
+  {{component
+    column.component
+    model=model
+    column=column
+    options=options
+  }}
 {{else}}
   {{get model column.key}}
 {{/if}}

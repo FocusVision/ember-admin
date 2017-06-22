@@ -12,8 +12,7 @@ export default Mixin.create({
 
     controller.setProperties({
       parentModel: this.modelFor('admin.model-records.show'),
-      recordName: this.paramsFor('admin.model-records.show.related')
-        .relationship_name,
+      recordName: this._relationshipName(),
       recordType: this._relationshipType()
     })
   },
