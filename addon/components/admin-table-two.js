@@ -11,13 +11,12 @@ const {
 export default Component.extend({
   layout,
   tagName: 'table',
-
-  model: null,
-  columns: A(),
-
   dataTest: computed(function() {
     return `admin-table-${this.get('recordType')}`
   }),
+
+  model: null,
+  columns: computed(() => A()),
 
   normalizedModel: computed('model', function() {
     const model = this.get('model')

@@ -4,7 +4,30 @@
   oninput={{action 'searchTerm'}} />
 
 {{#if hasTerm}}
-  {{#each results as |record|}}
-    {{record}}
-  {{/each}}
+
+  {{#admin-table-two
+    recordType=recordType
+    model=results as |table|}}
+
+    {{#admin-filter-columns
+      recordType=recordType as |columns|}}
+
+      {{#each columns.filteredColumns as |column|}}
+        {{table.column
+          label=column.key
+          key=column.key
+        }}
+      {{/each}}
+
+      <!-- {{table.actionsColumn
+        label='actions'
+        component='column-actions-relationship'
+        actionsHash=(hash
+          remove=(action 'remove')
+        )
+      }} -->
+
+    {{/admin-filter-columns}}
+  {{/admin-table-two}}
+
 {{/if}}

@@ -28,7 +28,6 @@ export default Component.extend({
     this.set('term', term)
 
     if (term.length >= this.termLengthThreshold) {
-      console.log(term)
       this.get('admin.store').query(
         this.get('recordType'),
         { page: 1, size: 10, 'filter[keyword]': this.get('term') }
