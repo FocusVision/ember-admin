@@ -24,7 +24,7 @@ export default Ember.Controller.extend(
         }
 
         model.save().then(record => {
-          if (this.get('relationshipKind').kind === 'belongsTo') {
+          if (this.get('relationshipKind') === 'belongsTo') {
             parentModel.set(this.get('recordName'), record)
           } else {
             parentModel.get(this.get('recordName')).pushObject(record)
