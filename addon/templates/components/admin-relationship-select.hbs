@@ -1,0 +1,10 @@
+<input
+  data-test='ember-admin-relationship-select'
+  placeholder={{placeholder}}
+  oninput={{action 'searchTerm'}} />
+
+{{#if hasTerm}}
+  {{#each results as |record|}}
+    {{record}}
+  {{/each}}
+{{/if}}
