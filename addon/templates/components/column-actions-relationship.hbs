@@ -1,3 +1,11 @@
-<button type='button' onclick={{action 'remove' model}}>
-  Remove
-</button>
+{{#if column.actionsHash.remove}}
+  <button type='button' onclick={{action 'remove' model}}>
+    Remove
+  </button>
+{{/if}}
+
+{{#if column.actionsHash.add}}
+  <button type='button' onclick={{action 'add' model}}>
+    Add
+  </button>
+{{/if}}

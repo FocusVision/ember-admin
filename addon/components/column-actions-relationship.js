@@ -11,6 +11,10 @@ export default Component.extend({
   actions: {
     remove(model) {
       this.column.actionsHash.remove(model)
+    },
+
+    add(model) {
+      this.column.actionsHash.add(model)
     }
   }
 })

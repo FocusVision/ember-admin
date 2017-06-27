@@ -12,6 +12,20 @@
   surrounding=1
 }}
 
+<h1>
+  Select Relationship
+</h1>
+
+{{admin-relationship-select
+  recordType=recordType
+  add=(action 'add')}}
+
+<br/>
+
+<h1>
+  Show relationship
+</h1>
+
 {{admin-filter-keyword
   value=filterKeyword
   placeholder=(concat 'Filter by ' recordType)
@@ -19,17 +33,6 @@
   data-test='filter-input'
 }}
 
-<h1>
-  Select Relationship
-</h1>
-{{admin-relationship-select
-  recordType=recordType}}
-
-<br/>
-
-<h1>
-  Show relationship
-</h1>
 {{#admin-table-two
   recordType=recordType
   model=model as |table|}}

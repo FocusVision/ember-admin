@@ -3,7 +3,7 @@
   placeholder={{placeholder}}
   oninput={{action 'searchTerm'}} />
 
-{{#if hasTerm}}
+{{#if hasResults}}
 
   {{#admin-table-two
     recordType=recordType
@@ -19,13 +19,13 @@
         }}
       {{/each}}
 
-      <!-- {{table.actionsColumn
-        label='actions'
+      {{table.actionsColumn
+        label=''
         component='column-actions-relationship'
         actionsHash=(hash
-          remove=(action 'remove')
+          add=add
         )
-      }} -->
+      }}
 
     {{/admin-filter-columns}}
   {{/admin-table-two}}

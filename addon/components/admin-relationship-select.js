@@ -4,7 +4,7 @@ import layout from 'ember-admin/templates/components/admin-relationship-select'
 const {
   Component,
   computed,
-  computed: { notEmpty },
+  computed: { gt },
   run: { debounce },
   inject: { service },
   A
@@ -17,12 +17,12 @@ export default Component.extend({
   termLengthThreshold: 3,
 
   term: '',
-  results: A(),
+  results: computed(() => A()),
   placeholder: computed(function() {
     return `Search by ${this.get('recordType')}`
   }),
 
-  hasTerm: notEmpty('term'),
+  hasResults: gt('results.length', 0),
 
   onInput(term) {
     this.set('term', term)
@@ -30,7 +30,7 @@ export default Component.extend({
     if (term.length >= this.termLengthThreshold) {
       this.get('admin.store').query(
         this.get('recordType'),
-        { page: 1, size: 10, 'filter[keyword]': this.get('term') }
+        { 'filter[keyword]': this.get('term') }
       ).then(results => this.set('results', results))
     }
   },
