@@ -25,14 +25,20 @@ export default Component.extend({
   hasResults: gt('results.length', 0),
 
   onInput(term) {
-    this.set('term', term)
-
-    if (term.length >= this.termLengthThreshold) {
-      this.get('admin.store').query(
-        this.get('recordType'),
-        { 'filter[keyword]': this.get('term') }
-      ).then(results => this.set('results', results))
+    if (term.length === 0) {
+      return this.clearSearch()
     }
+
+    this.set('term', term)
+    this.get('admin.store').query(
+      this.get('recordType'),
+      { 'filter[keyword]': this.get('term') }
+    ).then(results => this.set('results', results))
+  },
+
+  clearSearch() {
+    this.set('term', '')
+    this.set('results', A())
   },
 
   actions: {
