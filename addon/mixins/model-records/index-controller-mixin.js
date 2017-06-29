@@ -3,6 +3,7 @@ import Ember from 'ember'
 const {
   Mixin,
   inject: { service },
+  computed,
   computed: { alias }
 } = Ember
 
@@ -15,7 +16,7 @@ export default Mixin.create({
   page: 1,
   size: 30,
 
-  'filter[keyword]': '',
+  'filter[keyword]': computed(() => ''),
   filterKeyword: alias('filter[keyword]'),
 
   actions: {

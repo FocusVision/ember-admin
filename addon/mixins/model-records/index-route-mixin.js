@@ -17,11 +17,13 @@ export default Mixin.create({
   extractQueryParams(params) {
     const queryParams = {}
     const keys = ['page', 'filter[keyword]', 'size']
+
     keys.forEach(key => {
       if (params[key]) {
         queryParams[key] = params[key]
       }
     })
+    
     return queryParams
   }
 })

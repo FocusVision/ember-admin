@@ -1,0 +1,24 @@
+{{#admin-table-two
+  recordType=recordType
+  model=model as |table|}}
+
+  {{#admin-filter-columns
+    recordType=recordType as |columns|}}
+
+    {{#each columns.filteredColumns as |column|}}
+      {{table.column
+        label=column.key
+        key=column.key
+      }}
+    {{/each}}
+
+    {{table.actionsColumn
+      label=''
+      component='column-actions-relationship'
+      actionsHash=(hash
+        add=add
+      )
+    }}
+
+  {{/admin-filter-columns}}
+{{/admin-table-two}}

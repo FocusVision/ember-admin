@@ -10,8 +10,6 @@ const {
 } = Ember
 
 export default Route.extend(IndexRouteMixin, RelationshipRouteMixin, {
-  
-
   model(params) {
     return this.modelFor('admin.model-records.show')
       .query(this._relationshipName(), this.extractQueryParams(params))

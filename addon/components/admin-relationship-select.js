@@ -5,47 +5,13 @@ const {
   Component,
   computed,
   computed: { gt },
-  run: { debounce },
   inject: { service },
   A
 } = Ember
 
 export default Component.extend({
+  layout,
   admin: service(),
 
-  timeout: 500,
-  termLengthThreshold: 3,
-
-  term: '',
-  results: computed(() => A()),
-  placeholder: computed(function() {
-    return `Search by ${this.get('recordType')}`
-  }),
-
-  hasResults: gt('results.length', 0),
-
-  onInput(term) {
-    if (term.length === 0) {
-      return this.clearSearch()
-    }
-
-    this.set('term', term)
-    this.get('admin.store').query(
-      this.get('recordType'),
-      { 'filter[keyword]': this.get('term') }
-    ).then(results => this.set('results', results))
-  },
-
-  clearSearch() {
-    this.set('term', '')
-    this.set('results', A())
-  },
-
-  actions: {
-    searchTerm({ target: { value }}) {
-      debounce(this, this.onInput, value, this.get('timeout'))
-    }
-  },
-
-  layout
+  filterKeyword: null
 })
