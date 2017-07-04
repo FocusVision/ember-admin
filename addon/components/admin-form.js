@@ -12,11 +12,12 @@ export default Component.extend(FilteredColumnsMixin, {
   excludedColumns: ['id'],
 
   model: null,
+  parentModel: null,
   recordType: null,
 
   actions: {
-    save() {
-      this.save()
+    save(model, parentModel) {
+      this.save(model, parentModel)
     },
 
     delete() {

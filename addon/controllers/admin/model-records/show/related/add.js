@@ -31,15 +31,16 @@ export default Controller.extend(
         const inverseRelationshipName = this.get('inverseRelationshipName')
         const recordName = this.get('recordName')
 
-        if (this._inverseRelationshipKind(model) === 'belongsTo') {
+
+        if (this.inverseRelationshipKind(model) === 'belongsTo') {
           model.set(inverseRelationshipName, model)
         }
 
-        if (this._inverseRelationshipKind(model) === 'hasMany') {
+        if (this.inverseRelationshipKind(model) === 'hasMany') {
           model.get(inverseRelationshipName).pushObject(parentModel)
         }
 
-        if (this.get('relationshipKind') === 'belongsTo') {
+        if (this.relationshipKind(parentModel, recordName) === 'belongsTo') {
           parentModel.set(recordName, model)
         } else {
           parentModel.get(recordName).pushObject(model)

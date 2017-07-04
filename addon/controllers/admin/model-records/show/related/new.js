@@ -11,19 +11,20 @@ export default Ember.Controller.extend(
     excludedColumns: ['id'],
 
     actions: {
-      save() {
-        const parentModel = this.get('parentModel')
-        const model = this.get('model')
+      save(model, parentModel) {
+        // recordName is the relationship prop name it is
+        // defined on the model set here via paramsFor
+        // NOT the modelName
 
-        if (this.get('inverseRelationshipKind') === 'belongsTo') {
-          model.set(this.get('inverseRelationshipName'), parentModel)
-        }
+        const recordName = this.get('recordName')
+        const relationshipKind =
+          this.relationshipKind(parentModel, recordName)
 
         model.save().then(record => {
-          if (this.get('relationshipKind') === 'belongsTo') {
-            parentModel.set(this.get('recordName'), record)
+          if (relationshipKind === 'belongsTo') {
+            parentModel.set(recordName, record)
           } else {
-            parentModel.get(this.get('recordName')).pushObject(record)
+            parentModel.get(recordName).pushObject(record)
           }
 
           parentModel.save().then(() =>

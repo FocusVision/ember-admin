@@ -1,8 +1,8 @@
 import { Model, hasMany } from 'ember-cli-mirage'
 
 export default Model.extend({
-  birds: hasMany('bird', { inverse: 'owners' }),
-  cats: hasMany('cat', { inverse: 'owners' }),
-  dogs: hasMany('dog', { inverse: 'owners' }),
+  birds: hasMany('bird', { inverse: 'owner' }),
+  cats: hasMany('cat', { inverse: 'owner' }),
+  dogs: hasMany('dog', { inverse: 'owner' }),
   courses: hasMany('course', { inverse: 'owners' })
 })

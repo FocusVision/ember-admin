@@ -10,12 +10,12 @@ export default Component.extend({
   layout,
 
   actions: {
-    remove(model) {
-      this.column.actionsHash.remove(model)
+    remove(model, parentModel) {
+      this.column.actionsHash.remove(model, parentModel)
     },
 
-    add(model) {
-      this.column.actionsHash.add(model)
+    add(model, parentModel) {
+      this.column.actionsHash.add(model, parentModel)
     }
   }
 })

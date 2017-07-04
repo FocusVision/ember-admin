@@ -1,7 +1,7 @@
 <form submit={{action 'preventDefault'}}>
   {{async-button
     type='submit'
-    action=(action 'save')
+    action=(action 'save' model parentModel)
     default='Save'
     pending='Saving...'
     fulfilled='Saved'

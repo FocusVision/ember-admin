@@ -6,30 +6,18 @@ const {
 } = Ember
 
 export default Mixin.create({
-  relationshipKind: computed('parentModel', function() {
-    return this
-      .get('parentModel')
-      .relationshipFor(this.get('recordName'))
-      .kind
-  }),
+  relationshipKind(parentModel, recordName) {
+    const relationship = parentModel.relationshipFor(recordName)
+    return relationship && relationship.kind
+  },
 
-  inverseRelationshipName: computed('recordName', 'parentModel', function() {
-    return this.get('parentModel')
-      .relationshipFor(this.get('recordName'))
-      .options
-      .inverse
-  }),
+  inverseRelationshipName(parentModel, recordName) {
+    const inverse = parentModel.inverseFor(recordName)
+    return inverse && inverse.name
+  },
 
-  inverseRelationshipKind: computed('inverseRelationshipName', function() {
-    const model = this.get('model')
-    const inverse = this.get('inverseRelationshipName')
-    return model.relationshipFor(inverse) &&
-      model.relationshipFor(inverse).kind
-  }),
-
-  _inverseRelationshipKind(model) {
-    const inverse = this.get('inverseRelationshipName')
-    return model.relationshipFor(inverse) &&
-      model.relationshipFor(inverse).kind
+  inverseRelationshipKind(parentModel, recordName) {
+    const inverse = parentModel.inverseFor(recordName)
+    return inverse && inverse.kind
   }
 })

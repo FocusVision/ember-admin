@@ -46,13 +46,7 @@ export default function(server) {
         'dog',
         {
           name: 'Nana',
-          age: 67,
-          toys: build(
-            'toy',
-            { name: 'Broom' },
-            { name: 'Vacuum' },
-            { name: 'Duster' }
-          )
+          age: 67
         }
       )
     }

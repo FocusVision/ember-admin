@@ -1,9 +1,9 @@
 {{#if column.component}}
   {{component
     column.component
+    parentModel=parentModel
     model=model
     column=column
-    options=options
   }}
 {{else}}
   {{get model column.key}}
