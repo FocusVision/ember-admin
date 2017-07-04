@@ -1,15 +1,10 @@
 import Ember from 'ember'
 
 const {
-  Service,
-  inject: { service },
-  computed,
-  String: { singularize }
+  Service
 } = Ember
 
 export default Service.extend({
-  routing: service('-routing'),
-
   includedModels: null,
   excludedModels: null,
 

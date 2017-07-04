@@ -4,10 +4,6 @@ import ResourceControllerMixin
 import RelationshipControllerMixin
   from 'ember-admin/mixins/model-records/relationship-controller-mixin'
 
-const {
-  computed
-} = Ember
-
 export default Ember.Controller.extend(
   ResourceControllerMixin,
   RelationshipControllerMixin,

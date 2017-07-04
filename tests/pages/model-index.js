@@ -44,7 +44,7 @@ export default create({
   }),
 
   owners: collection({
-    itemScope: '[data-test=admin-table-owner] table tbody tr',
+    itemScope: 'table[data-test=admin-table-owner] tbody tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 })

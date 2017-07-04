@@ -47,7 +47,6 @@ export default Component.extend({
   * Returns the model based `recordType`
   */
   currentModel: computed('recordType', function() {
-
     return this.get('registeredModels').findBy(
       'name', this.get('recordType')
     )

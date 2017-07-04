@@ -3,10 +3,7 @@ import layout from 'ember-admin/templates/components/admin-relationship-select'
 
 const {
   Component,
-  computed,
-  computed: { gt },
-  inject: { service },
-  A
+  inject: { service }
 } = Ember
 
 export default Component.extend({

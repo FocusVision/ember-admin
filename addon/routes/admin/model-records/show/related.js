@@ -1,4 +1,3 @@
-
 import Ember from 'ember'
 import IndexRouteMixin
   from 'ember-admin/mixins/model-records/index-route-mixin'

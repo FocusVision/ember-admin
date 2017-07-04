@@ -1,5 +1,4 @@
 import Ember from 'ember'
-import EmberDataRouteMixin from 'ember-data-route'
 
 const {
   Mixin,

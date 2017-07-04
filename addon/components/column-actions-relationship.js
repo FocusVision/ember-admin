@@ -1,5 +1,6 @@
 import Ember from 'ember'
-import layout from 'ember-admin/templates/components/column-actions-relationship'
+import layout
+  from 'ember-admin/templates/components/column-actions-relationship'
 
 const {
   Component

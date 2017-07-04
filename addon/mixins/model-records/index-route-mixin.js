@@ -23,7 +23,7 @@ export default Mixin.create({
         queryParams[key] = params[key]
       }
     })
-    
+
     return queryParams
   }
 })
