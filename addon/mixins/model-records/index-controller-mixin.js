@@ -20,6 +20,14 @@ export default Mixin.create({
   filterKeyword: alias('filter[keyword]'),
 
   actions: {
+    view(model) {
+      this.transitionToRoute(
+        'admin.model-records.show',
+        this.get('recordType'),
+        model.id
+      )
+    },
+
     onFilterChange(value) {
       this.set('filterKeyword', value)
     }

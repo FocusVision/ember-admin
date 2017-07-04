@@ -22,7 +22,8 @@
 
 {{#admin-table
   recordType=recordType
-  model=model as |table|}}
+  model=model
+  onRowClick=(action 'view') as |table|}}
 
   {{#admin-filter-columns
     recordType=recordType as |columns|}}

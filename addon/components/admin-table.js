@@ -34,5 +34,13 @@ export default Component.extend({
 
   unregisterColumn(column) {
     this.get('columns').removeObject(column)
+  },
+
+  onRowClick() {},
+
+  actions: {
+    onRowClick(model) {
+      this.onRowClick(model)
+    }
   }
 })

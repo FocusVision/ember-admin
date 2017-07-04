@@ -3,10 +3,6 @@
     'admin-table/admin-table-column'
     registrar=this
   )
-  actionsColumn=(component
-    'admin-table/admin-table-column'
-    registrar=this
-  )
 )}}
 
 <thead>
@@ -19,7 +15,7 @@
 
 <tbody>
   {{#each normalizedModel as |row|}}
-    <tr>
+    <tr onclick={{action 'onRowClick' row}}>
       {{#each columns as |column|}}
         {{admin-table/admin-table-cell
           model=row
