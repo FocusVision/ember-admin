@@ -24,7 +24,7 @@ export default create({
   }),
 
   catHeaders: collection({
-    scope: '[data-test=admin-table-cat] thead',
+    scope: 'table[data-test=admin-table-cat] thead',
     itemScope: 'tr',
     item: {
       id: text('th', { at: 0 }),
@@ -34,7 +34,7 @@ export default create({
   }),
 
   cats: collection({
-    scope: '[data-test=admin-table-cat] tbody',
+    scope: 'table[data-test=admin-table-cat] tbody',
     itemScope: 'tr',
     item: {
       id: text('td', { at: 0 }),
@@ -51,10 +51,10 @@ export default create({
     }
   }),
 
-  hasManyToys: isVisible('[data-test=has-many-toys]'),
+  hasManyToys: isVisible('table[data-test=has-many-toys]'),
   clickToys: clickable('[data-test=has-many-toys] a'),
   toys: collection({
-    itemScope: '[data-test=admin-table-toy] table tbody tr',
+    itemScope: 'table[data-test=admin-table-toy] tbody tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 })
@@ -64,7 +64,7 @@ export default create({
   clickCourses: clickable('[data-test=has-many-courses] a'),
 
   courses: collection({
-    itemScope: '[data-test=admin-table-course] table tbody tr'
+    itemScope: 'table [data-test=admin-table-course] tbody tr'
   }),
 
   paginatorIsVisible: isVisible('[data-test=fv-paginator]'),

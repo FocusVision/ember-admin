@@ -19,7 +19,21 @@
   data-test='filter-input'
 }}
 
-{{admin-table
+
+{{#admin-table-two
   recordType=recordType
-  model=model
-}}
+  model=model as |table|}}
+
+  {{#admin-filter-columns
+    recordType=recordType as |columns|}}
+
+    {{#each columns.filteredColumns as |column|}}
+      {{table.column
+        label=column.key
+        key=column.key
+      }}
+    {{/each}}
+
+  {{/admin-filter-columns}}
+
+{{/admin-table-two}}
