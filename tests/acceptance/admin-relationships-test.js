@@ -25,7 +25,7 @@ describe('Acceptance: Admin Relationships', () => {
     await page
       .visitCatEdit({ cat_id: 1 })
       .clickOwnerRelationship()
-      debugger
+
     expect(page.owners().count).to.equal(1)
     expect(page.owners().text).to.include(ownerName)
   })

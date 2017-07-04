@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/components/admin-table-two';
+export { default } from 'ember-admin/components/admin-table';
