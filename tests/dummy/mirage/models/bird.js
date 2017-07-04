@@ -1,6 +1,5 @@
-import { belongsTo, hasMany, Model } from 'ember-cli-mirage'
+import { belongsTo, Model } from 'ember-cli-mirage'
 
 export default Model.extend({
-  owner: belongsTo('owner'),
-  toys: hasMany('toy')
+  owner: belongsTo('owner', { inverse: 'birds' })
 })

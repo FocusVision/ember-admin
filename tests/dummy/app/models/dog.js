@@ -3,7 +3,6 @@ import HasManyQuery from 'ember-data-has-many-query'
 
 const {
   attr,
-  hasMany,
   belongsTo,
   Model
 } = DS
@@ -14,6 +13,6 @@ export default Model.extend(ModelMixin, {
   age: attr('number'),
   fleas: attr('boolean'),
   foo: attr('string'),
-  toys: hasMany('toy'),
-  owner: belongsTo('owner')
+
+  owner: belongsTo('owner', { inverse: 'dogs' })
 })
