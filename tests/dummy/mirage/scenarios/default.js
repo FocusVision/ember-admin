@@ -6,6 +6,10 @@ const build = (type, ...resources) =>
 export default function(server) {
   _server = server
 
+  server.create('course', { title: 'Dogs 101' })
+  server.create('course', { title: 'Cats 101' })
+  server.create('course', { title: 'Birds 101' })
+
   build(
     'owner',
     {

@@ -1,11 +1,11 @@
 {{#if column.actionsHash.remove}}
-  <button type='button' onclick={{action 'remove' model column.parentModel}}>
+  <button type='button' data-test='button-remove-resource-relationship' onclick={{action 'remove' model column.parentModel}}>
     Remove
   </button>
 {{/if}}
 
 {{#if column.actionsHash.add}}
-  <button type='button' onclick={{action 'add' model column.parentModel}}>
+  <button type='button' data-test='button-add-resource-relationship' onclick={{action 'add' model column.parentModel}}>
     Add
   </button>
 {{/if}}

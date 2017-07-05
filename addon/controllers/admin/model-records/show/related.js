@@ -22,7 +22,6 @@ export default Controller.extend(
         const inverseRelationshipKind =
           this.inverseRelationshipKind(parentModel, recordName)
 
-        debugger
         if (inverseRelationshipKind === 'belongsTo') {
           model.set(inverseRelationshipName, null)
         }

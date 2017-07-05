@@ -64,7 +64,23 @@ export default create({
   clickCourses: clickable('[data-test=has-many-courses] a'),
 
   courses: collection({
-    itemScope: 'table [data-test=admin-table-course] tbody tr'
+    scope: '[data-test=admin-relationship-list] table[data-test=admin-table-course] tbody',
+    itemScope: 'tr',
+    item: {
+      id: text('td', { at: 0 }),
+      title: text('td', { at: 1 }),
+      remove: clickable('button[data-test=button-remove-resource-relationship]')
+    }
+  }),
+
+  relationshipCourses: collection({
+    scope: '[data-test=admin-relationship-select] table[data-test=admin-table-course] tbody ',
+    itemScope: 'tr',
+    item: {
+      id: text('td', { at: '0'}),
+      title: text('td', { at: '1'}),
+      add: clickable('button[data-test=button-add-resource-relationship]')
+    }
   }),
 
   paginatorIsVisible: isVisible('[data-test=fv-paginator]'),
@@ -96,17 +112,21 @@ export default create({
   clickCancel: clickable('button[data-test=button-cancel]'),
   clickCreate: clickable('a[data-test=button-create]'),
 
+  //Relationships
   clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
-  clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
   clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
-  clickSaveRelationship: clickable('button[data-test=button-save]', {
-    scope: '[data-test=admin-form-for-relationship]'
-  }),
+
+  clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
+  clickAddRelatedCourse: clickable('a[data-test=button-add-course]'),
 
   fillInRelationshipName: fillable('input[data-test=admin-field-string-name]', {
     scope: '[data-test=admin-form-for-relationship]'
   }),
   fillInRelationshipTitle: fillable('input[data-test=admin-field-string-title]',
     { scope: '[data-test=admin-form-for-relationship]' }
-  )
+  ),
+
+  clickSaveRelationship: clickable('button[data-test=button-save]', {
+    scope: '[data-test=admin-form-for-relationship]'
+  })
 })

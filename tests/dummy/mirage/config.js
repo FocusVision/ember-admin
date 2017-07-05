@@ -3,7 +3,6 @@ const jsonapiType = request => JSON.parse(request.requestBody).data.type
 const patch = function(schema, request) {
   const { params: { id }} = request
 
-  debugger
   return schema[jsonapiType(request)]
     .find(id)
     .update(this.normalizedRequestAttrs())
