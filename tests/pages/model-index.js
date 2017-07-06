@@ -13,6 +13,7 @@ export default create({
   visitCats: visitable('/admin/cat'),
   visitCatEdit: visitable('/admin/cat/:cat_id'),
   visitCatNew: visitable('/admin/cat/new'),
+  visitCatToys: visitable('/admin/cat/:cat_id/toys'),
   visitBirdEdit: visitable('/admin/bird/:bird_id'),
   visitOwnerEdit: visitable('/admin/owner/:owner_id'),
   visitDogs: visitable('/admin/dogs'),
@@ -43,6 +44,7 @@ export default create({
     }
   }),
 
+  clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
   owners: collection({
     itemScope: 'table[data-test=admin-table-owner] tbody tr',
     item: {
@@ -52,18 +54,32 @@ export default create({
   }),
 
   hasManyToys: isVisible('table[data-test=has-many-toys]'),
-  clickToys: clickable('[data-test=has-many-toys] a'),
-  toys: collection({
-    itemScope: 'table[data-test=admin-table-toy] tbody tr',
+
+  // Toys
+  clickRelatedToys: clickable('[data-test=has-many-toys] a'),
+  clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
+  clickAddRelatedToy: clickable('a[data-test=button-add-toy]'),
+  relatedToysList: collection({
+    scope: '[data-test=admin-relationship-list] table[data-test=admin-table-toy] tbody',
+    itemScope: ' tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 })
     }
   }),
+  relatedToysSelectList: collection({
+    scope: '[data-test=admin-relationship-select] table[data-test=admin-table-toy] tbody',
+    itemScope: 'tr',
+    item: {
+      id: text('td', { at: 0 }),
+      name: text('td', { at: 1 }),
+      add: clickable('button[data-test=button-add-resource-relationship]')
+    }
+  }),
 
+  // Courses
   clickCourses: clickable('[data-test=has-many-courses] a'),
-
-  courses: collection({
+  relatedCoursesList: collection({
     scope: '[data-test=admin-relationship-list] table[data-test=admin-table-course] tbody',
     itemScope: 'tr',
     item: {
@@ -72,8 +88,7 @@ export default create({
       remove: clickable('button[data-test=button-remove-resource-relationship]')
     }
   }),
-
-  relationshipCourses: collection({
+  relatedCoursesSelectList: collection({
     scope: '[data-test=admin-relationship-select] table[data-test=admin-table-course] tbody ',
     itemScope: 'tr',
     item: {
@@ -113,8 +128,8 @@ export default create({
   clickCreate: clickable('a[data-test=button-create]'),
 
   //Relationships
-  clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
-  clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
+
+
 
   clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
   clickAddRelatedCourse: clickable('a[data-test=button-add-course]'),
