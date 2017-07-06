@@ -40,7 +40,7 @@ export default Controller.extend(
         }
 
         parentModel.save().then(() => {
-          if (inverseKind !== 'belongsTo' || inverseKind !== 'hasMany') {
+          if (inverseKind !== 'belongsTo' && inverseKind !== 'hasMany') {
             return
           }
 

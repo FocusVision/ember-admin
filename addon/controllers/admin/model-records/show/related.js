@@ -15,31 +15,31 @@ export default Controller.extend(
     actions: {
       remove(model, parentModel) {
         const recordName = this.get('recordName')
-        const relationshipKind =
-          this.relationshipKind(parentModel, recordName)
         const inverseRelationshipName =
           this.inverseRelationshipName(parentModel, recordName)
-        const inverseRelationshipKind =
+        const kind =
+          this.relationshipKind(parentModel, recordName)
+        const inverseKind =
           this.inverseRelationshipKind(parentModel, recordName)
 
-        if (inverseRelationshipKind === 'belongsTo') {
-          model.set(inverseRelationshipName, null)
-        }
-
-        if (inverseRelationshipKind === 'hasMany') {
-          model.get(inverseRelationshipName).removeObject(parentModel)
-        }
-
-        if (relationshipKind === 'belongsTo') {
+        if (kind === 'belongsTo') {
           parentModel.set(recordName, null)
-        }
-
-        if (relationshipKind === 'hasMany') {
+        } else {
           parentModel.get(recordName).removeObject(model)
         }
 
-        model.save().then(() => {
-          parentModel.save()
+        parentModel.save().then(() => {
+          if (inverseKind !== 'belongsTo' && inverseKind !== 'hasMany') {
+            return
+          }
+
+          if (inverseKind === 'belongsTo') {
+            model.set(inverseRelationshipName, null)
+          } else {
+            model.get(inverseRelationshipName).removeObject(parentModel)
+          }
+
+          model.save()
         })
       }
     }

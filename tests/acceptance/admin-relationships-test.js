@@ -62,8 +62,7 @@ describe('Acceptance: Admin Relationships', function() {
       })
 
       await page
-        .visitOwnerEdit({ owner_id: 1 })
-        .clickCourses()
+        .visitOwnerCourses({ owner_id: 1 })
 
       expect(page.relatedCoursesList().count).to.equal(1)
 
@@ -108,6 +107,20 @@ describe('Acceptance: Admin Relationships', function() {
     })
 
     it('can remove', async () => {
+      const cat = server.schema.cats.find(1)
+      cat.createToy({ title: 'Yarn' })
+
+      await page
+        .visitCatToys({ cat_id: 1 })
+
+      expect(page.relatedToysList().count).to.equal(1)
+
+      await page
+        .relatedToysList(0)
+        .remove()
+
+      expect(page.relatedToysList().count).to.equal(0)
+
     })
   })
 
