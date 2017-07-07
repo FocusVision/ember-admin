@@ -4,7 +4,11 @@ import ResourceControllerMixin
 import RelationshipControllerMixin
   from 'ember-admin/mixins/model-records/relationship-controller-mixin'
 
-export default Ember.Controller.extend(
+const {
+  Controller
+} = Ember
+
+export default Controller.extend(
   ResourceControllerMixin,
   RelationshipControllerMixin,
   {
@@ -12,25 +16,38 @@ export default Ember.Controller.extend(
 
     actions: {
       save(model, parentModel) {
-        // recordName is the relationship prop name it is
-        // defined on the model set here via paramsFor
-        // NOT the modelName
-
         const recordName = this.get('recordName')
-        const relationshipKind =
+        const inverseRelationshipName =
+          this.inverseRelationshipName(parentModel, recordName)
+        const kind =
           this.relationshipKind(parentModel, recordName)
+        const inverseKind =
+          this.inverseRelationshipKind(parentModel, recordName)
+
+        if (inverseKind === 'belongsTo') {
+          model.set(inverseRelationshipName, parentModel)
+        } else {
+          model.get(inverseRelationshipName).pushObject(parentModel)
+        }
 
         model.save().then(record => {
-          if (relationshipKind === 'belongsTo') {
-            parentModel.set(recordName, record)
-          } else {
-            parentModel.get(recordName).pushObject(record)
+          if (kind !== 'belongsTo' && kind !== 'hasMany') {
+            return this._transitionToRelated()
           }
 
-          parentModel.save().then(() =>
-            this.transitionToRoute('admin.model-records.show.related'))
+          if (kind === 'belongsTo') {
+            parentModel.set(recordName, model)
+          } else {
+            parentModel.get(recordName).pushObject(model)
+          }
+
+          parentModel.save().then(() => this._transitionToRelated())
         })
       }
+    },
+
+    _transitionToRelated() {
+      this.transitionToRoute('admin.model-records.show.related')
     }
   }
 )

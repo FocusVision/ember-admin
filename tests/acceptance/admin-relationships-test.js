@@ -45,9 +45,14 @@ describe('Acceptance: Admin Relationships', function() {
       await page
         .visitOwnerEdit({ owner_id: 1 })
         .clickCourses()
+
+      expect(page.relatedCoursesList().count).to.equal(0)
+
+      await page
         .clickAddRelatedCourse()
-        .relatedCoursesSelectList(0)
-        .add()
+        .relatedCoursesSelectList(0).add()
+
+      await page.clickDoneAdding()
 
       expect(page.relatedCoursesList().count).to.equal(1)
       expect(page.relatedCoursesList(0).title).to.equal('Dogs 102')
@@ -102,6 +107,7 @@ describe('Acceptance: Admin Relationships', function() {
         .clickAddRelatedToy()
         .relatedToysSelectList(0)
         .add()
+      await page.clickDoneAdding()
 
       expect(page.relatedToysList().count).to.equal(1)
     })
@@ -120,22 +126,52 @@ describe('Acceptance: Admin Relationships', function() {
         .remove()
 
       expect(page.relatedToysList().count).to.equal(0)
-
     })
   })
 
-  context('one to one', () => {
+  context('many to one', () => {
     it('can create', async () => {
+      server.create('toy', { name: 'Bell' })
+
+      await page
+        .visitToysCats({ toy_id: 1 })
+
+      expect(page.relatedCatsList().count).to.equal(0)
+
+      await page
+        .clickCreateRelatedCat()
+        .fillInRelationshipName('Fluffy')
+        .clickSaveRelationship()
+
+      expect(page.relatedCatsList().count).to.equal(1)
+      expect(page.relatedCatsList(0).name).to.equal('Fluffy')
     })
 
     it('can add', async () => {
+      server.create('toy', { name: 'Bell' })
+
+      await page
+        .visitToysCats({ toy_id: 1 })
+
+      expect(page.relatedCatsList().count).to.equal(0)
+
+      await page
+        .clickAddRelatedCat()
+        .relatedCatsSelectList(0)
+        .add()
+      await page.clickDoneAdding()
+
+      expect(page.relatedCatsList().count).to.equal(1)
+      expect(page.relatedCatsList(0).name).to.equal(
+        server.schema.cats.find(1).name
+      )
     })
 
     it('can remove', async () => {
     })
   })
 
-  context('many to one', () => {
+  context('one to one', () => {
     it('can create', async () => {
     })
 

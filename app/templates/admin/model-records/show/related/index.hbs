@@ -1,1 +1,61 @@
+<h2>{{recordType}}</h2>
+
+{{#link-to
+  'admin.model-records.show.related.new'
+  data-test=(concat 'button-create-' recordType)
+}}
+  Create
+{{/link-to}}
+
+{{#link-to
+  'admin.model-records.show.related.add'
+  data-test=(concat 'button-add-' recordType)
+}}
+  Add
+{{/link-to}}
+
+{{fv-paginator
+  current=page
+  total=pageCount
+  surrounding=1
+}}
+
+<h1>
+  Show relationship
+</h1>
+
+<div data-test='admin-relationship-list'>
+  {{admin-filter-keyword
+    value=filterKeyword
+    placeholder=(concat 'Filter by ' recordType)
+    onInput=(action 'onFilterChange')
+    data-test='filter-input'
+  }}
+
+  {{#admin-table
+    recordType=recordType
+    model=model as |table|}}
+    {{#admin-filter-columns
+      recordType=recordType as |columns|}}
+
+      {{#each columns.filteredColumns as |column|}}
+        {{table.column
+          label=column.key
+          key=column.key
+        }}
+      {{/each}}
+
+      {{table.column
+        label='actions'
+        component='column-actions-relationship'
+        parentModel=parentModel
+        actionsHash=(hash
+          remove=(action 'remove')
+        )
+      }}
+
+    {{/admin-filter-columns}}
+  {{/admin-table}}
+</div>
+
 {{outlet}}

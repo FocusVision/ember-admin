@@ -9,6 +9,7 @@ export default function(server) {
   server.create('course', { title: 'Dogs 101' })
   server.create('course', { title: 'Cats 101' })
   server.create('course', { title: 'Birds 101' })
+  server.create('toy', { name: 'Unowned' })
 
   build(
     'owner',

@@ -12,7 +12,7 @@ export default Controller.extend(
   RelationshipControllerMixin,
   {
     admin: service(),
-    related: controller('admin.model-records.show.related'),
+    related: controller('admin.model-records.show.related.index'),
 
     parentModel: alias('related.parentModel'),
     recordName: alias('related.recordName'),
@@ -26,8 +26,7 @@ export default Controller.extend(
           .then(result => this.set('model', result))
       },
 
-      add(model) {
-        const parentModel = this.get('parentModel')
+      add(model, parentModel) {
         const inverseRelationshipName = this.get('inverseRelationshipName')
         const recordName = this.get('recordName')
         const kind = this.relationshipKind(parentModel, recordName)
@@ -52,6 +51,10 @@ export default Controller.extend(
 
           model.save()
         })
+      },
+
+      complete() {
+        this.transitionToRoute('admin.model-records.show.related')
       }
     }
   }

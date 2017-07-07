@@ -4,10 +4,14 @@
 
 {{admin-relationship-select
   model=model
+  parentModel=parentModel
   recordType=recordType
   filterKeyword=filterKeyword
   filter=(action 'onFilterChange')
-  add=(action 'add')}}
+  add=(action 'add')
+}}
 
 <br/>
-{{outlet}}
+<button type='button' onclick={{action 'complete'}} data-test='button-done-adding'>
+  Complete
+</button>

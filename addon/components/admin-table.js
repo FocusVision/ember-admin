@@ -5,7 +5,8 @@ const {
   Component,
   isArray,
   computed,
-  A
+  A,
+  isEmpty
 } = Ember
 
 export default Component.extend({
@@ -25,7 +26,7 @@ export default Component.extend({
       return model
     }
 
-    return A([model])
+    return isEmpty(model) ? A([]) : A([model])
   }),
 
   registerColumn(column) {
