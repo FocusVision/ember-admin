@@ -20,7 +20,7 @@ describe('Acceptance | admin relationship select', () => {
     destroyApp(application)
   })
 
-  it('can filter list with partial match', async () => {
+  it('filters list with partial match', async () => {
     await page
       .visitOwnerCats({ owner_id: 1 })
       .clickAddRelatedCat()
@@ -33,7 +33,7 @@ describe('Acceptance | admin relationship select', () => {
     expect(page.relatedCatsSelectList().count).to.equal(2)
   })
 
-  it('can filter list with full match', async () => {
+  it('filters list with full match', async () => {
     await page
       .visitOwnerCats({ owner_id: 1 })
       .clickAddRelatedCat()

@@ -1,1 +1,2 @@
-export { default } from 'ember-admin/components/admin-relationship-select/filter';
+export { default }
+  from 'ember-admin/components/admin-relationship-select/filter'

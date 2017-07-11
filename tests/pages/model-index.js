@@ -199,14 +199,5 @@ export default create({
   clickSaveRelationship: clickable('button[data-test=button-save]', {
     scope: '[data-test=admin-form-for-relationship]'
   }),
-  clickDoneAdding: clickable('button[data-test=button-done-adding]'),
-
-  // Replace with collections
-
-  clickFirstCatRecord: clickable('a[data-test=record-list-item]', {
-    at: 0
-  }),
-  clickLastToyRecord: clickable('a[data-test=record-list-item]', {
-    at: 2
-  })
+  clickDoneAdding: clickable('button[data-test=button-done-adding]')
 })
