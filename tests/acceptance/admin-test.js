@@ -31,10 +31,10 @@ describe('Acceptance: Admin', () => {
       expect(page.catHeaders(0).text.split(' ')).to.include.members(
         ['id', 'name', 'age', 'fleas', 'bar', 'baz']
       )
-      expect(page.cats(0).text.split(' ')).to.include.members(
+      expect(page.catsList(0).text.split(' ')).to.include.members(
         ['Felix', '10', 'false']
       )
-      expect(page.cats(1).text.split(' ')).to.include.members(
+      expect(page.catsList(1).text.split(' ')).to.include.members(
         ['Nyan', '3', 'true']
       )
     })
@@ -42,8 +42,8 @@ describe('Acceptance: Admin', () => {
     it('filtering records by value', async () => {
       await page.visitCats().filterBy('Felix')
 
-      expect(page.cats().count).to.equal(1)
-      expect(page.cats(0).text.split(' ')).to.include.members(
+      expect(page.catsList().count).to.equal(1)
+      expect(page.catsList(0).text.split(' ')).to.include.members(
         ['Felix', '10', 'false']
       )
     })
@@ -53,14 +53,17 @@ describe('Acceptance: Admin', () => {
     it('editing a record', async () => {
       await page
         .visitCats()
-        .clickFirstCatRecord()
+        .catsList(0)
+        .click()
+
+      await page
         .fillInName('Hobbes')
         .fillInAge('29')
         .clickFleas()
         .clickSave()
 
-      expect(page.cats().count).to.equal(2)
-      expect(page.cats(0).text.split(' ')).to.include.members(
+      expect(page.catsList().count).to.equal(2)
+      expect(page.catsList(0).text.split(' ')).to.include.members(
         ['Hobbes', '29', 'true']
       )
     })
@@ -83,8 +86,8 @@ describe('Acceptance: Admin', () => {
         .clickFleas('true')
         .clickSave()
 
-      expect(page.cats().count).to.equal(3)
-      expect(page.cats(2).text.split(' ')).to.include.members(
+      expect(page.catsList().count).to.equal(3)
+      expect(page.catsList(2).text.split(' ')).to.include.members(
         ['Lion-O', '30', 'true']
       )
     })
@@ -94,12 +97,11 @@ describe('Acceptance: Admin', () => {
         .clickCreate()
         .clickSave()
 
-      expect(page.cats().count).to.equal(3)
-      expect(page.cats(2).text.split(' ')).to.include.members(
+      expect(page.catsList().count).to.equal(3)
+      expect(page.catsList(2).text.split(' ')).to.include.members(
         ['false']
       )
     })
-
 
     it("creating doesn't affect list", async () => {
       const oldConfirm = window.confirm
@@ -107,11 +109,11 @@ describe('Acceptance: Admin', () => {
 
       await page.visitCats()
 
-      expect(page.cats().count).to.equal(2)
+      expect(page.catsList().count).to.equal(2)
 
       await page.clickCreate().visitCats()
 
-      expect(page.cats().count).to.equal(2)
+      expect(page.catsList().count).to.equal(2)
       window.confirm = oldConfirm
     })
 
@@ -137,8 +139,8 @@ describe('Acceptance: Admin', () => {
 
       await page.visitCatEdit({ cat_id: 1 }).clickDelete()
 
-      expect(page.cats().count).to.equal(1)
-      expect(page.cats(0).text.split(' ')).to.include.members(['Nyan', '3'])
+      expect(page.catsList().count).to.equal(1)
+      expect(page.catsList(0).text.split(' ')).to.include.members(['Nyan', '3'])
       expect(confirmCount).to.equal(1)
       window.confirm = oldConfirm
     })

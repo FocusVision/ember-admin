@@ -5,5 +5,5 @@ const {
 } = faker
 
 export default Factory.extend({
-  phoneNumber: phoneNumber
+  phoneNumber
 })

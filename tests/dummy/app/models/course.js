@@ -10,6 +10,6 @@ const { ModelMixin } = HasManyQuery
 
 export default Model.extend(ModelMixin, {
   title: attr('string'),
-  
+
   owners: hasMany('owner', { inverse: 'courses' })
 })

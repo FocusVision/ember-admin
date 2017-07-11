@@ -41,14 +41,13 @@ export default create({
       age: text('th', { at: 2 })
     }
   }),
-  cats: collection({
+  catsList: collection({
     scope: 'table[data-test=admin-table-cat] tbody',
     itemScope: 'tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 }),
       age: text('td', { at: 2 })
-
     }
   }),
   relatedCatsList: collection({
@@ -74,6 +73,8 @@ export default create({
   // Owners
 
   visitOwnerEdit: visitable('/admin/owner/:owner_id'),
+  visitOwnerDogs: visitable('/admin/owner/:owner_id/dogs'),
+  visitOwnerCats: visitable('/admin/owner/:owner_id/cats'),
   visitOwnerCourses: visitable('/admin/owner/:owner_id/courses'),
   visitOwnerProfile: visitable('/admin/owner/:owner_id/profile'),
   clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),

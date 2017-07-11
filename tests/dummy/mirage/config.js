@@ -10,9 +10,21 @@ const patch = function(schema, request) {
 
 const getResources = (model, { queryParams }) => {
   const keyword = queryParams['filter[keyword]']
+
   if (keyword) {
-    return model.where({ name: keyword })
+    const collection = model.all()
+
+    return collection.filter(record => {
+      if (!record.name) {
+        return false
+      }
+
+      return record.name.toLowerCase().includes(
+        keyword.toLowerCase()
+      )
+    })
   }
+
   return model.all()
 }
 

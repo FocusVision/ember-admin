@@ -11,7 +11,7 @@ describe('Acceptance: Admin Relationships', function() {
   beforeEach(() => {
     application = startApp()
 
-    const owner = server.create('owner', { name: 'Bob Boberson' })
+    const owner = server.create('owner', { name: 'Bob Bobert' })
     server.create('cat', { owner })
   })
 
