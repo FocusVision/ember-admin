@@ -18,12 +18,14 @@ export default create({
   visitDogsNew: visitable('/admin/dogs/new'),
 
   // Model index
+
   modelLinks: text('[data-test=models-list] a', {
     multiple: true
   }),
   clickModelTypeCat: clickable('a[data-test=models-list-item-cat]'),
 
   // Cats
+
   visitCats: visitable('/admin/cat'),
   visitCatEdit: visitable('/admin/cat/:cat_id'),
   visitCatNew: visitable('/admin/cat/new'),
@@ -84,7 +86,9 @@ export default create({
   }),
 
   // Profile
+
   clickCreateRelatedProfile: clickable('a[data-test=button-create-profile]'),
+  clickAddRelatedProfile: clickable('a[data-test=button-add-profile]'),
   relatedProfileList: collection({
     scope: '[data-test=admin-relationship-list]  table[data-test=admin-table-profile] tbody',
     itemScope: ' tr',
@@ -92,6 +96,15 @@ export default create({
       id: text('td', { at: 0 }),
       phoneNumber: text('td', { at: 1 }),
       remove: clickable('button[data-test=button-remove-resource-relationship]')
+    }
+  }),
+  relatedProfilesSelectList: collection({
+    scope: '[data-test=admin-relationship-select] table[data-test=admin-table-profile] tbody',
+    itemScope: 'tr',
+    item: {
+      id: text('td', { at: 0 }),
+      phoneNumber: text('td', { at: 1 }),
+      add: clickable('button[data-test=button-add-resource-relationship]')
     }
   }),
 
@@ -122,6 +135,7 @@ export default create({
   }),
 
   // Courses
+
   clickCourses: clickable('[data-test=has-many-courses] a'),
   clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
   clickAddRelatedCourse: clickable('a[data-test=button-add-course]'),
@@ -144,8 +158,8 @@ export default create({
     }
   }),
 
-
   // Paginator
+
   paginatorIsVisible: isVisible('[data-test=fv-paginator]'),
   paginatorPages: collection({
     itemScope: '[data-test=fv-paginator-page]',
@@ -155,9 +169,11 @@ export default create({
   }),
 
   // Filtering
+
   filterBy: fillable('input[data-test=filter-input]'),
 
-  //Forms
+  // Forms
+
   fillInName: fillable('input[data-test=admin-field-string-name]'),
   fillInAge: fillable('input[data-test=admin-field-string-age]'),
   fillInTitle: fillable('input[data-test=admin-field-string-title]'),
@@ -174,6 +190,7 @@ export default create({
   ),
 
   // Form Actions
+
   clickSave: clickable('button[data-test=button-save]'),
   clickDelete: clickable('button[data-test=button-delete]'),
   clickCancel: clickable('button[data-test=button-cancel]'),
@@ -184,6 +201,7 @@ export default create({
   clickDoneAdding: clickable('button[data-test=button-done-adding]'),
 
   // Replace with collections
+
   clickFirstCatRecord: clickable('a[data-test=record-list-item]', {
     at: 0
   }),

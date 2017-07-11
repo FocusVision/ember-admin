@@ -167,10 +167,9 @@ describe('Acceptance: Admin Relationships', function() {
       )
     })
 
-
     // TODO: There is currently an issue
     // Where the relationship does not appear to
-    // udpate the model binding
+    // udpate the model binding on belongsTo relationships
     it.skip('can remove', async () => {
       const cat = server.schema.cats.find(1)
       server.create('toy', { name: 'Bell', cat })
@@ -205,44 +204,44 @@ describe('Acceptance: Admin Relationships', function() {
     })
 
     it('can add', async () => {
+      server.create('profile', { phoneNumber: '111.111.1111' })
+
+      await page
+        .visitOwnerProfile({ owner_id: 1 })
+
+      expect(page.relatedProfileList().count).to.equal(0)
+
+      await page
+        .clickAddRelatedProfile()
+        .relatedProfilesSelectList(0)
+        .add()
+
+      await page
+        .clickDoneAdding()
+
+      expect(page.relatedProfileList().count).to.equal(1)
+      expect(page.relatedProfileList(0).phoneNumber).to.equal('111.111.1111')
     })
 
-    it('can remove', async () => {
+    // TODO: There is currently an issue
+    // Where the relationship does not appear to
+    // udpate the model binding on belongsTo relationships
+    it.skip('can remove', async () => {
+      const owner = server.schema.owners.find(1)
+      owner.createProfile({ phoneNumber: '111.111.1111' })
+
+      await page
+        .visitOwnerProfile({ owner_id: 1 })
+
+      expect(page.relatedProfileList().count).to.equal(1)
+
+      await page
+        .relatedProfileList(0)
+        .remove()
+
+      expect(page.relatedProfileList().count).to.equal(0)
     })
   })
-
-  // it('should create new model as a relationship to parent', async () => {
-  //   await page
-  //     .visitCatEdit({ cat_id: 1 })
-  //     .clickRelatedToys()
-  //     .clickCreateRelatedToy()
-  //     .fillInRelationshipName('Bell')
-  //     .clickSaveRelationship()
-  //
-  //   expect(page.relatedToysList().count).to.equal(3)
-  //   expect(page.relatedToysList(2).name).to.equal('Bell')
-  // })
-  //
-  // it(
-  //   'should properly create Many-to-Many relationship with inverse',
-  //   async () => {
-  //     const relatedCoursesList = server.createList('course', 1)
-  //     server.create('owner', { relatedCoursesList })
-  //
-  //     await page
-  //       .visitOwnerEdit({ owner_id: 2 })
-  //       .clickCourses()
-  //
-  //     expect(page.relatedCoursesList().count).to.equal(1)
-  //
-  //     await page
-  //       .clickCreateRelatedCourse()
-  //       .fillInRelationshipTitle('New Course!')
-  //       .clickSaveRelationship()
-  //
-  //     expect(page.relatedCoursesList().count).to.equal(2)
-  //   }
-  // )
 
   describe('pagination', () => {
     it('shows paginator on has-many page', async () => {
