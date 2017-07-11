@@ -11,17 +11,17 @@ export default Component.extend({
   formatter: null,
   key: null,
 
-  registrar: null,
+  table: null,
 
   init(...args) {
     this._super(...args)
 
-    this.get('registrar').registerColumn(this)
+    this.get('table').registerColumn(this)
   },
 
   willDestroyElement(...args) {
     this._super(...args)
 
-    this.get('registrar').unregisterColumn(this)
+    this.get('table').unregisterColumn(this)
   }
 })
