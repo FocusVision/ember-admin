@@ -9,7 +9,8 @@ export default function(server) {
   server.create('course', { title: 'Dogs 101' })
   server.create('course', { title: 'Cats 101' })
   server.create('course', { title: 'Birds 101' })
-  server.create('toy', { name: 'Unowned' })
+  server.create('toy', { name: 'unAssociated' })
+  server.create('profile', { phoneNumber: 'unAssociated' })
 
   build(
     'owner',
@@ -26,7 +27,8 @@ export default function(server) {
             { name: 'Laser gun' }
           )
         }
-      )
+      ),
+      profile: server.create('profile')
     },
     {
       name: 'Granny',
@@ -43,7 +45,8 @@ export default function(server) {
           name: 'Tweety',
           age: 3
         }
-      )
+      ),
+      profile: server.create('profile')
     },
     {
       name: 'Wendy',

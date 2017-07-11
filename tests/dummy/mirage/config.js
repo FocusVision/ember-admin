@@ -57,4 +57,10 @@ export default function() {
   this.post('/courses')
   this.patch('/courses/:id', patch)
   this.delete('/courses/:id')
+
+  this.get('/profiles')
+  this.get('/profiles/:id')
+  this.post('/profiles')
+  this.patch('/profiles/:id', patch)
+  this.delete('/profiles/:id')
 }

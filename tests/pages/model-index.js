@@ -1,3 +1,5 @@
+/* eslint max-len: "off" */
+
 import {
   create,
   collection,
@@ -71,12 +73,25 @@ export default create({
 
   visitOwnerEdit: visitable('/admin/owner/:owner_id'),
   visitOwnerCourses: visitable('/admin/owner/:owner_id/courses'),
+  visitOwnerProfile: visitable('/admin/owner/:owner_id/profile'),
   clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
   owners: collection({
     itemScope: 'table[data-test=admin-table-owner] tbody tr',
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 })
+    }
+  }),
+
+  // Profile
+  clickCreateRelatedProfile: clickable('a[data-test=button-create-profile]'),
+  relatedProfileList: collection({
+    scope: '[data-test=admin-relationship-list]  table[data-test=admin-table-profile] tbody',
+    itemScope: ' tr',
+    item: {
+      id: text('td', { at: 0 }),
+      phoneNumber: text('td', { at: 1 }),
+      remove: clickable('button[data-test=button-remove-resource-relationship]')
     }
   }),
 
@@ -152,6 +167,9 @@ export default create({
     scope: '[data-test=admin-form-for-relationship]'
   }),
   fillInRelationshipTitle: fillable('input[data-test=admin-field-string-title]',
+    { scope: '[data-test=admin-form-for-relationship]' }
+  ),
+  fillInRelationshipPhoneNumber: fillable('input[data-test=admin-field-string-phoneNumber]',
     { scope: '[data-test=admin-form-for-relationship]' }
   ),
 

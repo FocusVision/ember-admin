@@ -190,6 +190,18 @@ describe('Acceptance: Admin Relationships', function() {
 
   context('one to one', () => {
     it('can create', async () => {
+      await page
+        .visitOwnerProfile({ owner_id: 1 })
+
+      expect(page.relatedProfileList().count).to.equal(0)
+
+      await page
+        .clickCreateRelatedProfile()
+        .fillInRelationshipPhoneNumber('111.111.1111')
+        .clickSaveRelationship()
+
+      expect(page.relatedProfileList().count).to.equal(1)
+      expect(page.relatedProfileList(0).phoneNumber).to.equal('111.111.1111')
     })
 
     it('can add', async () => {
