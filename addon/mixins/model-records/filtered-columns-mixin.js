@@ -25,19 +25,10 @@ export default Mixin.create({
   defaultColumns: [{ key: 'id', type: 'number', disabled: true }],
 
   /*
-  * Returns the main data adapter
-  * from which we can get all registered models
-  * and related info
-  */
-  adapter: computed(function() {
-    return getOwner(this).lookup('data-adapter:main')
-  }),
-
-  /*
   * Returns array of registered models
   */
   registeredModels: computed(function() {
-    return this.get('adapter').getModelTypes()
+    return getOwner(this).lookup('data-adapter:main').getModelTypes()
   }),
 
   /*
