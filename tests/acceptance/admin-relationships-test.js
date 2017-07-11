@@ -23,7 +23,7 @@ describe('Acceptance: Admin Relationships', function() {
       .clickOwnerRelationship()
 
     expect(page.owners().count).to.equal(1)
-    expect(page.owners().text).to.include('Bob Boberson')
+    expect(page.owners().text).to.include('Bob Bobert')
   })
 
   context('many to many', () => {

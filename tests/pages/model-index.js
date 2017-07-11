@@ -153,8 +153,8 @@ export default create({
     scope: '[data-test=admin-relationship-select] table[data-test=admin-table-course] tbody ',
     itemScope: 'tr',
     item: {
-      id: text('td', { at: '0'}),
-      title: text('td', { at: '1'}),
+      id: text('td', { at: '0' }),
+      title: text('td', { at: '1' }),
       add: clickable('button[data-test=button-add-resource-relationship]')
     }
   }),

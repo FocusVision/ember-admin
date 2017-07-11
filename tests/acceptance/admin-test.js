@@ -163,7 +163,7 @@ describe('Acceptance: Admin', () => {
 
       await page.visit()
 
-      expect(page.modelLinks).to.have.length(5)
+      expect(page.modelLinks).to.have.length(6)
       expect(page.modelLinks).to.not.include('cat')
     })
 
