@@ -5,8 +5,7 @@ import RelationshipControllerMixin
   from 'ember-admin/mixins/model-records/relationship-controller-mixin'
 
 const {
-  Controller,
-  observer
+  Controller
 } = Ember
 
 export default Controller.extend(
@@ -29,7 +28,7 @@ export default Controller.extend(
           parentModel.get(recordName).removeObject(model)
         }
 
-        parentModel.save().then(() => {
+        parentModel.save().then(record => {
           if (inverseKind !== 'belongsTo' && inverseKind !== 'hasMany') {
             return
           }
@@ -37,10 +36,8 @@ export default Controller.extend(
           if (inverseKind === 'belongsTo') {
             model.set(inverseRelationshipName, null)
           } else {
-            model.get(inverseRelationshipName).removeObject(parentModel)
+            model.get(inverseRelationshipName).removeObject(record)
           }
-
-          model.save()
         })
       }
     }

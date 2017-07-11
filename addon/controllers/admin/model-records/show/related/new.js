@@ -36,9 +36,9 @@ export default Controller.extend(
           }
 
           if (kind === 'belongsTo') {
-            parentModel.set(recordName, model)
+            parentModel.set(recordName, record)
           } else {
-            parentModel.get(recordName).pushObject(model)
+            parentModel.get(recordName).pushObject(record)
           }
 
           parentModel.save().then(() => this._transitionToRelated())

@@ -44,6 +44,7 @@ export default create({
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 }),
       age: text('td', { at: 2 })
+
     }
   }),
   relatedCatsList: collection({
@@ -52,7 +53,8 @@ export default create({
     item: {
       id: text('td', { at: 0 }),
       name: text('td', { at: 1 }),
-      age: text('td', { at: 2 })
+      age: text('td', { at: 2 }),
+      remove: clickable('button[data-test=button-remove-resource-relationship]')
     }
   }),
   relatedCatsSelectList: collection({

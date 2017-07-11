@@ -167,7 +167,24 @@ describe('Acceptance: Admin Relationships', function() {
       )
     })
 
-    it('can remove', async () => {
+
+    // TODO: There is currently an issue
+    // Where the relationship does not appear to
+    // udpate the model binding
+    it.skip('can remove', async () => {
+      const cat = server.schema.cats.find(1)
+      server.create('toy', { name: 'Bell', cat })
+
+      await page
+        .visitToysCats({ toy_id: 1 })
+
+      expect(page.relatedCatsList().count).to.equal(1)
+
+      await page
+        .relatedCatsList(0)
+        .remove()
+
+      expect(page.relatedCatsList().count).to.equal(0)
     })
   })
 
