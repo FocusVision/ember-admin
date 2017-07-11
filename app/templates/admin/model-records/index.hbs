@@ -1,12 +1,16 @@
+{{outlet}}
+
 <h2>{{recordType}}</h2>
 
 {{link-to
   'Create'
   'admin.model-records.new'
+  class='fv-button fv-button-default'
   data-test='button-create'
 }}
 
 {{fv-paginator
+  class='fv-pull-right'
   current=page
   total=pageCount
   surrounding=1

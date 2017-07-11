@@ -2,6 +2,7 @@
 
 {{#link-to
   'admin.model-records.show.related.new'
+  class='fv-button fv-button-default'
   data-test=(concat 'button-create-' recordType)
 }}
   Create
@@ -15,6 +16,7 @@
 {{/link-to}}
 
 {{fv-paginator
+  class='fv-pull-right'
   current=page
   total=pageCount
   surrounding=1
