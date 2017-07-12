@@ -30,6 +30,7 @@ const getResources = (model, { queryParams }) => {
 
 const getCats = ({ cats }, ...args) => getResources(cats, ...args)
 const getToys = ({ toys }, ...args) => getResources(toys, ...args)
+const getOwners = ({ owners }, ...args) => getResources(owners, ...args)
 
 export default function() {
   this.namespace = '/admin'
@@ -58,7 +59,7 @@ export default function() {
   this.patch('/toys/:id', patch)
   this.delete('/toys/:id')
 
-  this.get('/owners')
+  this.get('/owners', getOwners)
   this.get('/owners/:id')
   this.post('/owners')
   this.patch('/owners/:id', patch)
