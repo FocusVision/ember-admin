@@ -1,15 +1,7 @@
 {{#admin-layout as |layout|}}
   {{#layout.sidebar}}
 
-    <nav class='admin-layout-nav'>
-      <h4>Admin</h4>
-
-      <ul data-test='models-list'>
-        {{#each filteredModels as |name|}}
-          {{admin-layout/nav-link name=name}}
-        {{/each}}
-      </ul>
-    </nav>
+    {{admin-layout/nav modelNames=filteredModels}}
 
   {{/layout.sidebar}}
   {{#layout.main}}
