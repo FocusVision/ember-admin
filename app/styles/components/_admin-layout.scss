@@ -1,1 +1,17 @@
-.admin-layout {}
+.admin-layout {
+  position: relative;
+}
+
+.admin-layout-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  overflow-y: auto;
+  width: $admin-sidebar-width;
+}
+
+.admin-layout-main {
+  margin-left: $admin-sidebar-width;
+}

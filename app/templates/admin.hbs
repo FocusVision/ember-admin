@@ -1,31 +1,27 @@
-<div class="ember-admin">
-  {{#fv-grid fluid=true as |grid|}}
-    {{#grid.row}}
-      {{#grid.column col='lg-2'}}
+{{#admin-layout as |layout|}}
+  {{#layout.sidebar}}
 
-        <nav class='vertical-nav'>
-          <h4>Admin</h4>
+    <nav class='admin-layout-nav'>
+      <h4>Admin</h4>
 
-          <ul data-test='models-list'>
-            {{#each filteredModels as |name|}}
-              <li>
-                {{link-to
-                  name
-                  'admin.model-records'
-                  name
-                  data-test=(concat 'models-list-item-' name)
-                }}
-              </li>
-            {{/each}}
-          </ul>
-        </nav>
+      <ul data-test='models-list'>
+        {{#each filteredModels as |name|}}
+          <li>
+            {{link-to
+              name
+              'admin.model-records'
+              name
+              data-test=(concat 'models-list-item-' name)
+            }}
+          </li>
+        {{/each}}
+      </ul>
+    </nav>
 
-      {{/grid.column}}
-      {{#grid.column col='lg-10'}}
+  {{/layout.sidebar}}
+  {{#layout.main}}
 
-        {{outlet}}
+    {{outlet}}
 
-      {{/grid.column}}
-    {{/grid.row}}
-  {{/fv-grid}}
-</div>
+  {{/layout.main}}
+{{/admin-layout}}

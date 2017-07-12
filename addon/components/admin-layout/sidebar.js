@@ -7,5 +7,5 @@ const {
 
 export default Ember.Component.extend({
   layout,
-  classNames: ['admin-sidebar']
+  classNames: ['admin-layout-sidebar']
 })
