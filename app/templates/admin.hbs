@@ -6,15 +6,7 @@
 
       <ul data-test='models-list'>
         {{#each filteredModels as |name|}}
-          <li>
-            {{#link-to
-              'admin.model-records'
-              name
-              data-test=(concat 'models-list-item-' name)
-            }}
-              {{name}}
-            {{/link-to}}
-          </li>
+          {{admin-layout/nav-link name=name}}
         {{/each}}
       </ul>
     </nav>
