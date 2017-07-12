@@ -9,9 +9,8 @@ const {
 
 export default Route.extend(ResourceRouteMixin, {
   model(params) {
-    const modelName = singularize(
-      this.paramsFor('admin.model-records').name
-    )
+    const modelName = this._modelName()
+
     return this.get('admin.store').find(modelName, params.id)
   },
 
