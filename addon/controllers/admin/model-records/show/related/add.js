@@ -20,9 +20,8 @@ export default Controller.extend(
 
     actions: {
       onFilterChange(value) {
-        this.get('admin.store').query(
-          this.get('recordType'),
-          { 'filter[keyword]': value })
+        this.get('admin.store')
+          .query(this.get('recordType'), { 'filter[keyword]': value })
           .then(result => this.set('model', result))
       },
 
