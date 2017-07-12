@@ -13,8 +13,5 @@ export default Component.extend({
   classNames: ['admin-layout-nav-link'],
   dataTest: computed(function() {
     return `models-list-item-${this.get('name')}`
-  }),
-  formattedName: computed('name', function() {
-    return capitalize(pluralize(this.get('name')))
   })
 })
