@@ -1,11 +1,5 @@
-<h3>{{format-resource-name recordType}}</h3>
+{{admin-layout/page-header recordType=recordType}}
 
-{{link-to
-  'Create'
-  'admin.model-records.new'
-  class='fv-button fv-button-default'
-  data-test='button-create'
-}}
 
 {{fv-paginator
   class='fv-pull-right'

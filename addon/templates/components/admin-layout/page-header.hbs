@@ -1,0 +1,11 @@
+<h3>
+  {{format-resource-name recordType}}
+</h3>
+
+{{#link-to
+  'admin.model-records.new'
+  class='admin-button'
+  data-test='button-create'
+}}
+  &plus; New {{recordType}}
+{{/link-to}}
