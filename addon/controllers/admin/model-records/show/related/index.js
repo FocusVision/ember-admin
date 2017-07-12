@@ -38,6 +38,8 @@ export default Controller.extend(
           } else {
             model.get(inverseRelationshipName).removeObject(record)
           }
+
+          model.save()
         })
       }
     }

@@ -36,7 +36,7 @@
 
   {{#admin-table
     recordType=recordType
-    model=model as |table|}}
+    model=model.relatedModel as |table|}}
     {{#admin-filter-columns
       recordType=recordType as |columns|}}
 
@@ -50,7 +50,7 @@
       {{table.column
         label='actions'
         component='column-actions-relationship'
-        parentModel=parentModel
+        parentModel=model.parentModel
         actionsHash=(hash
           remove=(action 'remove')
         )

@@ -5,12 +5,25 @@ import RelationshipRouteMixin
   from 'ember-admin/mixins/model-records/relationship-route-mixin'
 
 const {
-  Route
+  Route,
+  get,
+  RSVP
 } = Ember
 
 export default Route.extend(IndexRouteMixin, RelationshipRouteMixin, {
+
   model(params) {
-    return this.modelFor('admin.model-records.show')
-      .query(this._relationshipName(), this.extractQueryParams(params))
+    const parentModelFor = this.modelFor('admin.model-records.show')
+    const parentModelId = get(parentModelFor, 'id')
+    const parentModelType = get(parentModelFor, 'constructor.modelName')
+    const parentModel = this.get('admin.store')
+      .peekRecord(parentModelType, parentModelId)
+
+    return RSVP.hash({
+      parentModel,
+      relatedModel: parentModel.query(
+        this._relationshipName(), this.extractQueryParams(params)
+      )
+    })
   }
 })
