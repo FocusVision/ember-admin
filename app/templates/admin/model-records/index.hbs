@@ -11,23 +11,8 @@
   surrounding=1
 }}
 
-{{#admin-table
+{{admin-resource-list
   recordType=recordType
   model=model
-  onRowClick=(action 'view') as |table|
+  onRowClick=(action 'view')
 }}
-
-  {{#admin-filter-columns
-    recordType=recordType as |columns|
-  }}
-
-    {{#each columns.filteredColumns as |column|}}
-      {{table.column
-        label=column.key
-        key=column.key
-      }}
-    {{/each}}
-
-  {{/admin-filter-columns}}
-
-{{/admin-table}}
