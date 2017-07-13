@@ -1,0 +1,9 @@
+.admin-relationship-header {}
+
+.admin-relationship-header-actions {
+  padding: $admin-padding-lg $admin-padding-lg 0rem;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+}

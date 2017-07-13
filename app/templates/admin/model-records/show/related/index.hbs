@@ -1,40 +1,10 @@
-<h2>{{recordType}}</h2>
-
-{{#link-to
-  'admin.model-records.show.related.new'
-  class='admin-button '
-  data-test=(concat 'button-create-' recordType)
-}}
-  Create
-{{/link-to}}
-
-{{#link-to
-  'admin.model-records.show.related.add'
-  data-test=(concat 'button-add-' recordType)
-  class='admin-button'
-}}
-  Add
-{{/link-to}}
-
-{{fv-paginator
-  class='fv-pull-right'
-  current=page
-  total=pageCount
-  surrounding=1
+{{admin-layout/relationship-header
+  recordType=recordType
+  filterKeyword=filterKeyword
+  onFilterChange=(action 'onFilterChange')
 }}
 
-<h1>
-  Show relationship
-</h1>
-
-<div data-test='admin-relationship-list'>
-  {{admin-filter-keyword
-    value=filterKeyword
-    placeholder=(concat 'Filter by ' recordType)
-    onInput=(action 'onFilterChange')
-    data-test='filter-input'
-  }}
-
+<div data-test='admin-relationship-list admin-resource-list-table admin-table-responsive'>
   {{#admin-table
     recordType=recordType
     model=model.relatedModel as |table|}}

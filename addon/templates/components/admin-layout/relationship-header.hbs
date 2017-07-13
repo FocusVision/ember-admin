@@ -1,0 +1,26 @@
+<div class='admin-relationship-header-actions'>
+  <div>
+    {{#link-to
+      'admin.model-records.show.related.new'
+      class='admin-button '
+      data-test=(concat 'button-create-' recordType)
+    }}
+      New {{recordType}}
+    {{/link-to}}
+
+    {{#link-to
+      'admin.model-records.show.related.add'
+      data-test=(concat 'button-add-' recordType)
+      class='admin-button'
+    }}
+      Select from existing
+    {{/link-to}}
+  </div>
+
+  {{admin-filter-keyword
+    value=filterKeyword
+    placeholder=(concat 'Filter by ' recordType)
+    onInput=onFilterChange
+    data-test='filter-input'
+  }}
+</div>
