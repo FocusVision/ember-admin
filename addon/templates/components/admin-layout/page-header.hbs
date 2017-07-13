@@ -1,22 +1,33 @@
-<div class='admin-page-header-title'>
-  <h3>
-    {{format-resource-name recordType}}
-  </h3>
+<div class='admin-page-header-title-row'>
+  <div class='admin-page-header-title'>
+    <h3>
+      {{format-resource-name recordType}}
+    </h3>
 
-  {{#link-to
-    'admin.model-records.new'
-    class='admin-button'
-    data-test='button-create'
-  }}
-    &plus; New {{recordType}}
-  {{/link-to}}
+    {{#link-to
+      'admin.model-records.new'
+      class='admin-button'
+      data-test='button-create'
+    }}
+      &plus; New {{recordType}}
+    {{/link-to}}
+  </div>
+
+  <div class='admin-page-header-search'>
+    {{admin-filter-keyword
+      value=filterKeyword
+      placeholder=(concat 'Filter by ' recordType)
+      onInput=onFilterChange
+      data-test='filter-input'
+    }}
+  </div>
 </div>
 
-<div class='admin-page-header-search'>
-  {{admin-filter-keyword
-    value=filterKeyword
-    placeholder=(concat 'Filter by ' recordType)
-    onInput=onFilterChange
-    data-test='filter-input'
+<div class='admin-page-header-breadcrumb-row'>
+  {{bread-crumbs
+    tagName="ul"
+    class='admin-breadcrumb'
+    crumbClass='admin-breadcrumb-item'
+    linkable=true
   }}
 </div>

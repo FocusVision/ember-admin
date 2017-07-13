@@ -1,9 +1,12 @@
 .admin-page-header {
-  padding: 2rem;
   border-bottom: 1px solid $admin-gray;
+}
+
+.admin-page-header-title-row {
+  padding: 2rem 2rem 0rem;
   display: flex;
   flex-flow: row;
-  align-items: center;
+  align-items: centeri;
   justify-content: space-between;
 
   h3 {
@@ -17,7 +20,9 @@
   }
 }
 
-.admin-page-header-title {
+.admin-page-header-breadcrumb-row {
+  padding: 0rem 2rem 2rem;
 }
-.admin-page-header-search {
-}
+
+.admin-page-header-title {}
+.admin-page-header-search {}
