@@ -1,5 +1,8 @@
-{{admin-layout/page-header recordType=recordType}}
-
+{{admin-layout/page-header
+  recordType=recordType
+  filterKeyword=filterKeyword
+  onFilterChange=(action 'onFilterChange')
+}}
 
 {{fv-paginator
   class='fv-pull-right'
@@ -8,21 +11,15 @@
   surrounding=1
 }}
 
-{{admin-filter-keyword
-  value=filterKeyword
-  placeholder=(concat 'Filter by ' recordType)
-  onInput=(action 'onFilterChange')
-  data-test='filter-input'
-}}
-
-
 {{#admin-table
   recordType=recordType
   model=model
-  onRowClick=(action 'view') as |table|}}
+  onRowClick=(action 'view') as |table|
+}}
 
   {{#admin-filter-columns
-    recordType=recordType as |columns|}}
+    recordType=recordType as |columns|
+  }}
 
     {{#each columns.filteredColumns as |column|}}
       {{table.column
