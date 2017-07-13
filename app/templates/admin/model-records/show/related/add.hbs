@@ -1,22 +1,13 @@
-<h1>
-  Select Relationship
-</h1>
+{{#admin-layout/overlay
+  close=(action 'complete')}}
 
-{{admin-relationship-select
-  model=model
-  parentModel=parentModel
-  recordType=recordType
-  filterKeyword=filterKeyword
-  filter=(action 'onFilterChange')
-  add=(action 'add')
-}}
+  {{admin-relationship-select
+    model=model
+    parentModel=parentModel
+    recordType=recordType
+    filterKeyword=filterKeywords
+    filter=(action 'onFilterChange')
+    add=(action 'add')
+  }}
 
-<br/>
-<button
-  type='button'
-  onclick={{action 'complete'}}
-  data-test='button-done-adding'
-  class='admin-button'
->
-  Complete
-</button>
+{{/admin-layout/overlay}}

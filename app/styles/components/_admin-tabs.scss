@@ -1,5 +1,8 @@
 .admin-relationship-tabs {
-  padding: $admin-padding-lg;
+  padding: $admin-padding-lg 0;
+  margin-left: $admin-padding-lg;
+  margin-right: $admin-padding-lg;
+  border-top: 1px solid $admin-gray;
 }
 
 .admin-layout-tabs {
@@ -20,15 +23,19 @@
     color: $admin-font-color;
 
     &:hover {
-      border: 1px solid $admin-gray;
+      border: 1px solid darken($admin-gray, 10%);
     }
 
     &:active,
     &:focus,
     &.active,
     &.fv-active {
-      border: 1px solid $admin-gray;
+      border: 1px solid darken($admin-gray, 10%);
       background: rgba(0, 0, 0, 0.05)
     }
+  }
+
+  & + & {
+    margin-left: $admin-padding-sm;
   }
 }

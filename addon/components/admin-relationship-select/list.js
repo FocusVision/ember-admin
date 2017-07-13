@@ -7,5 +7,6 @@ const {
 } = Ember
 
 export default Component.extend({
-  layout
+  layout,
+  classNames: ['admin-relationship-select-list admin-resource-list']
 })

@@ -1,0 +1,19 @@
+<div class='admin-overlay-header'>
+  <button
+    type='button'
+    onclick={{close}}
+    class='admin-button admin-close'>
+    &times;
+  </button>
+</div>
+
+{{yield}}
+
+<div class='admin-overlay-footer'>
+  <button
+    type='button'
+    onclick={{close}}
+    class='admin-button'>
+    Done
+  </button>
+</div>

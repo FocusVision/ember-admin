@@ -20,5 +20,7 @@
 }
 
 .admin-layout-main {
+  position: relative;
+  height: 100vh;
   margin-left: $admin-sidebar-width;
 }

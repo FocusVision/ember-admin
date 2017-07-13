@@ -1,8 +1,7 @@
 <div class='admin-resource-list-table admin-table-responsive'>
   {{#admin-table
     recordType=recordType
-    model=model as |table|}}
-
+    model=model.relatedModel as |table|}}
     {{#admin-filter-columns
       recordType=recordType as |columns|}}
 
@@ -14,12 +13,10 @@
       {{/each}}
 
       {{table.column
-        label=''
+        label='actions'
         component='column-actions-relationship'
-        parentModel=parentModel
-        actionsHash=(hash
-          add=add
-        )
+        parentModel=model.parentModel
+        actionsHash=actionsHash
       }}
 
     {{/admin-filter-columns}}

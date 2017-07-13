@@ -1,7 +1,13 @@
-{{admin-filter-keyword
-  placeholder=(concat 'Filter ' recordType)
-  value=filterKeyword
-  onInput=filter}}
+<div class='admin-page-header-title-row'>
+  <h3>
+    Add existing {{recordType}}
+  </h3>
+
+  {{admin-filter-keyword
+    placeholder=(concat 'Filter ' recordType)
+    value=filterKeyword
+    onInput=filter}}
+</div>
 
 {{admin-relationship-select/list
   parentModel=parentModel

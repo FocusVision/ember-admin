@@ -1,9 +1,9 @@
 .admin-resource-list {
   padding: 2rem;
+}
 
-  .admin-resource-list-table {
-    background: #fff;
-    border-radius: 3px;
-    box-shadow: $admin-box-shadow;
-  }
+.admin-resource-list-table {
+  background: #fff;
+  border-radius: $admin-border-radius;
+  box-shadow: $admin-box-shadow;
 }

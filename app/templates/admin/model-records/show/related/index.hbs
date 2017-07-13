@@ -4,31 +4,12 @@
   onFilterChange=(action 'onFilterChange')
 }}
 
-<div data-test='admin-relationship-list admin-resource-list-table admin-table-responsive'>
-  {{#admin-table
-    recordType=recordType
-    model=model.relatedModel as |table|}}
-    {{#admin-filter-columns
-      recordType=recordType as |columns|}}
-
-      {{#each columns.filteredColumns as |column|}}
-        {{table.column
-          label=column.key
-          key=column.key
-        }}
-      {{/each}}
-
-      {{table.column
-        label='actions'
-        component='column-actions-relationship'
-        parentModel=model.parentModel
-        actionsHash=(hash
-          remove=(action 'remove')
-        )
-      }}
-
-    {{/admin-filter-columns}}
-  {{/admin-table}}
-</div>
+{{admin-relationship-list
+  recordType=recordType
+  model=model
+  actionsHash=(hash
+    remove=(action 'remove')
+  )
+}}
 
 {{outlet}}
