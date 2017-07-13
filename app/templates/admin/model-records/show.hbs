@@ -7,17 +7,6 @@
   onUpdate=(action 'onFieldUpdate')
 }}
 
-{{#admin-layout/tabs as |tabs|}}
-  {{#each relationships as |relationship|}}
-    {{#tabs.tab}}
-      {{#link-to
-        'admin.model-records.show.related'
-        relationship.key
-      }}
-        {{relationship.key}}
-      {{/link-to}}
-    {{/tabs.tab}}
-  {{/each}}
-{{/admin-layout/tabs}}
+{{admin-relationship-tabs relationships=relationships}}
 
 {{outlet}}
