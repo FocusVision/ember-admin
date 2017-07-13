@@ -4,8 +4,12 @@
   padding: $admin-padding $admin-padding-lg;
   display: flex;
   flex-flow: row;
-  flex-direction: row-reverse;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: space-between;
+
+  h6 {
+    text-transform: capitalize;
+  }
 }
 
 .admin-form-content {

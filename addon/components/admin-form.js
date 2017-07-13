@@ -2,7 +2,9 @@ import Ember from 'ember'
 import layout from 'ember-admin/templates/components/admin-form'
 
 const {
-  Component
+  Component,
+  getOwner,
+  computed
 } = Ember
 
 export default Component.extend({
@@ -10,6 +12,16 @@ export default Component.extend({
   classNames: ['admin-form'],
 
   excludedColumns: ['id'],
+
+  currentRouteName: computed('currentPath', function() {
+    const actionName = getOwner(this)
+      .lookup('controller:application')
+      .currentPath
+      .split('.')
+      .pop()
+
+    return ['edit', 'new'].includes(actionName) ? actionName : 'edit'
+  }),
 
   model: null,
   parentModel: null,
