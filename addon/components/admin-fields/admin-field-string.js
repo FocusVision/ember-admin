@@ -6,7 +6,7 @@ const {
 } = Ember
 
 export default TextField.extend({
-  classNames: ['fv-text-control'],
+  classNames: ['admin-input'],
   attributeBindings: ['disabled'],
   disabled: alias('column.disabled'),
   input({ target: { value }}) {

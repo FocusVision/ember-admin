@@ -2,14 +2,14 @@
   display: inline-block;
   background: transparent;
   font-weight: bold;
-  line-height: 1.5;
+  line-height: $admin-input-line-height;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
   user-select: none;
   border: 1px solid $admin-gray;
-  padding: 0.4rem 0.75rem;
-  border-radius: 3px;
+  padding: $admin-input-padding;
+  border-radius: $admin-border-radius;
   color: $admin-font-color;
 
 

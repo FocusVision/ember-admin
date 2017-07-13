@@ -9,7 +9,7 @@ const {
 export default Component.extend({
   layout,
 
-  classNames: ['fv-text-control'],
+  classNames: ['admin-filter-keyword'],
   tagName: '',
   placeholder: 'Enter text...',
   timeout: 500,
