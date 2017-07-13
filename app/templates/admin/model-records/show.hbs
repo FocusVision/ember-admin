@@ -7,19 +7,17 @@
   onUpdate=(action 'onFieldUpdate')
 }}
 
-<h2>Relationships</h2>
-
-<ul>
+{{#admin-layout/tabs as |tabs|}}
   {{#each relationships as |relationship|}}
-    <li data-test='has-many-{{relationship.key}}'>
+    {{#tabs.tab}}
       {{#link-to
         'admin.model-records.show.related'
         relationship.key
       }}
         {{relationship.key}}
       {{/link-to}}
-    </li>
+    {{/tabs.tab}}
   {{/each}}
-</ul>
+{{/admin-layout/tabs}}
 
 {{outlet}}

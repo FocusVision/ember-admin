@@ -1,0 +1,26 @@
+.admin-layout-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-layout-tabs-link {
+  display: inline-block;
+
+  a {
+    text-transform: capitalize;
+    padding: $admin-input-padding;
+    border: 1px solid transparent;
+    background: transparent;
+    border-radius: $admin-border-radius;
+    color: $admin-font-color;
+
+    &:active,
+    &:focus,
+    &.active,
+    &.fv-active {
+      border: 1px solid $admin-gray;
+      background: rgba(0, 0, 0, 0.05)
+    }
+  }
+}
