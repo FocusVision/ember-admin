@@ -8,7 +8,9 @@
 <thead>
   <tr>
     {{#each columns as |column|}}
-      <th>{{column.label}}</th>
+      <th>
+        {{format-column-name column.label}}
+      </th>
     {{/each}}
   </tr>
 </thead>

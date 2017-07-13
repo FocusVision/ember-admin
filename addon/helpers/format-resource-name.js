@@ -5,8 +5,8 @@ const {
   String: { pluralize, capitalize }
 } = Ember
 
-export function formatResourceName(params) {
-  return pluralize(capitalize(params[0]))
+export function formatResourceName([resourceName]) {
+  return pluralize(capitalize(resourceName))
 }
 
-export default Ember.Helper.helper(formatResourceName)
+export default Helper.helper(formatResourceName)
