@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/components/admin-form';
+export { default } from 'ember-admin/components/admin-form'

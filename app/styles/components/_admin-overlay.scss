@@ -1,0 +1,17 @@
+.admin-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1px;
+  right: 0;
+  background: $admin-gray-light;
+}
+
+.admin-overlay-header,
+.admin-overlay-footer {
+  padding: $admin-padding $admin-padding-lg;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: flex-end;
+}

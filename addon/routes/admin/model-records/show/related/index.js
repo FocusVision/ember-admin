@@ -1,27 +1,29 @@
 import Ember from 'ember'
 import IndexRouteMixin
   from 'ember-admin/mixins/model-records/index-route-mixin'
+import RelationshipRouteMixin
+  from 'ember-admin/mixins/model-records/relationship-route-mixin'
 
 const {
   Route,
-  String: { singularize }
+  get,
+  RSVP
 } = Ember
 
-export default Route.extend(IndexRouteMixin, {
+export default Route.extend(IndexRouteMixin, RelationshipRouteMixin, {
+
   model(params) {
-    const modelName = this._relationshipName()
+    const parentModelFor = this.modelFor('admin.model-records.show')
+    const parentModelId = get(parentModelFor, 'id')
+    const parentModelType = get(parentModelFor, 'constructor.modelName')
+    const parentModel = this.get('admin.store')
+      .peekRecord(parentModelType, parentModelId)
 
-    return this.modelFor('admin.model-records.show')
-      .query(modelName, this.extractQueryParams(params))
-  },
-
-  setupController(controller, model) {
-    this._super(controller, model)
-
-    controller.set('recordType', singularize(this._relationshipName()))
-  },
-
-  _relationshipName() {
-    return this.paramsFor('admin.model-records.show.related').relationship_name
+    return RSVP.hash({
+      parentModel,
+      relatedModel: parentModel.query(
+        this._relationshipName(), this.extractQueryParams(params)
+      )
+    })
   }
 })

@@ -1,8 +1,9 @@
 import Ember from 'ember'
 import { includes } from 'ember-admin/utils/array'
+import layout from 'ember-admin/templates/components/admin-filter-columns'
 
 const {
-  Mixin,
+  Component,
   A,
   computed,
   inject: { service },
@@ -16,7 +17,9 @@ const keyIsDisabled = (serializerAttrs, key) =>
   serializerAttrs[key] &&
   !serializerAttrs[key].serialize
 
-export default Mixin.create({
+export default Component.extend({
+  layout,
+  tagName: '',
   store: service(),
   admin: service(),
 

@@ -1,0 +1,16 @@
+{{#admin-layout/overlay
+  close=(action 'complete')}}
+
+  {{admin-relationship-select
+    model=model
+    parentModel=parentModel
+    recordType=recordType
+    filterKeyword=filterKeywords
+    onFilterChange=(action 'onFilterChange')
+    updatePage=(action 'updatePage')
+    add=(action 'add')
+    page=page
+    pageCount=pageCount
+  }}
+
+{{/admin-layout/overlay}}

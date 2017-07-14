@@ -19,7 +19,7 @@ describe('Acceptance: Admin', () => {
       await page.visit()
 
       expect(page.modelLinks).to.include.members(
-        ['bird', 'cat', 'course', 'dog', 'owner', 'toy']
+        ['Profiles', 'Birds', 'Cats', 'Courses', 'Dogs', 'Owners', 'Toys']
       )
     })
   })
@@ -29,12 +29,12 @@ describe('Acceptance: Admin', () => {
       await page.visit().clickModelTypeCat()
 
       expect(page.catHeaders(0).text.split(' ')).to.include.members(
-        ['id', 'name', 'age', 'fleas', 'bar', 'baz']
+        ['Id', 'Name', 'Age', 'Fleas', 'Bar', 'Baz']
       )
-      expect(page.cats(0).text.split(' ')).to.include.members(
+      expect(page.catsList(0).text.split(' ')).to.include.members(
         ['Felix', '10', 'false']
       )
-      expect(page.cats(1).text.split(' ')).to.include.members(
+      expect(page.catsList(1).text.split(' ')).to.include.members(
         ['Nyan', '3', 'true']
       )
     })
@@ -42,8 +42,8 @@ describe('Acceptance: Admin', () => {
     it('filtering records by value', async () => {
       await page.visitCats().filterBy('Felix')
 
-      expect(page.cats().count).to.equal(1)
-      expect(page.cats(0).text.split(' ')).to.include.members(
+      expect(page.catsList().count).to.equal(1)
+      expect(page.catsList(0).text.split(' ')).to.include.members(
         ['Felix', '10', 'false']
       )
     })
@@ -53,14 +53,17 @@ describe('Acceptance: Admin', () => {
     it('editing a record', async () => {
       await page
         .visitCats()
-        .clickFirstCatRecord()
+        .catsList(0)
+        .click()
+
+      await page
         .fillInName('Hobbes')
         .fillInAge('29')
         .clickFleas()
         .clickSave()
 
-      expect(page.cats().count).to.equal(2)
-      expect(page.cats(0).text.split(' ')).to.include.members(
+      expect(page.catsList().count).to.equal(2)
+      expect(page.catsList(0).text.split(' ')).to.include.members(
         ['Hobbes', '29', 'true']
       )
     })
@@ -83,8 +86,8 @@ describe('Acceptance: Admin', () => {
         .clickFleas('true')
         .clickSave()
 
-      expect(page.cats().count).to.equal(3)
-      expect(page.cats(2).text.split(' ')).to.include.members(
+      expect(page.catsList().count).to.equal(3)
+      expect(page.catsList(2).text.split(' ')).to.include.members(
         ['Lion-O', '30', 'true']
       )
     })
@@ -94,12 +97,11 @@ describe('Acceptance: Admin', () => {
         .clickCreate()
         .clickSave()
 
-      expect(page.cats().count).to.equal(3)
-      expect(page.cats(2).text.split(' ')).to.include.members(
+      expect(page.catsList().count).to.equal(3)
+      expect(page.catsList(2).text.split(' ')).to.include.members(
         ['false']
       )
     })
-
 
     it("creating doesn't affect list", async () => {
       const oldConfirm = window.confirm
@@ -107,11 +109,11 @@ describe('Acceptance: Admin', () => {
 
       await page.visitCats()
 
-      expect(page.cats().count).to.equal(2)
+      expect(page.catsList().count).to.equal(2)
 
       await page.clickCreate().visitCats()
 
-      expect(page.cats().count).to.equal(2)
+      expect(page.catsList().count).to.equal(2)
       window.confirm = oldConfirm
     })
 
@@ -137,8 +139,8 @@ describe('Acceptance: Admin', () => {
 
       await page.visitCatEdit({ cat_id: 1 }).clickDelete()
 
-      expect(page.cats().count).to.equal(1)
-      expect(page.cats(0).text.split(' ')).to.include.members(['Nyan', '3'])
+      expect(page.catsList().count).to.equal(1)
+      expect(page.catsList(0).text.split(' ')).to.include.members(['Nyan', '3'])
       expect(confirmCount).to.equal(1)
       window.confirm = oldConfirm
     })
@@ -149,7 +151,7 @@ describe('Acceptance: Admin', () => {
 
       await page.visitCatEdit({ cat_id: 1 }).clickDelete()
 
-      expect(currentURL()).to.equal('/admin/cat/1')
+      expect(currentURL()).to.equal('/admin/cat/1/toys')
       window.confirm = oldConfirm
     })
   })
@@ -161,8 +163,8 @@ describe('Acceptance: Admin', () => {
 
       await page.visit()
 
-      expect(page.modelLinks).to.have.length(5)
-      expect(page.modelLinks).to.not.include('cat')
+      expect(page.modelLinks).to.have.length(6)
+      expect(page.modelLinks).to.not.include('Cats')
     })
 
     it('including models', async () => {
@@ -172,7 +174,7 @@ describe('Acceptance: Admin', () => {
       await page.visit()
 
       expect(page.modelLinks).to.have.length(1)
-      expect(page.modelLinks).to.include('dog')
+      expect(page.modelLinks).to.include('Dogs')
     })
 
     it('including & excluding model', async () => {
@@ -183,7 +185,7 @@ describe('Acceptance: Admin', () => {
       await page.visit()
 
       expect(page.modelLinks).to.have.length(1)
-      expect(page.modelLinks).to.include('dog')
+      expect(page.modelLinks).to.include('Dogs')
     })
 
     it('including model columns', async () => {
@@ -195,12 +197,12 @@ describe('Acceptance: Admin', () => {
       await page.visitCats()
 
       expect(page.catHeaders().text.split(' ')).to.include.members(
-        ['name']
+        ['Name']
       )
 
       await page.visitCatEdit({ cat_id: 1 })
 
-      expect(page.formLabelName).to.equal('name')
+      expect(page.formLabelName).to.equal('Name')
     })
 
     it('excluding model columns', async () => {
@@ -212,7 +214,7 @@ describe('Acceptance: Admin', () => {
       await page.visitCats()
 
       expect(page.catHeaders().text.split(' ')).to.include.members(
-        ['id', 'age', 'fleas', 'bar', 'baz']
+        ['Id', 'Age', 'Fleas', 'Bar', 'Baz']
       )
     })
   })
@@ -221,8 +223,7 @@ describe('Acceptance: Admin', () => {
     it('shows paginator on index page', async () => {
       await page.visitCats()
 
-      expect(page.paginatorIsVisible).to.be.true
-      expect(page.paginatorPages().count).to.eq(1)
+      expect(page.paginatorCount).to.equal('1 of 1')
     })
 
     it('paginator modifies query params', async () => {
@@ -230,11 +231,10 @@ describe('Acceptance: Admin', () => {
 
       await page
         .visitCats()
-        .paginatorPages(2)
-        .click()
+        .paginator(0)
+        .next()
 
-      expect(page.paginatorIsVisible).to.be.true
-      expect(page.paginatorPages().count).to.eq(3)
+      expect(page.paginatorCount).to.eq('2 of 2')
       expect(currentURL()).to.eq('/admin/cat?page=2')
     })
   })

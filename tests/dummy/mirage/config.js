@@ -2,6 +2,7 @@ const jsonapiType = request => JSON.parse(request.requestBody).data.type
 
 const patch = function(schema, request) {
   const { params: { id }} = request
+
   return schema[jsonapiType(request)]
     .find(id)
     .update(this.normalizedRequestAttrs())
@@ -9,14 +10,27 @@ const patch = function(schema, request) {
 
 const getResources = (model, { queryParams }) => {
   const keyword = queryParams['filter[keyword]']
+
   if (keyword) {
-    return model.where({ name: keyword })
+    const collection = model.all()
+
+    return collection.filter(record => {
+      if (!record.name) {
+        return false
+      }
+
+      return record.name.toLowerCase().includes(
+        keyword.toLowerCase()
+      )
+    })
   }
+
   return model.all()
 }
 
 const getCats = ({ cats }, ...args) => getResources(cats, ...args)
 const getToys = ({ toys }, ...args) => getResources(toys, ...args)
+const getOwners = ({ owners }, ...args) => getResources(owners, ...args)
 
 export default function() {
   this.namespace = '/admin'
@@ -45,7 +59,7 @@ export default function() {
   this.patch('/toys/:id', patch)
   this.delete('/toys/:id')
 
-  this.get('/owners')
+  this.get('/owners', getOwners)
   this.get('/owners/:id')
   this.post('/owners')
   this.patch('/owners/:id', patch)
@@ -56,4 +70,10 @@ export default function() {
   this.post('/courses')
   this.patch('/courses/:id', patch)
   this.delete('/courses/:id')
+
+  this.get('/profiles')
+  this.get('/profiles/:id')
+  this.post('/profiles')
+  this.patch('/profiles/:id', patch)
+  this.delete('/profiles/:id')
 }

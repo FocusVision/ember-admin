@@ -1,22 +1,35 @@
 import Ember from 'ember'
 import layout from 'ember-admin/templates/components/admin-form'
-import FilteredColumnsMixin
-  from 'ember-admin/mixins/model-records/filtered-columns-mixin'
 
 const {
-  Component
+  Component,
+  getOwner,
+  computed
 } = Ember
 
-export default Component.extend(FilteredColumnsMixin, {
+export default Component.extend({
   layout,
+  classNames: ['admin-form'],
+
   excludedColumns: ['id'],
 
+  currentRouteName: computed('currentPath', function() {
+    const actionName = getOwner(this)
+      .lookup('controller:application')
+      .currentPath
+      .split('.')
+      .pop()
+
+    return ['edit', 'new'].includes(actionName) ? actionName : 'edit'
+  }),
+
   model: null,
+  parentModel: null,
   recordType: null,
 
   actions: {
-    save() {
-      this.save()
+    save(model, parentModel) {
+      this.save(model, parentModel)
     },
 
     delete() {

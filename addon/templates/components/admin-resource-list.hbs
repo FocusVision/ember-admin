@@ -1,0 +1,23 @@
+<div class='admin-resource-list-table admin-table-responsive'>
+  {{#admin-table
+    recordType=recordType
+    model=model
+    class='admin-table-hover'
+    onRowClick=onRowClick as |table|
+  }}
+
+    {{#admin-filter-columns
+      recordType=recordType as |columns|
+    }}
+
+      {{#each columns.filteredColumns as |column|}}
+        {{table.column
+          label=column.key
+          key=column.key
+        }}
+      {{/each}}
+
+    {{/admin-filter-columns}}
+
+  {{/admin-table}}
+</div>

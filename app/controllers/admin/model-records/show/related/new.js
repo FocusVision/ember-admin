@@ -1,1 +1,2 @@
-export { default } from 'ember-admin/controllers/admin/model-records/show/related/new';
+export { default }
+  from 'ember-admin/controllers/admin/model-records/show/related/new'

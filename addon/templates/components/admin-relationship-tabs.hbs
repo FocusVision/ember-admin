@@ -1,0 +1,15 @@
+{{#admin-layout/tabs as |tabs|}}
+  <li class='admin-layout-tabs-link'>
+    <strong>Related</strong>
+  </li>
+  {{#each relationships as |relationship|}}
+    {{#tabs.tab data-test=(concat 'relationship-tab-link-' relationship.key)}}
+      {{#link-to
+        'admin.model-records.show.related'
+        relationship.key
+      }}
+        {{relationship.key}}
+      {{/link-to}}
+    {{/tabs.tab}}
+  {{/each}}
+{{/admin-layout/tabs}}

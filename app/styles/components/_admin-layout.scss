@@ -1,0 +1,23 @@
+.admin-layout {
+  position: relative;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  background: $admin-gray-light;
+}
+
+.admin-layout-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  width: $admin-sidebar-width;
+}
+
+.admin-layout-main {
+  position: relative;
+  margin-left: $admin-sidebar-width;
+  border-left: 1px solid $admin-gray;
+  min-height: 100vh;
+}

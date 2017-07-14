@@ -1,0 +1,27 @@
+<div class='admin-resource-list-table admin-table-responsive'>
+  {{#admin-table
+    recordType=recordType
+    model=model as |table|}}
+
+    {{#admin-filter-columns
+      recordType=recordType as |columns|}}
+
+      {{#each columns.filteredColumns as |column|}}
+        {{table.column
+          label=column.key
+          key=column.key
+        }}
+      {{/each}}
+
+      {{table.column
+        label=''
+        component='column-actions-relationship'
+        parentModel=parentModel
+        actionsHash=(hash
+          add=add
+        )
+      }}
+
+    {{/admin-filter-columns}}
+  {{/admin-table}}
+</div>

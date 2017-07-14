@@ -1,52 +1,53 @@
 import Ember from 'ember'
 import ResourceControllerMixin
   from 'ember-admin/mixins/model-records/resource-controller-mixin'
+import RelationshipControllerMixin
+  from 'ember-admin/mixins/model-records/relationship-controller-mixin'
 
 const {
-  computed
+  Controller
 } = Ember
 
-export default Ember.Controller.extend(ResourceControllerMixin, {
-  excludedColumns: ['id'],
+export default Controller.extend(
+  ResourceControllerMixin,
+  RelationshipControllerMixin,
+  {
+    excludedColumns: ['id'],
 
-  relationshipKind: computed('parentModel', function() {
-    return this
-      .get('parentModel')
-      .relationshipFor(this.get('recordName'))
-      .kind
-  }),
+    actions: {
+      save(model, parentModel) {
+        const recordName = this.get('recordName')
+        const inverseRelationshipName =
+          this.inverseRelationshipName(parentModel, recordName)
+        const kind =
+          this.relationshipKind(parentModel, recordName)
+        const inverseKind =
+          this.inverseRelationshipKind(parentModel, recordName)
 
-  inverseRelationshipName: computed('recordName', 'parentModel', function() {
-    return this.get('parentModel')
-      .relationshipFor(this.get('recordName'))
-      .options.inverse
-  }),
-
-  inverseRelationshipKind: computed('inverseRelationshipName', function() {
-    const model = this.get('model')
-    const inverse = this.get('inverseRelationshipName')
-    return model.relationshipFor(inverse) && model.relationshipFor(inverse).kind
-  }),
-
-  actions: {
-    save() {
-      const parentModel = this.get('parentModel')
-      const model = this.get('model')
-
-      if (this.get('inverseRelationshipKind') === 'belongsTo') {
-        model.set(this.get('inverseRelationshipName'), parentModel)
-      }
-
-      return model.save().then(record => {
-        if (this.get('relationshipKind').kind === 'belongsTo') {
-          parentModel.set(this.get('recordName'), record)
+        if (inverseKind === 'belongsTo') {
+          model.set(inverseRelationshipName, parentModel)
         } else {
-          parentModel.get(this.get('recordName')).pushObject(record)
+          model.get(inverseRelationshipName).pushObject(parentModel)
         }
 
-        parentModel.save().then(() =>
-          this.transitionToRoute('admin.model-records.show.related'))
-      })
+        model.save().then(record => {
+          if (kind !== 'belongsTo' && kind !== 'hasMany') {
+            return this._transitionToRelated()
+          }
+
+          if (kind === 'belongsTo') {
+            parentModel.set(recordName, record)
+          } else {
+            parentModel.get(recordName).pushObject(record)
+          }
+
+          parentModel.save().then(() => this._transitionToRelated())
+        })
+      }
+    },
+
+    _transitionToRelated() {
+      this.transitionToRoute('admin.model-records.show.related')
     }
   }
-})
+)

@@ -1,0 +1,21 @@
+{{#if column.actionsHash.remove}}
+  <button
+    type='button'
+    data-test='button-remove-resource-relationship'
+    onclick={{action 'remove' model column.parentModel}}
+    class='admin-button'
+  >
+    Remove
+  </button>
+{{/if}}
+
+{{#if column.actionsHash.add}}
+  <button
+    type='button'
+    data-test='button-add-resource-relationship'
+    onclick={{action 'add' model column.parentModel}}
+    class='admin-button'
+  >
+    Add
+  </button>
+{{/if}}

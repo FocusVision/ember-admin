@@ -1,0 +1,16 @@
+.admin-resource-list-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 $admin-padding-lg;
+}
+
+.admin-resource-list {
+  padding: $admin-padding $admin-padding-lg;
+}
+
+.admin-resource-list-table {
+  padding: $admin-padding $admin-padding-lg;
+  background: #fff;
+  border-radius: $admin-border-radius;
+  box-shadow: $admin-box-shadow;
+}

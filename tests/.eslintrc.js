@@ -1,4 +1,5 @@
 module.exports = {
+  extends: 'focusvision/ember',
   env: {
     embertest: true
   },
@@ -8,5 +9,9 @@ module.exports = {
     'afterEach': true,
     'beforeEach': true,
     'server': true
+  },
+  rules: {
+    'no-unused-expressions': 0,
+    'chai-friendly/no-unused-expressions': 2
   }
 }

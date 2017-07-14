@@ -1,0 +1,33 @@
+.admin-form-actions {
+  padding-top: $admin-padding-lg;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content:flex-end;
+}
+
+.admin-form-content-container {
+  padding: $admin-padding-lg $admin-padding-lg (2 * $admin-padding-lg);
+  display: flex;
+  justify-content: center;
+}
+
+.admin-form-content {
+  width: 600px;
+}
+
+.admin-form-group {
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: $admin-padding-sm;
+  }
+
+  input[type=text] {
+    min-width: 300px;
+  }
+
+  & + & {
+    margin-top: $admin-padding;
+  }
+}

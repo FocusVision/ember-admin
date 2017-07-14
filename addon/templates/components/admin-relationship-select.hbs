@@ -1,0 +1,26 @@
+<div class='admin-page-header-title-row'>
+  <h3>
+    Add existing {{recordType}}
+  </h3>
+</div>
+
+<div class='admin-resource-list-header'>
+  {{admin-filter-keyword
+    placeholder=(concat 'Find ' recordType)
+    value=filterKeyword
+    onInput=onFilterChange
+    data-test='filter-input'
+  }}
+
+  {{admin-paginator
+    updatePage=updatePage
+    page=page
+    pageCount=pageCount
+  }}
+</div>
+
+{{admin-relationship-select/list
+  parentModel=parentModel
+  model=model
+  recordType=recordType
+  add=add}}

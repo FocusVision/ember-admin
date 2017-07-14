@@ -1,29 +1,20 @@
-{{outlet}}
+<div class='admin-resource-list-header'>
+  {{admin-filter-keyword
+    value=filterKeyword
+    placeholder=(concat 'Filter by ' recordType)
+    onInput=(action 'onFilterChange')
+    data-test='filter-input'
+  }}
 
-<h2>{{recordType}}</h2>
+  {{admin-paginator
+    updatePage=(action 'updatePage')
+    page=page
+    pageCount=pageCount
+  }}
+</div>
 
-{{link-to
-  'Create'
-  'admin.model-records.new'
-  class='fv-button fv-button-default'
-  data-test='button-create'
-}}
-
-{{fv-paginator
-  class='fv-pull-right'
-  current=page
-  total=pageCount
-  surrounding=1
-}}
-
-{{admin-filter-keyword
-  value=filterKeyword
-  placeholder=(concat 'Filter by ' recordType)
-  onChange=(action 'onFilterChange')
-  data-test='filter-input'
-}}
-
-{{admin-table
+{{admin-resource-list
   recordType=recordType
   model=model
+  onRowClick=(action 'view')
 }}

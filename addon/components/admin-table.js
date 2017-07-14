@@ -1,20 +1,24 @@
 import Ember from 'ember'
 import layout from 'ember-admin/templates/components/admin-table'
-import FilteredColumnsMixin
-  from 'ember-admin/mixins/model-records/filtered-columns-mixin'
 
 const {
   Component,
   isArray,
   computed,
-  A
+  A,
+  isEmpty
 } = Ember
 
-export default Component.extend(FilteredColumnsMixin, {
+export default Component.extend({
   layout,
-  dataTest: computed(function() {
+  tagName: 'table',
+  classNames: 'admin-table',
+  dataTest: computed('recordType', function() {
     return `admin-table-${this.get('recordType')}`
   }),
+
+  model: null,
+  columns: computed(() => A()),
 
   normalizedModel: computed('model', function() {
     const model = this.get('model')
@@ -23,6 +27,22 @@ export default Component.extend(FilteredColumnsMixin, {
       return model
     }
 
-    return A([model])
-  })
+    return isEmpty(model) ? A([]) : A([model])
+  }),
+
+  registerColumn(column) {
+    this.get('columns').pushObject(column)
+  },
+
+  unregisterColumn(column) {
+    this.get('columns').removeObject(column)
+  },
+
+  onRowClick() {},
+
+  actions: {
+    onRowClick(model) {
+      this.onRowClick(model)
+    }
+  }
 })

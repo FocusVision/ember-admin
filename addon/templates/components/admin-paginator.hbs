@@ -1,0 +1,17 @@
+<button type='button' disabled={{disablePrevious}} onclick={{action 'to' 1}}>
+  <i>&laquo;</i>
+</button>
+<button type='button' disabled={{disablePrevious}} onclick={{action 'previous' page}}>
+  <i>&#8249;</i>
+</button>
+
+<span>
+  {{_page}} of {{_pageCount}}
+</span>
+
+<button type='button' disabled={{disableNext}} onclick={{action 'next' page}}>
+  <i>&#8250;</i>
+</button>
+<button type='button' disabled={{disableNext}} onclick={{action 'to' pageCount}}>
+  <i>&raquo;</i>
+</button>

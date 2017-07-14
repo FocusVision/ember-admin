@@ -1,0 +1,43 @@
+.admin-relationship-tabs {
+  padding: $admin-padding-lg 0;
+  margin-left: $admin-padding-lg;
+  margin-right: $admin-padding-lg;
+  border-top: 1px solid $admin-gray;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.admin-layout-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-layout-tabs-link {
+  display: inline-block;
+
+  a {
+    text-transform: capitalize;
+    padding: $admin-input-padding;
+    border: 1px solid transparent;
+    background: transparent;
+    border-radius: $admin-border-radius;
+    color: $admin-font-color;
+
+    &:hover {
+      border: 1px solid darken($admin-gray, 10%);
+    }
+
+    &:active,
+    &:focus,
+    &.active,
+    &.fv-active {
+      border: 1px solid darken($admin-gray, 10%);
+      background: rgba(0, 0, 0, 0.05)
+    }
+  }
+
+  & + & {
+    margin-left: $admin-padding-sm;
+  }
+}

@@ -1,29 +1,29 @@
-{{#if model}}
-  <table class='fv-table'>
-    <thead>
-      <tr>
-        {{#each filteredColumns as |column|}}
-          <th>
-            {{column.key}}
-          </th>
-        {{/each}}
-      </tr>
-    </thead>
-    <tbody>
-      {{#each normalizedModel as |record|}}
-        <tr>
-          {{#each filteredColumns as |column|}}
-          <td>
-            {{#link-to 'admin.model-records.show' recordType record.id data-test='record-list-item'}}
-              {{get record column.key}}
-            {{/link-to}}
-          </td>
-          {{/each}}
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
+{{yield (hash
+  column=(component
+    'admin-table/admin-table-column'
+    table=this
+  )
+)}}
 
-{{else}}
-  No records!
-{{/if}}
+<thead>
+  <tr>
+    {{#each columns as |column|}}
+      <th>
+        {{format-column-name column.label}}
+      </th>
+    {{/each}}
+  </tr>
+</thead>
+
+<tbody>
+  {{#each normalizedModel as |row|}}
+    <tr onclick={{action 'onRowClick' row}}>
+      {{#each columns as |column|}}
+        {{admin-table/admin-table-cell
+          model=row
+          column=column
+        }}
+      {{/each}}
+    </tr>
+  {{/each}}
+</tbody>

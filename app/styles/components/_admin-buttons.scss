@@ -1,0 +1,45 @@
+.admin-button {
+  display: inline-block;
+  background: transparent;
+  font-weight: bold;
+  line-height: $admin-input-line-height;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid $admin-gray;
+  padding: $admin-input-padding;
+  border-radius: $admin-border-radius;
+  color: $admin-font-color;
+
+
+  &:hover, // Defaults needed for disabled states
+  &:focus {
+    text-decoration: none;
+    outline: 0;
+    cursor: pointer;
+    color: inherit;
+    border-color: darken($admin-gray, 10%)
+  }
+
+
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+
+  &:active {
+    background-image: none;
+  }
+
+  & + & {
+    margin-left: 0.5rem;
+  }
+}
+
+.admin-close {
+  border: 0 transparent;
+  font-size: 2rem;
+  font-weight: lighter;
+}

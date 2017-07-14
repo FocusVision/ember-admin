@@ -1,26 +1,31 @@
-<h2>{{recordType}}</h2>
-
-{{link-to
-  'Create'
-  'admin.model-records.show.related.new'
-  class='fv-button fv-button-default'
-  data-test=(concat 'button-create-' recordType)
-}}
-
-{{fv-paginator
-  class='fv-pull-right'
-  current=page
-  total=pageCount
-  surrounding=1
-}}
-
-{{admin-filter-keyword
-  value=filterKeyword
-  placeholder=(concat 'Filter by ' recordType)
-  onChange=(action 'onFilterChange')
-  data-test='filter-input'
-}}
-
-{{admin-table
+{{admin-layout/relationship-header
   recordType=recordType
-  model=model}}
+  filterKeyword=filterKeyword
+  onFilterChange=(action 'onFilterChange')
+}}
+
+<div class='admin-resource-list-header'>
+  {{admin-filter-keyword
+    value=filterKeyword
+    placeholder=(concat 'Filter by ' recordType)
+    onInput=(action 'onFilterChange')
+    data-test='filter-input'
+  }}
+
+  {{admin-paginator
+    updatePage=(action 'updatePage')
+    page=page
+    pageCount=pageCount
+  }}
+</div>
+
+
+{{admin-relationship-list
+  recordType=recordType
+  model=model
+  actionsHash=(hash
+    remove=(action 'remove')
+  )
+}}
+
+{{outlet}}
