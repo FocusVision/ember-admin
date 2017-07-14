@@ -5,11 +5,7 @@
   display: flex;
   flex-flow: row;
   align-items: center;
-  justify-content: space-between;
-
-  h3 {
-    text-transform: capitalize;
-  }
+  justify-content: flex-end;
 }
 
 .admin-form-content-container {

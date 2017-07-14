@@ -1,10 +1,11 @@
-{{admin-layout/page-header
-  recordType=recordType
-  filterKeyword=filterKeyword
-  onFilterChange=(action 'onFilterChange')
-}}
+<div class='admin-resource-list-header'>
+  {{admin-filter-keyword
+    value=filterKeyword
+    placeholder=(concat 'Filter by ' recordType)
+    onInput=(action 'onFilterChange')
+    data-test='filter-input'
+  }}
 
-<div class='admin-paginator-row'>
   {{admin-paginator
     updatePage=(action 'updatePage')
     page=page

@@ -10,5 +10,9 @@ export default Route.extend({
     this.set('breadCrumb', {
       title: formatResourceName([transition.params['admin.model-records'].name])
     })
-  }
+  },
+
+  setupController(controller, model) {
+    controller.set('recordType', this.paramsFor('admin.model-records').name)
+  },
 })

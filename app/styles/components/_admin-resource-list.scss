@@ -1,5 +1,12 @@
+
+.admin-resource-list-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 $admin-padding-lg;
+}
+
 .admin-resource-list {
-  padding: 2rem;
+  padding: $admin-padding $admin-padding-lg;
 }
 
 .admin-resource-list-table {

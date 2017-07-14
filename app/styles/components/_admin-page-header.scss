@@ -1,5 +1,5 @@
 .admin-page-header {
-  border-bottom: 1px solid $admin-gray;
+  margin-bottom: $admin-padding;
 }
 
 .admin-page-header-title-row {
@@ -7,7 +7,7 @@
   display: flex;
   flex-flow: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   h3 {
     display: inline-block;
@@ -16,13 +16,10 @@
 
   .admin-button {
     vertical-align: middle;
-    margin-left: 1rem;
+    margin-left: $admin-padding;
   }
 }
 
 .admin-page-header-breadcrumb-row {
   padding: 0rem 2rem 2rem;
 }
-
-.admin-page-header-title {}
-.admin-page-header-search {}
