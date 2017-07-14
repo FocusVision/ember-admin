@@ -1,17 +1,17 @@
-<button type='button' onclick={{action 'to' 1}}>
-  first
+<button type='button' disabled={{disablePrevious}} onclick={{action 'to' 1}}>
+  <i>&laquo;</i>
 </button>
-<button type='button' onclick={{action 'previous' page}}>
-  previous
+<button type='button' disabled={{disablePrevious}} onclick={{action 'previous' page}}>
+  <i>&#8249;</i>
 </button>
 
+<span>
+  {{page}} of {{pageCount}}
+</span>
 
-{{page}} of {{pageCount}}
-
-
-<button type='button' onclick={{action 'next' page}}>
-  next
+<button type='button' disabled={{disableNext}} onclick={{action 'next' page}}>
+  <i>&#8250;</i>
 </button>
-<button type='button' onclick={{action 'to' pageCount}}>
-  last
+<button type='button' disabled={{disableNext}} onclick={{action 'to' pageCount}}>
+  <i>&raquo;</i>
 </button>

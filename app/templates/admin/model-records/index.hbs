@@ -4,10 +4,13 @@
   onFilterChange=(action 'onFilterChange')
 }}
 
-{{admin-paginator
-  page=page
-  pageCount=pageCount
-}}
+<div class='admin-paginator-row'>
+  {{admin-paginator
+    updatePage=(action 'updatePage')
+    page=page
+    pageCount=pageCount
+  }}
+</div>
 
 {{admin-resource-list
   recordType=recordType

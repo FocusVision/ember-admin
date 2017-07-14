@@ -20,6 +20,10 @@ export default Mixin.create({
   filterKeyword: alias('filter[keyword]'),
 
   actions: {
+    updatePage(page) {
+      this.set('page', page)
+    },
+
     view(model) {
       this.transitionToRoute(
         'admin.model-records.show',

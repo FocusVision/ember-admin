@@ -4,32 +4,35 @@ import layout from '../templates/components/admin-paginator'
 const {
   Component,
   computed,
-  computed: { gt }
+  computed: { equal }
 } = Ember
 
 export default Ember.Component.extend({
   layout,
+  classNames: ['admin-paginator'],
 
-  page: null, // passed in
-  pageCount: null, // passed in
+  page: null,
+  pageCount: null,
 
-  hasNext: computed('page', 'pageCount', function() {
-    return this.get('page') < this.get('pageCount')
+  updatePage() {},
+
+  disableNext: computed('page', 'pageCount', function() {
+    return this.get('page') >= this.get('pageCount')
   }),
 
-  hasPrevious: gt('page', 1),
+  disablePrevious: equal('page', 1),
 
   actions: {
     next(page) {
-      this.set('page', page + 1)
+      this.updatePage(page + 1)
     },
 
     previous(page) {
-      this.set('page', page - 1)
+      this.updatePage(page - 1)
     },
-    
+
     to(page) {
-      this.set('page', page)
+      this.updatePage(page)
     }
   }
 })
