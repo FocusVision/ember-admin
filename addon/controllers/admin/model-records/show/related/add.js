@@ -1,6 +1,8 @@
 import Ember from 'ember'
 import RelationshipControllerMixin
   from 'ember-admin/mixins/model-records/relationship-controller-mixin'
+import IndexControllerMixin
+  from 'ember-admin/mixins/model-records/index-controller-mixin'
 
 const {
   Controller,
@@ -10,6 +12,7 @@ const {
 
 export default Controller.extend(
   RelationshipControllerMixin,
+  IndexControllerMixin,
   {
     admin: service(),
     related: controller('admin.model-records.show.related.index'),

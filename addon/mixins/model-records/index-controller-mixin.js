@@ -12,7 +12,14 @@ export default Mixin.create({
 
   queryParams: ['filter[keyword]', 'page', 'size'],
 
-  pageCount: alias('model.meta.page-count'),
+  pageCount: computed(
+    'model.meta.page-count',
+    'model.relatedModel.meta.page-count',
+    function() {
+      return this.get('model.meta.page-count') ||
+        this.get('model.relatedModel.meta.page-count')
+    }
+  ),
   page: 1,
   size: 30,
 

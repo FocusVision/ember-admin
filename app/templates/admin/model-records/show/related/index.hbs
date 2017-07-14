@@ -4,6 +4,22 @@
   onFilterChange=(action 'onFilterChange')
 }}
 
+<div class='admin-resource-list-header'>
+  {{admin-filter-keyword
+    value=filterKeyword
+    placeholder=(concat 'Filter by ' recordType)
+    onInput=(action 'onFilterChange')
+    data-test='filter-input'
+  }}
+
+  {{admin-paginator
+    updatePage=(action 'updatePage')
+    page=page
+    pageCount=pageCount
+  }}
+</div>
+
+
 {{admin-relationship-list
   recordType=recordType
   model=model

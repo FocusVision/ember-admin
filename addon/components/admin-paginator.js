@@ -12,15 +12,21 @@ export default Ember.Component.extend({
   classNames: ['admin-paginator'],
 
   page: null,
+  _page: computed('page', function() {
+    return this.get('page') || 1
+  }),
   pageCount: null,
+  _pageCount: computed('pageCount', function() {
+    return this.get('pageCount') || 1
+  }),
 
   updatePage() {},
 
-  disableNext: computed('page', 'pageCount', function() {
-    return this.get('page') >= this.get('pageCount')
+  disableNext: computed('_page', '_pageCount', function() {
+    return this.get('_page') >= this.get('_pageCount')
   }),
 
-  disablePrevious: equal('page', 1),
+  disablePrevious: equal('_page', 1),
 
   actions: {
     next(page) {

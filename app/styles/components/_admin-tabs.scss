@@ -2,9 +2,9 @@
   padding: $admin-padding-lg 0;
   margin-left: $admin-padding-lg;
   margin-right: $admin-padding-lg;
-  border-bottom: 1px solid $admin-gray;
+  border-top: 1px solid $admin-gray;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .admin-layout-tabs {

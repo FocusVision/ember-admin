@@ -5,7 +5,7 @@
       class='admin-button '
       data-test=(concat 'button-create-' recordType)
     }}
-      New {{recordType}}
+      &plus; New {{recordType}}
     {{/link-to}}
 
     {{#link-to
@@ -16,11 +16,4 @@
       Select from existing
     {{/link-to}}
   </div>
-
-  {{admin-filter-keyword
-    value=filterKeyword
-    placeholder=(concat 'Filter by ' recordType)
-    onInput=onFilterChange
-    data-test='filter-input'
-  }}
 </div>
