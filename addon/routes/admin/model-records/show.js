@@ -26,6 +26,15 @@ export default Route.extend(ResourceRouteMixin, {
     this._super(controller, model)
 
     controller.set('recordType', this._modelName())
+
+    const relationships = get(controller, 'relationships')
+
+    if (relationships && relationships.length > 0) {
+      this.transitionTo(
+        'admin.model-records.show.related',
+        get(relationships, 'firstObject').key
+      )
+    }
   },
 
   _modelName() {
