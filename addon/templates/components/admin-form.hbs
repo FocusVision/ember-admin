@@ -1,36 +1,7 @@
 <form submit={{action 'preventDefault'}}>
-  <div class='admin-form-actions'>
-    <div>
-      <button
-        type='button'
-        onclick={{action 'save' model parentModel}}
-        class='admin-button '
-        data-test='button-save'>
-        Save
-      </button>
-
-      {{#if delete}}
-        <button
-          type='button'
-          onclick={{action 'delete'}}
-          class='admin-button '
-          data-test='button-delete'>
-          Delete
-        </button>
-      {{/if}}
-
-      <button
-        type='button'
-        onclick={{action 'cancel'}}
-        class='admin-button '
-        data-test='button-cancel'>
-        Cancel
-      </button>
-    </div>
-  </div>
-
   <div class='admin-form-content-container'>
     <div class='admin-form-content'>
+
       {{#admin-filter-columns
         excludedColumns=excludedColumns
         recordType=recordType as |columns|}}
@@ -51,6 +22,37 @@
         {{/each}}
 
       {{/admin-filter-columns}}
+
+      <div class='admin-form-actions'>
+        <div>
+          {{#if delete}}
+            <button
+              type='button'
+              onclick={{action 'delete'}}
+              class='admin-button '
+              data-test='button-delete'>
+              Delete
+            </button>
+          {{/if}}
+
+          <button
+            type='button'
+            onclick={{action 'cancel'}}
+            class='admin-button '
+            data-test='button-cancel'>
+            Cancel
+          </button>
+
+          <button
+            type='button'
+            onclick={{action 'save' model parentModel}}
+            class='admin-button '
+            data-test='button-save'>
+            Save
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </form>

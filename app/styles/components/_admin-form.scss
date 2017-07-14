@@ -1,15 +1,13 @@
-.admin-form {}
-
 .admin-form-actions {
-  padding: 0 $admin-padding-lg;
+  padding-top: $admin-padding-lg;
   display: flex;
   flex-flow: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content:flex-end;
 }
 
 .admin-form-content-container {
-  padding: $admin-padding-lg;
+  padding: $admin-padding-lg $admin-padding-lg (2 * $admin-padding-lg);
   display: flex;
   justify-content: center;
 }
