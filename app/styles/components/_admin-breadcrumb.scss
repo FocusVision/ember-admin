@@ -1,16 +1,16 @@
 .admin-breadcrumb {
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding: 0;
+  margin: 0;
   list-style: none;
+  @include clearfix;
 }
 
 .admin-breadcrumb-item {
   float: left;
 
-  // The separator between breadcrumbs (by default, a forward-slash: "/")
   + .admin-breadcrumb-item::before {
     display: inline-block; // Suppress underlining of the separator in modern browsers
-    padding-right: 0.5rem;
+    padding-right: 0.2rem;
     padding-left: 0.5rem;
     color: $admin-font-color;
     content: "/";
