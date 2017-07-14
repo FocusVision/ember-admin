@@ -12,6 +12,8 @@ const {
 export default Route.extend(RelationshipRouteMixin, {
   admin: service(),
 
+  breadCrumb: null,
+
   model(params) {
     const parentModelFor = this.modelFor('admin.model-records.show')
     const parentModelId = get(parentModelFor, 'id')
