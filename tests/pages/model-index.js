@@ -22,7 +22,7 @@ export default create({
   modelLinks: text('[data-test=models-list] a', {
     multiple: true
   }),
-  clickModelTypeCat: clickable('a[data-test=models-list-item-cat]'),
+  clickModelTypeCat: clickable('[data-test=models-list-item-cat] a'),
 
   // Cats
 
@@ -162,13 +162,12 @@ export default create({
   // Paginator
   paginatorCount: text('[data-test=admin-paginator] span'),
   paginator: collection({
-    scope: '[data-test=admin-paginator]',
-    itemScope: 'button',
+    itemScope: '[data-test=admin-paginator]',
     item: {
-      first: clickable('button', { at: 0}),
-      previous: clickable('button', { at: 1}),
-      next: clickable('button', { at: 2}),
-      last: clickable('button', { at: 3}),
+      first: clickable('button', { at: 0 }),
+      previous: clickable('button', { at: 1 }),
+      next: clickable('button', { at: 2 }),
+      last: clickable('button', { at: 3 })
     }
   }),
 

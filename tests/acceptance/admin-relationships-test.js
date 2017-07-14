@@ -246,13 +246,12 @@ describe('Acceptance: Admin Relationships', function() {
   describe('pagination', () => {
     it('shows paginator on has-many page', async () => {
       const cat = server.schema.cats.find(1)
-      server.createList('toy', 30, { cat: cat })
+      server.createList('toy', 30, { cat })
 
       await page
         .visitCatToys({ cat_id: 1 })
 
       expect(page.paginatorCount).to.eq('1 of 1')
-      expect(page.paginator().count).to.eq(4)
     })
   })
 

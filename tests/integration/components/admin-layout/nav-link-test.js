@@ -3,7 +3,7 @@ import { describe, it } from 'mocha'
 import { setupComponentTest } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
 
-describe('Integration | Component | admin layout/nav link', function() {
+describe('Integration | Component | admin layout/nav link', () => {
   setupComponentTest('admin-layout/nav-link', {
     integration: true
   })

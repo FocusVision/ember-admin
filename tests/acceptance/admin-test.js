@@ -19,7 +19,7 @@ describe('Acceptance: Admin', () => {
       await page.visit()
 
       expect(page.modelLinks).to.include.members(
-        ['profile', 'bird', 'cat', 'course', 'dog', 'owner', 'toy']
+        ['Profiles', 'Birds', 'Cats', 'Courses', 'Dogs', 'Owners', 'Toys']
       )
     })
   })
@@ -29,7 +29,7 @@ describe('Acceptance: Admin', () => {
       await page.visit().clickModelTypeCat()
 
       expect(page.catHeaders(0).text.split(' ')).to.include.members(
-        ['id', 'name', 'age', 'fleas', 'bar', 'baz']
+        ['Id', 'Name', 'Age', 'Fleas', 'Bar', 'Baz']
       )
       expect(page.catsList(0).text.split(' ')).to.include.members(
         ['Felix', '10', 'false']
@@ -151,7 +151,7 @@ describe('Acceptance: Admin', () => {
 
       await page.visitCatEdit({ cat_id: 1 }).clickDelete()
 
-      expect(currentURL()).to.equal('/admin/cat/1')
+      expect(currentURL()).to.equal('/admin/cat/1/toys')
       window.confirm = oldConfirm
     })
   })
@@ -164,7 +164,7 @@ describe('Acceptance: Admin', () => {
       await page.visit()
 
       expect(page.modelLinks).to.have.length(6)
-      expect(page.modelLinks).to.not.include('cat')
+      expect(page.modelLinks).to.not.include('Cats')
     })
 
     it('including models', async () => {
@@ -174,7 +174,7 @@ describe('Acceptance: Admin', () => {
       await page.visit()
 
       expect(page.modelLinks).to.have.length(1)
-      expect(page.modelLinks).to.include('dog')
+      expect(page.modelLinks).to.include('Dogs')
     })
 
     it('including & excluding model', async () => {
@@ -185,7 +185,7 @@ describe('Acceptance: Admin', () => {
       await page.visit()
 
       expect(page.modelLinks).to.have.length(1)
-      expect(page.modelLinks).to.include('dog')
+      expect(page.modelLinks).to.include('Dogs')
     })
 
     it('including model columns', async () => {
@@ -197,12 +197,12 @@ describe('Acceptance: Admin', () => {
       await page.visitCats()
 
       expect(page.catHeaders().text.split(' ')).to.include.members(
-        ['name']
+        ['Name']
       )
 
       await page.visitCatEdit({ cat_id: 1 })
 
-      expect(page.formLabelName).to.equal('name')
+      expect(page.formLabelName).to.equal('Name')
     })
 
     it('excluding model columns', async () => {
@@ -214,7 +214,7 @@ describe('Acceptance: Admin', () => {
       await page.visitCats()
 
       expect(page.catHeaders().text.split(' ')).to.include.members(
-        ['id', 'age', 'fleas', 'bar', 'baz']
+        ['Id', 'Age', 'Fleas', 'Bar', 'Baz']
       )
     })
   })
@@ -223,8 +223,7 @@ describe('Acceptance: Admin', () => {
     it('shows paginator on index page', async () => {
       await page.visitCats()
 
-      expect(page.paginatorIsVisible).to.be.true
-      expect(page.paginatorPages().count).to.eq(1)
+      expect(page.paginatorCount).to.equal('1 of 1')
     })
 
     it('paginator modifies query params', async () => {
@@ -232,11 +231,10 @@ describe('Acceptance: Admin', () => {
 
       await page
         .visitCats()
-        .paginatorPages(2)
-        .click()
+        .paginator(0)
+        .next()
 
-      expect(page.paginatorIsVisible).to.be.true
-      expect(page.paginatorPages().count).to.eq(3)
+      expect(page.paginatorCount).to.eq('2 of 2')
       expect(currentURL()).to.eq('/admin/cat?page=2')
     })
   })
