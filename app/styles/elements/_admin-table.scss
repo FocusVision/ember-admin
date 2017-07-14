@@ -3,11 +3,11 @@
   width: 100%;
 
   thead {
-    tr { border-bottom: 1px solid $admin-gray; }
+    tr { border-bottom: 1px solid $admin-gray-lighter; }
   }
 
   tbody {
-    tr + tr { border-top: 1px solid $admin-gray; }
+    tr + tr { border-top: 1px solid $admin-gray-lighter; }
   }
 
   th {
@@ -17,12 +17,13 @@
   td,
   th {
     padding: 0.75rem;
+    font-size: .9rem;
     text-align: left;
     vertical-align: top;
+    letter-spacing: .01rem;
   }
 }
 
 .admin-table-responsive {
-  width: 100%;
   overflow-x: scroll;
 }

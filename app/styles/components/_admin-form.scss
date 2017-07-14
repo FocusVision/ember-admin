@@ -7,14 +7,19 @@
   align-items: center;
   justify-content: space-between;
 
-  h6 {
+  h3 {
     text-transform: capitalize;
-    font-weight: bold;
   }
 }
 
-.admin-form-content {
+.admin-form-content-container {
   padding: $admin-padding-lg;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-form-content {
+  width: 600px;
 }
 
 .admin-form-group {

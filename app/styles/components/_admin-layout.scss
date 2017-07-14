@@ -1,7 +1,5 @@
 .admin-layout {
   position: relative;
-  overflow: auto;
-  height: 100vh;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
@@ -13,14 +11,13 @@
   top: 0;
   left: 0;
   bottom: 0;
-  height: 100vh;
   overflow-y: auto;
   width: $admin-sidebar-width;
-  border-right: 1px solid $admin-gray;
 }
 
 .admin-layout-main {
   position: relative;
-  height: 100vh;
   margin-left: $admin-sidebar-width;
+  border-left: 1px solid $admin-gray;
+  min-height: 100vh;
 }

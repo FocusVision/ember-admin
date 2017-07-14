@@ -1,7 +1,7 @@
 <form submit={{action 'preventDefault'}}>
   <div class='admin-form-actions'>
     <div>
-      <h6>{{currentRouteName}} {{recordType}}</h6>
+      <h3>{{currentRouteName}} {{recordType}}</h3>
     </div>
 
     <div>
@@ -33,26 +33,28 @@
     </div>
   </div>
 
-  <div class='admin-form-content'>
-    {{#admin-filter-columns
-      excludedColumns=excludedColumns
-      recordType=recordType as |columns|}}
+  <div class='admin-form-content-container'>
+    <div class='admin-form-content'>
+      {{#admin-filter-columns
+        excludedColumns=excludedColumns
+        recordType=recordType as |columns|}}
 
-      {{#each columns.filteredColumns as |column|}}
-        <div class="admin-form-group {{if column.disabled 'disabled'}}">
+        {{#each columns.filteredColumns as |column|}}
+          <div class="admin-form-group {{if column.disabled 'disabled'}}">
 
-          <label data-test={{concat 'form-label-' column.key}}>
-            {{format-column-name column.key}}
-          </label>
+            <label data-test={{concat 'form-label-' column.key}}>
+              {{format-column-name column.key}}
+            </label>
 
-          {{admin-fields/admin-field-base
-            model=model
-            column=column
-            onUpdate=onUpdate}}
+            {{admin-fields/admin-field-base
+              model=model
+              column=column
+              onUpdate=onUpdate}}
 
-        </div>
-      {{/each}}
+          </div>
+        {{/each}}
 
-    {{/admin-filter-columns}}
+      {{/admin-filter-columns}}
+    </div>
   </div>
 </form>
