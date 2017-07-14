@@ -13,6 +13,8 @@ export default Route.extend({
   },
 
   setupController(controller, model) {
+    this._super(controller, model)
+
     controller.set('recordType', this.paramsFor('admin.model-records').name)
-  },
+  }
 })

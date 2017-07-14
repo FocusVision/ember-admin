@@ -41,8 +41,8 @@ describe('Acceptance | admin relationship select', () => {
     expect(page.relatedCatsSelectList().count).to.equal(10)
 
     await page
-      .filterBy('fl')
+      .filterBy('fluffy')
 
-    expect(page.relatedCatsSelectList().count).to.equal(2)
+    expect(page.relatedCatsSelectList().count).to.equal(1)
   })
 })

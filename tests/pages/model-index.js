@@ -77,7 +77,7 @@ export default create({
   visitOwnerCats: visitable('/admin/owner/:owner_id/cats'),
   visitOwnerCourses: visitable('/admin/owner/:owner_id/courses'),
   visitOwnerProfile: visitable('/admin/owner/:owner_id/profile'),
-  clickOwnerRelationship: clickable('li[data-test=has-many-owner] a'),
+  clickOwnerRelationship: clickable('li[data-test=relationship-tab-link-owner] a'),
   owners: collection({
     itemScope: 'table[data-test=admin-table-owner] tbody tr',
     item: {
@@ -112,10 +112,10 @@ export default create({
   // Toys
 
   visitToysCats: visitable('/admin/toy/:toy_id/cat'),
-  clickRelatedToys: clickable('[data-test=has-many-toys] a'),
+  clickRelatedToys: clickable('[data-test=relationship-tab-link-toys] a'),
   clickCreateRelatedToy: clickable('a[data-test=button-create-toy]'),
   clickAddRelatedToy: clickable('a[data-test=button-add-toy]'),
-  hasManyToys: isVisible('table[data-test=has-many-toys]'), // remove this
+  hasManyToys: isVisible('table[data-test=relationship-tab-link-toys]'), // remove this
   relatedToysList: collection({
     scope: '[data-test=admin-relationship-list] table[data-test=admin-table-toy] tbody',
     itemScope: ' tr',
@@ -137,7 +137,7 @@ export default create({
 
   // Courses
 
-  clickCourses: clickable('[data-test=has-many-courses] a'),
+  clickCourses: clickable('[data-test=relationship-tab-link-courses] a'),
   clickCreateRelatedCourse: clickable('a[data-test=button-create-course]'),
   clickAddRelatedCourse: clickable('a[data-test=button-add-course]'),
   relatedCoursesList: collection({
@@ -160,12 +160,15 @@ export default create({
   }),
 
   // Paginator
-
-  paginatorIsVisible: isVisible('[data-test=fv-paginator]'),
-  paginatorPages: collection({
-    itemScope: '[data-test=fv-paginator-page]',
+  paginatorCount: text('[data-test=admin-paginator] span'),
+  paginator: collection({
+    scope: '[data-test=admin-paginator]',
+    itemScope: 'button',
     item: {
-      click: clickable('[data-test=link-to]')
+      first: clickable('button', { at: 0}),
+      previous: clickable('button', { at: 1}),
+      next: clickable('button', { at: 2}),
+      last: clickable('button', { at: 3}),
     }
   }),
 

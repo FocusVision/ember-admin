@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/components/admin-resource-list';
+export { default } from 'ember-admin/components/admin-resource-list'

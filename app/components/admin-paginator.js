@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/components/admin-paginator';
+export { default } from 'ember-admin/components/admin-paginator'

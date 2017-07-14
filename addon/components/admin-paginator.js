@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'
 import layout from '../templates/components/admin-paginator'
 
 const {
@@ -7,7 +7,7 @@ const {
   computed: { equal }
 } = Ember
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNames: ['admin-paginator'],
 

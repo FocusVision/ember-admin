@@ -3,7 +3,7 @@
     <strong>Related</strong>
   </li>
   {{#each relationships as |relationship|}}
-    {{#tabs.tab}}
+    {{#tabs.tab data-test=(concat 'relationship-tab-link-' relationship.key)}}
       {{#link-to
         'admin.model-records.show.related'
         relationship.key

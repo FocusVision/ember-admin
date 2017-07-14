@@ -3,8 +3,7 @@ import layout from '../../templates/components/admin-layout/nav-link'
 
 const {
   Component,
-  computed,
-  String: { pluralize, capitalize }
+  computed
 } = Ember
 
 export default Component.extend({

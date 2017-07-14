@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/components/admin-layout/tabs-link';
+export { default } from 'ember-admin/components/admin-layout/tabs-link'

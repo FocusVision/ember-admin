@@ -13,7 +13,7 @@ export default Component.extend({
   layout,
   tagName: 'table',
   classNames: 'admin-table',
-  dataTest: computed(function() {
+  dataTest: computed('recordType', function() {
     return `admin-table-${this.get('recordType')}`
   }),
 

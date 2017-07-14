@@ -19,7 +19,7 @@ describe('Acceptance: Admin', () => {
       await page.visit()
 
       expect(page.modelLinks).to.include.members(
-        ['bird', 'cat', 'course', 'dog', 'owner', 'toy']
+        ['profile', 'bird', 'cat', 'course', 'dog', 'owner', 'toy']
       )
     })
   })

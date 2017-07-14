@@ -5,7 +5,7 @@ import destroyApp from '../helpers/destroy-app'
 import page from '../pages/model-index'
 
 describe('Acceptance: Admin Relationships', function() {
-  this.timeout(10000)
+  this.timeout(100000)
   let application
 
   beforeEach(() => {
@@ -245,12 +245,14 @@ describe('Acceptance: Admin Relationships', function() {
 
   describe('pagination', () => {
     it('shows paginator on has-many page', async () => {
-      await page
-        .visitCatEdit({ cat_id: 1 })
-        .clickRelatedToys()
+      const cat = server.schema.cats.find(1)
+      server.createList('toy', 30, { cat: cat })
 
-      expect(page.paginatorIsVisible).to.be.true
-      expect(page.paginatorPages().count).to.eq(1)
+      await page
+        .visitCatToys({ cat_id: 1 })
+
+      expect(page.paginatorCount).to.eq('1 of 1')
+      expect(page.paginator().count).to.eq(4)
     })
   })
 

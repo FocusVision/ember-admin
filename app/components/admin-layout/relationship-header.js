@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/components/admin-layout/relationship-header';
+export { default } from 'ember-admin/components/admin-layout/relationship-header'

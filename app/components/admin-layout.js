@@ -1,1 +1,1 @@
-export { default } from 'ember-admin/components/admin-layout';
+export { default } from 'ember-admin/components/admin-layout'
