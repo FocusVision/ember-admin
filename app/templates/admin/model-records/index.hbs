@@ -4,12 +4,10 @@
   onFilterChange=(action 'onFilterChange')
 }}
 
-<!-- {{fv-paginator
-  class='fv-pull-right'
-  current=page
-  total=pageCount
-  surrounding=1
-}} -->
+{{admin-paginator
+  page=page
+  pageCount=pageCount
+}}
 
 {{admin-resource-list
   recordType=recordType
