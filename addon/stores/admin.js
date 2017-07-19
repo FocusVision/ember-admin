@@ -2,9 +2,8 @@ import Ember from 'ember'
 import DS from 'ember-data'
 
 const {
-  isEmpty,
-  get,
-  inject: { service }
+  getOwner,
+  String: { dasherize }
 } = Ember
 
 const {
@@ -12,38 +11,30 @@ const {
 } = DS
 
 export default Store.extend({
-  adminService: service('admin'),
-
   adapterFor(type) {
+
     if (!this.typeAdapter) {
       this.typeAdapter = {}
     }
 
-    if (!this.typeAdapter[type]) {
-      let namespaces = []
-      const adapter = this._super(type)
-      const adminService = this.get('adminService')
-
-      if (get(adapter, 'namespace')) {
-        namespaces = get(adapter, 'namespace').split('/')
-      }
-
-      namespaces.push(adminService.namespace)
-
-      let namespace = namespaces.join('/')
-      namespace = namespace.replace(/\/$/, '')
-
-      if (isEmpty(namespace)) {
-        namespace = undefined
-      }
-
-      const AdminAdapter = adapter.constructor.extend({
-        namespace
-      })
-
-      this.typeAdapter[type] = AdminAdapter.create()
+    if (this.typeAdapter[type]) {
+      return this.typeAdapter[type]
     }
 
-    return this.typeAdapter[type]
+    const resolvedType = this._resolvedType(type)
+    const adapter = this._super(resolvedType)
+    const adminAdapter = adapter.constructor.extend()
+    const resolvedAdapter = this.typeAdapter[type] = adminAdapter.create()
+
+    return resolvedAdapter
+  },
+
+  _resolvedType(type) {
+    const normalizedType = dasherize(type)
+
+    return getOwner(this)
+      .resolveRegistration(`adapter:admin/${normalizedType}`) ?
+        `admin.${normalizedType}` :
+        normalizedType
   }
 })
