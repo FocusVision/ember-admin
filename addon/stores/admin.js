@@ -47,11 +47,10 @@ export default Store.extend({
 
   _resolveNamespace(adapter) {
     const adapterNamespace = get(adapter, 'namespace')
-    const adminNamespace = this.get('admin.namespace')
+    const adminNamespace = get(this, 'admin.namespace')
     const namespaces = adapterNamespace ? adapterNamespace.split('/') : []
     namespaces.push(adminNamespace)
-    const namespace = namespaces.join('/').replace(/\/$/, '')
 
-    return isEmpty(namespaces) ? '' : namespace
+    return isEmpty(namespaces) ? '' : namespaces.join('/').replace(/\/$/, '')
   }
 })
