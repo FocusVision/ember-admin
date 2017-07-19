@@ -4,9 +4,7 @@ import { describe, it } from 'mocha'
 import { setupTest } from 'ember-mocha'
 
 const {
-  RESTAdapter,
-  Model,
-  attr
+  RESTAdapter
 } = DS
 
 describe('Unit | Store | admin', () => {
