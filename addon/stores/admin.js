@@ -52,6 +52,6 @@ export default Store.extend({
     namespaces.push(adminNamespace)
     const namespace = namespaces.join('/').replace(/\/$/, '')
 
-    return isEmpty(namespace) ? '' : namespace
+    return isEmpty(namespaces) ? '' : namespace
   }
 })
