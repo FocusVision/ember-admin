@@ -3,7 +3,10 @@ import DS from 'ember-data'
 
 const {
   getOwner,
-  String: { dasherize }
+  get,
+  String: { dasherize },
+  inject: { service },
+  isEmpty
 } = Ember
 
 const {
@@ -11,8 +14,9 @@ const {
 } = DS
 
 export default Store.extend({
-  adapterFor(type) {
+  admin: service(),
 
+  adapterFor(type) {
     if (!this.typeAdapter) {
       this.typeAdapter = {}
     }
@@ -23,7 +27,10 @@ export default Store.extend({
 
     const resolvedType = this._resolvedType(type)
     const adapter = this._super(resolvedType)
-    const adminAdapter = adapter.constructor.extend()
+    const adminNamespace = this._resolveNamespace(adapter)
+    const adminAdapter = adapter.constructor.extend({
+      namespace: adminNamespace
+    })
     const resolvedAdapter = this.typeAdapter[type] = adminAdapter.create()
 
     return resolvedAdapter
@@ -36,5 +43,15 @@ export default Store.extend({
       .resolveRegistration(`adapter:admin/${normalizedType}`) ?
         `admin.${normalizedType}` :
         normalizedType
+  },
+
+  _resolveNamespace(adapter) {
+    const adapterNamespace = get(adapter, 'namespace')
+    const adminNamespace = this.get('admin.namespace')
+    const namespaces = adapterNamespace ? adapterNamespace.split('/') : []
+    namespaces.push(adminNamespace)
+    const namespace = namespaces.join('/').replace(/\/$/, '')
+
+    return isEmpty(namespace) ? '' : namespace
   }
 })

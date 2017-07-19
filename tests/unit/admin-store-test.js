@@ -4,7 +4,9 @@ import { describe, it } from 'mocha'
 import { setupTest } from 'ember-mocha'
 
 const {
-  RESTAdapter
+  RESTAdapter,
+  Model,
+  attr
 } = DS
 
 describe('Unit | Store | admin', () => {
@@ -33,7 +35,7 @@ describe('Unit | Store | admin', () => {
 
   it('allows overriding of default namespace', function() {
     const store = this.subject()
-    store.set('adminService.namespace', 'hobbes')
+    store.set('admin.namespace', 'hobbes')
     const adapter = store.adapterFor('dog')
 
     expect(adapter.namespace).to.equal('hobbes')
@@ -41,17 +43,17 @@ describe('Unit | Store | admin', () => {
 
   it('allows `null` namespace', function() {
     const store = this.subject()
-    store.set('adminService.namespace', undefined)
+    store.set('admin.namespace', undefined)
     const adapter = store.adapterFor('dog')
 
-    expect(adapter.namespace).to.equal(undefined)
+    expect(adapter.namespace).to.equal('')
   })
 
   it(
     'empty admin namespace does not add tralining slash to adapter namespace',
     function() {
       const store = this.subject()
-      store.set('adminService.namespace', '')
+      store.set('admin.namespace', '')
       this.registry.register(
         'adapter:dog',
         RESTAdapter.extend({ namespace: 'api/v1' })
@@ -59,6 +61,19 @@ describe('Unit | Store | admin', () => {
       const adapter = this.subject().adapterFor('dog')
 
       expect(adapter.namespace).to.equal('api/v1')
+    }
+  )
+
+  it(
+    'resolves custom adapter registered in `admin` namespace',
+    function() {
+      this.registry.register(
+        'adapter:admin/dog',
+        RESTAdapter.extend()
+      )
+      const adapterType = this.subject().adapterFor('dog').toString()
+
+      expect(adapterType).to.contain('adapter:admin/dog')
     }
   )
 })
