@@ -22,24 +22,19 @@ export default Controller.extend(
         const inverseKind =
           this.inverseRelationshipKind(parentModel, recordName)
 
-        if (kind === 'belongsTo') {
-          parentModel.set(recordName, null)
-        } else {
-          parentModel.get(recordName).removeObject(model)
-        }
-
-        parentModel.save().then(record => {
-          if (inverseKind !== 'belongsTo' && inverseKind !== 'hasMany') {
-            return
+        // TODO: We want to make sure to always save a `has_many` model
+        parentModel.removeRelated(recordName, model).then(() => {
+          if (kind === 'belongsTo') {
+            parentModel.set(recordName, null)
+          } else {
+            parentModel.get(recordName).removeObject(model)
           }
 
           if (inverseKind === 'belongsTo') {
             model.set(inverseRelationshipName, null)
           } else {
-            model.get(inverseRelationshipName).removeObject(record)
+            model.get(inverseRelationshipName).removeObject(parentModel)
           }
-
-          model.save()
         })
       }
     }
