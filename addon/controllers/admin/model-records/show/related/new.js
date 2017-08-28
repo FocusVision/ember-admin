@@ -23,24 +23,22 @@ export default Controller.extend(
           relationshipName
         } = this.relationshipInfo(parentModel)
 
-        if (inverseKind === 'belongsTo') {
-          model.set(inverseRelationshipName, parentModel)
-        } else if (inverseKind) {
-          model.get(inverseRelationshipName).pushObject(parentModel)
-        }
 
         model.save().then(record => {
-          if (kind !== 'belongsTo' && kind !== 'hasMany') {
-            return this._transitionToRelated()
-          }
+          parentModel.addRelated(relationshipName, record, kind).then(() => {
+            if (kind === 'belongsTo') {
+              parentModel.set(relationshipName, record)
+            } else {
+              parentModel.get(relationshipName).pushObject(record)
+            }
 
-          if (kind === 'belongsTo') {
-            parentModel.set(relationshipName, record)
-          } else {
-            parentModel.get(relationshipName).pushObject(record)
-          }
-
-          parentModel.save().then(() => this._transitionToRelated())
+            if (inverseKind === 'belongsTo') {
+              model.set(inverseRelationshipName, parentModel)
+            } else if (inverseKind) {
+              model.get(inverseRelationshipName).pushObject(parentModel)
+            }
+            this._transitionToRelated()
+          })
         })
       }
     },
