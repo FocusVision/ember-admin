@@ -10,7 +10,7 @@ export default Mixin.create({
 
     controller.setProperties({
       parentModel: this._parentModel(),
-      recordName: this._relationshipName(),
+      relationshipName: this._relationshipName(),
       recordType: this._relationshipType()
     })
   },
