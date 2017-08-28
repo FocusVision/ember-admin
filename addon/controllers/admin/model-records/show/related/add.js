@@ -6,8 +6,7 @@ import IndexControllerMixin
 
 const {
   Controller,
-  computed: { alias },
-  inject: { controller, service }
+  inject: { service }
 } = Ember
 
 export default Controller.extend(
@@ -15,12 +14,6 @@ export default Controller.extend(
   IndexControllerMixin,
   {
     admin: service(),
-    related: controller('admin.model-records.show.related.index'),
-
-    parentModel: alias('related.parentModel'),
-    recordName: alias('related.recordName'),
-    recordType: alias('related.recordType'),
-
     actions: {
       onFilterChange(value) {
         this.get('admin.store')
