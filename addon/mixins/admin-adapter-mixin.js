@@ -10,13 +10,7 @@ const {
 
 export default Mixin.create(RESTAdapterMixin, {
   removeRelated(model, relationshipName, relatedModel, kind) {
-    const modelName = model.get('constructor.modelName')
-    const url = this.urlForRemoveFromHasMany(
-      model.get('id'),
-      modelName,
-      relationshipName,
-      model.store
-    )
+    const url = this.urlForRemoveFromHasMany(model, relationshipName)
     const relatedId = relatedModel.get('id')
     const relatedResourceType = this._payloadKeyFromModel(relatedModel)
     let verb
@@ -42,7 +36,10 @@ export default Mixin.create(RESTAdapterMixin, {
   urlForRelationships(id, modelName) {
     return `${this._buildURL(modelName, id)}/relationships`
   },
-  _urlForRelationship(id, modelName, relationshipName, store) {
+  _urlForRelationship(model, relationshipName) {
+    const modelName = model.get('constructor.modelName')
+    const id = model.get('id')
+    const store = model.get('store')
     return `${this.urlForRelationships(id, modelName)}/` +
       `${store.serializerFor(modelName).keyForRelationship(relationshipName)}`
   },
@@ -54,13 +51,7 @@ export default Mixin.create(RESTAdapterMixin, {
       .payloadKeyFromModelName(modelName)
   },
   addRelated(model, relationshipName, relatedModel, kind) {
-    const modelName = model.get('constructor.modelName')
-    const url = this.urlForAddToHasMany(
-      model.get('id'),
-      modelName,
-      relationshipName,
-      model.store
-    )
+    const url = this.urlForAddToHasMany(model, relationshipName)
     const relatedId = relatedModel.get('id')
     const relatedResourceType = this._payloadKeyFromModel(relatedModel)
     let verb
