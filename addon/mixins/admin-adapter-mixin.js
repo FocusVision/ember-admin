@@ -24,10 +24,28 @@ export default Mixin.create(RESTAdapterMixin, {
       data: { data: [{ type: relatedResourceType, id: relatedId }] }
     })
   },
+  urlForAddToHasMany(id, modelName, relationshipName) {
+    return `${this.urlForFindHasMany(id, modelName)}/${relationshipName}`
+  },
   urlForRemoveFromHasMany(id, modelName, relationshipName) {
     return `${this.urlForFindHasMany(id, modelName)}/${relationshipName}`
   },
   urlForFindHasMany(id, modelName) {
     return `${this._buildURL(modelName, id)}/relationships`
+  },
+  addRelated(model, relationshipName, relatedModel) {
+    const modelName = model.get('constructor.modelName')
+    const url = this.urlForAddToHasMany(
+      model.get('id'),
+      modelName,
+      relationshipName
+    )
+    const relatedId = relatedModel.get('id')
+    const relatedResourceType = this.pathForType(
+      relatedModel.get('constructor.modelName')
+    )
+    return this.ajax(url, 'POST', {
+      data: { data: [{ type: relatedResourceType, id: relatedId }] }
+    })
   }
 })

@@ -29,20 +29,18 @@ export default Controller.extend(
       },
 
       add(model, parentModel) {
-        const inverseRelationshipName = this.get('inverseRelationshipName')
         const recordName = this.get('recordName')
+        const inverseRelationshipName =
+          this.inverseRelationshipName(parentModel, recordName)
         const kind = this.relationshipKind(parentModel, recordName)
-        const inverseKind = this.inverseRelationshipKind(model)
+        const inverseKind =
+          this.inverseRelationshipKind(parentModel, recordName)
 
-        if (kind === 'belongsTo') {
-          parentModel.set(recordName, model)
-        } else {
-          parentModel.get(recordName).pushObject(model)
-        }
-
-        parentModel.save().then(() => {
-          if (inverseKind !== 'belongsTo' && inverseKind !== 'hasMany') {
-            return
+        parentModel.addRelated(recordName, model).then(() => {
+          if (kind === 'belongsTo') {
+            parentModel.set(recordName, model)
+          } else {
+            parentModel.get(recordName).pushObject(model)
           }
 
           if (inverseKind === 'belongsTo') {
@@ -50,8 +48,6 @@ export default Controller.extend(
           } else {
             model.get(inverseRelationshipName).pushObject(parentModel)
           }
-
-          model.save()
         })
       },
 

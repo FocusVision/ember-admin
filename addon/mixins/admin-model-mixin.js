@@ -10,5 +10,9 @@ export default Mixin.create(ModelMixin, {
   removeRelated(...args) {
     const adapter = this.store.adapterFor(this.constructor.modelName)
     return adapter.removeRelated(this, ...args)
+  },
+  addRelated(...args) {
+    const adapter = this.store.adapterFor(this.constructor.modelName)
+    return adapter.addRelated(this, ...args)
   }
 })
