@@ -9,19 +9,32 @@ const {
 } = HasManyQuery
 
 export default Mixin.create(RESTAdapterMixin, {
-  removeRelated(model, relationshipName, relatedModel) {
+  removeRelated(model, relationshipName, relatedModel, kind) {
     const modelName = model.get('constructor.modelName')
     const url = this.urlForRemoveFromHasMany(
       model.get('id'),
       modelName,
-      relationshipName
+      relationshipName,
+      model.store
     )
     const relatedId = relatedModel.get('id')
-    const relatedResourceType = this.pathForType(
-      relatedModel.get('constructor.modelName')
-    )
-    return this.ajax(url, 'DELETE', {
-      data: { data: [{ type: relatedResourceType, id: relatedId }] }
+    const relatedType = relatedModel.get('constructor.modelName')
+    const relatedResourceType = relatedModel
+      .store
+      .serializerFor(relatedType)
+      .payloadKeyFromModelName(relatedType)
+    let verb
+    let data
+    if (kind === 'belongsTo') {
+      verb = 'PATCH'
+      data = null
+    } else {
+      verb = 'DELETE'
+      data = [{ type: relatedResourceType, id: relatedId }]
+    }
+
+    return this.ajax(url, verb, {
+      data: { data }
     })
   },
   urlForAddToHasMany(...args) {
@@ -37,7 +50,7 @@ export default Mixin.create(RESTAdapterMixin, {
     return `${this.urlForRelationships(id, modelName)}/` +
       `${store.serializerFor(modelName).keyForRelationship(relationshipName)}`
   },
-  addRelated(model, relationshipName, relatedModel) {
+  addRelated(model, relationshipName, relatedModel, kind) {
     const modelName = model.get('constructor.modelName')
     const url = this.urlForAddToHasMany(
       model.get('id'),
@@ -51,9 +64,17 @@ export default Mixin.create(RESTAdapterMixin, {
       .store
       .serializerFor(relatedType)
       .payloadKeyFromModelName(relatedType)
+    let verb
+    let data = { type: relatedResourceType, id: relatedId }
+    if (kind === 'belongsTo') {
+      verb = 'PATCH'
+    } else {
+      verb = 'POST'
+      data = [data]
+    }
 
-    return this.ajax(url, 'POST', {
-      data: { data: [{ type: relatedResourceType, id: relatedId }] }
+    return this.ajax(url, verb, {
+      data: { data }
     })
   }
 })

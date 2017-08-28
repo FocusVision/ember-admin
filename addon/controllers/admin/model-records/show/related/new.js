@@ -25,7 +25,7 @@ export default Controller.extend(
 
         if (inverseKind === 'belongsTo') {
           model.set(inverseRelationshipName, parentModel)
-        } else {
+        } else if (inverseKind) {
           model.get(inverseRelationshipName).pushObject(parentModel)
         }
 

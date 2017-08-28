@@ -29,7 +29,7 @@ export default Controller.extend(
         const inverseKind =
           this.inverseRelationshipKind(parentModel, recordName)
 
-        parentModel.addRelated(recordName, model).then(() => {
+        parentModel.addRelated(recordName, model, kind).then(() => {
           if (kind === 'belongsTo') {
             parentModel.set(recordName, model)
           } else {
@@ -38,7 +38,7 @@ export default Controller.extend(
 
           if (inverseKind === 'belongsTo') {
             model.set(inverseRelationshipName, model)
-          } else {
+          } else if (inverseKind) {
             model.get(inverseRelationshipName).pushObject(parentModel)
           }
         })
