@@ -18,11 +18,7 @@ export default Mixin.create(RESTAdapterMixin, {
       model.store
     )
     const relatedId = relatedModel.get('id')
-    const relatedType = relatedModel.get('constructor.modelName')
-    const relatedResourceType = relatedModel
-      .store
-      .serializerFor(relatedType)
-      .payloadKeyFromModelName(relatedType)
+    const relatedResourceType = this._payloadKeyFromModel(relatedModel)
     let verb
     let data
     if (kind === 'belongsTo') {
@@ -50,6 +46,13 @@ export default Mixin.create(RESTAdapterMixin, {
     return `${this.urlForRelationships(id, modelName)}/` +
       `${store.serializerFor(modelName).keyForRelationship(relationshipName)}`
   },
+  _payloadKeyFromModel(model) {
+    const modelName = model.constructor.modelName
+    return model
+      .store
+      .serializerFor(modelName)
+      .payloadKeyFromModelName(modelName)
+  },
   addRelated(model, relationshipName, relatedModel, kind) {
     const modelName = model.get('constructor.modelName')
     const url = this.urlForAddToHasMany(
@@ -59,11 +62,7 @@ export default Mixin.create(RESTAdapterMixin, {
       model.store
     )
     const relatedId = relatedModel.get('id')
-    const relatedType = relatedModel.get('constructor.modelName')
-    const relatedResourceType = relatedModel
-      .store
-      .serializerFor(relatedType)
-      .payloadKeyFromModelName(relatedType)
+    const relatedResourceType = this._payloadKeyFromModel(relatedModel)
     let verb
     let data = { type: relatedResourceType, id: relatedId }
     if (kind === 'belongsTo') {
