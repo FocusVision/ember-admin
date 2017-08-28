@@ -10,9 +10,6 @@ const {
 
 export default Mixin.create(RESTAdapterMixin, {
   removeRelated(model, relationshipName, relatedModel, kind) {
-    const url = this.urlForRemoveFromHasMany(model, relationshipName)
-    const relatedId = relatedModel.get('id')
-    const relatedResourceType = this._payloadKeyFromModel(relatedModel)
     let verb
     let data
     if (kind === 'belongsTo') {
@@ -20,12 +17,17 @@ export default Mixin.create(RESTAdapterMixin, {
       data = null
     } else {
       verb = 'DELETE'
-      data = [{ type: relatedResourceType, id: relatedId }]
+      data = [{
+        type: this._payloadKeyFromModel(relatedModel),
+        id: relatedModel.get('id')
+      }]
     }
 
-    return this.ajax(url, verb, {
-      data: { data }
-    })
+    return this.ajax(
+      this.urlForRemoveFromHasMany(model, relationshipName),
+      verb,
+      { data: { data }}
+    )
   },
   urlForAddToHasMany(...args) {
     return this._urlForRelationship(...args)
@@ -51,11 +53,11 @@ export default Mixin.create(RESTAdapterMixin, {
       .payloadKeyFromModelName(modelName)
   },
   addRelated(model, relationshipName, relatedModel, kind) {
-    const url = this.urlForAddToHasMany(model, relationshipName)
-    const relatedId = relatedModel.get('id')
-    const relatedResourceType = this._payloadKeyFromModel(relatedModel)
     let verb
-    let data = { type: relatedResourceType, id: relatedId }
+    let data = {
+      type: this._payloadKeyFromModel(relatedModel),
+      id: relatedModel.get('id')
+    }
     if (kind === 'belongsTo') {
       verb = 'PATCH'
     } else {
@@ -63,7 +65,7 @@ export default Mixin.create(RESTAdapterMixin, {
       data = [data]
     }
 
-    return this.ajax(url, verb, {
+    return this.ajax(this.urlForAddToHasMany(model, relationshipName), verb, {
       data: { data }
     })
   }
