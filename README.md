@@ -30,6 +30,29 @@ Router.map(function() {
 });
 ```
 
+Add the adapter mixin to your `adapter.js`
+```js
+import AdminAdapterMixin from 'ember-admin/mixins/admin-adapter-mixin'
+
+const {
+  JSONAPIAdapter
+} = DS
+
+export default JSONAPIAdapter.extend(AdminAdapterMixin, {})
+```
+
+Include the model mixin in any admin models
+```js
+import DS from 'ember-data'
+import AdminModelMixin from 'ember-admin/mixins/admin-model-mixin'
+
+const {
+  Model
+} = DS
+
+export default Model.extend(AdminModelMixin, {})
+```
+
 Start your ember-cli project and navigate to `/admin`.
 
 ### Restricting Access ###

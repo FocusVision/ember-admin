@@ -23,7 +23,6 @@ export default Controller.extend(
           relationshipName
         } = this.relationshipInfo(parentModel)
 
-
         model.save().then(record => {
           parentModel.addRelated(relationshipName, record, kind).then(() => {
             if (kind === 'belongsTo') {
