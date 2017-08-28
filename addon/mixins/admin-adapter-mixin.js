@@ -24,26 +24,34 @@ export default Mixin.create(RESTAdapterMixin, {
       data: { data: [{ type: relatedResourceType, id: relatedId }] }
     })
   },
-  urlForAddToHasMany(id, modelName, relationshipName) {
-    return `${this.urlForFindHasMany(id, modelName)}/${relationshipName}`
+  urlForAddToHasMany(...args) {
+    return this._urlForRelationship(...args)
   },
-  urlForRemoveFromHasMany(id, modelName, relationshipName) {
-    return `${this.urlForFindHasMany(id, modelName)}/${relationshipName}`
+  urlForRemoveFromHasMany(...args) {
+    return this._urlForRelationship(...args)
   },
-  urlForFindHasMany(id, modelName) {
+  urlForRelationships(id, modelName) {
     return `${this._buildURL(modelName, id)}/relationships`
+  },
+  _urlForRelationship(id, modelName, relationshipName, store) {
+    return `${this.urlForRelationships(id, modelName)}/` +
+      `${store.serializerFor(modelName).keyForRelationship(relationshipName)}`
   },
   addRelated(model, relationshipName, relatedModel) {
     const modelName = model.get('constructor.modelName')
     const url = this.urlForAddToHasMany(
       model.get('id'),
       modelName,
-      relationshipName
+      relationshipName,
+      model.store
     )
     const relatedId = relatedModel.get('id')
-    const relatedResourceType = this.pathForType(
-      relatedModel.get('constructor.modelName')
-    )
+    const relatedType = relatedModel.get('constructor.modelName')
+    const relatedResourceType = relatedModel
+      .store
+      .serializerFor(relatedType)
+      .payloadKeyFromModelName(relatedType)
+
     return this.ajax(url, 'POST', {
       data: { data: [{ type: relatedResourceType, id: relatedId }] }
     })

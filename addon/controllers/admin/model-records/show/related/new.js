@@ -19,8 +19,7 @@ export default Controller.extend(
         const recordName = this.get('recordName')
         const inverseRelationshipName =
           this.inverseRelationshipName(parentModel, recordName)
-        const kind =
-          this.relationshipKind(parentModel, recordName)
+        const kind = this.relationshipKind(parentModel, recordName)
         const inverseKind =
           this.inverseRelationshipKind(parentModel, recordName)
 
