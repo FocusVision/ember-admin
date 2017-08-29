@@ -1,5 +1,10 @@
 import Ember from 'ember'
 import HasManyQuery from 'ember-data-has-many-query'
+import {
+  relationshipKind,
+  inverseRelationshipName,
+  inverseRelationshipKind
+} from 'ember-admin/utils/relationship'
 
 const {
   Mixin
@@ -9,10 +14,15 @@ const {
 } = HasManyQuery
 
 export default Mixin.create(RESTAdapterMixin, {
-  removeRelated(model, relationshipName, relatedModel, kind) {
+  removeRelated(model, relationshipName, relatedModel) {
+    const {
+      inverseRelationshipName,
+      inverseRelationshipKind,
+      relationshipKind
+    } = this._relationshipInfo(model, relationshipName)
     let verb
     let data
-    if (kind === 'belongsTo') {
+    if (relationshipKind === 'belongsTo') {
       verb = 'PATCH'
       data = null
     } else {
@@ -27,7 +37,53 @@ export default Mixin.create(RESTAdapterMixin, {
       this.urlForRemoveFromHasMany(model, relationshipName),
       verb,
       { data: { data }}
-    )
+    ).then(() => {
+      if (relationshipKind === 'belongsTo') {
+        model.set(relationshipName, null)
+      } else {
+        model.get(relationshipName).removeObject(relatedModel)
+      }
+
+      if (inverseRelationshipKind === 'belongsTo') {
+        relatedModel.set(inverseRelationshipName, null)
+      } else if (inverseRelationshipKind) {
+        relatedModel.get(inverseRelationshipName).removeObject(relatedModel)
+      }
+    })
+  },
+  addRelated(model, relationshipName, relatedModel) {
+    const {
+      inverseRelationshipName,
+      inverseRelationshipKind,
+      relationshipKind
+    } = this._relationshipInfo(model, relationshipName)
+    let verb
+    let data = {
+      type: this._payloadKeyFromModel(relatedModel),
+      id: relatedModel.get('id')
+    }
+    if (relationshipKind === 'belongsTo') {
+      verb = 'PATCH'
+    } else {
+      verb = 'POST'
+      data = [data]
+    }
+
+    return this.ajax(this.urlForAddToHasMany(model, relationshipName), verb, {
+      data: { data }
+    }).then(() => {
+      if (relationshipKind === 'belongsTo') {
+        model.set(relationshipName, relatedModel)
+      } else {
+        model.get(relationshipName).pushObject(relatedModel)
+      }
+
+      if (inverseRelationshipKind === 'belongsTo') {
+        relatedModel.set(inverseRelationshipName, model)
+      } else if (inverseRelationshipKind) {
+        relatedModel.get(inverseRelationshipName).pushObject(model)
+      }
+    })
   },
   urlForAddToHasMany(...args) {
     return this._urlForRelationship(...args)
@@ -37,6 +93,13 @@ export default Mixin.create(RESTAdapterMixin, {
   },
   urlForRelationships(id, modelName) {
     return `${this._buildURL(modelName, id)}/relationships`
+  },
+  _relationshipInfo(...args) {
+    return {
+      inverseRelationshipName: inverseRelationshipName(...args),
+      inverseRelationshipKind: inverseRelationshipKind(...args),
+      relationshipKind: relationshipKind(...args)
+    }
   },
   _urlForRelationship(model, relationshipName) {
     const modelName = model.get('constructor.modelName')
@@ -51,22 +114,5 @@ export default Mixin.create(RESTAdapterMixin, {
       .store
       .serializerFor(modelName)
       .payloadKeyFromModelName(modelName)
-  },
-  addRelated(model, relationshipName, relatedModel, kind) {
-    let verb
-    let data = {
-      type: this._payloadKeyFromModel(relatedModel),
-      id: relatedModel.get('id')
-    }
-    if (kind === 'belongsTo') {
-      verb = 'PATCH'
-    } else {
-      verb = 'POST'
-      data = [data]
-    }
-
-    return this.ajax(this.urlForAddToHasMany(model, relationshipName), verb, {
-      data: { data }
-    })
   }
 })
