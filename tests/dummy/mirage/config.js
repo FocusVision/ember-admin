@@ -1,3 +1,5 @@
+import Mirage from 'ember-cli-mirage'
+
 const jsonapiType = request => JSON.parse(request.requestBody).data.type
 
 const patch = function(schema, request) {
@@ -32,6 +34,40 @@ const getCats = ({ cats }, ...args) => getResources(cats, ...args)
 const getToys = ({ toys }, ...args) => getResources(toys, ...args)
 const getOwners = ({ owners }, ...args) => getResources(owners, ...args)
 
+const _relationshipIds = request =>
+  JSON.parse(request.requestBody).data.map(({ id }) => id)
+const _relationshipId = request =>
+  (JSON.parse(request.requestBody).data || {}).id
+
+const replaceBelongsTo =
+  (modelName, relationship, relatedType = relationship) =>
+  (schema, request) => {
+    const { params: { id }} = request
+    const relationshipId = _relationshipId(request)
+    const model = schema[modelName].find(id)
+    model[relationship] = relationshipId ?
+      schema[relatedType].find(relationshipId) : null
+    return new Mirage.Response(204)
+  }
+const addToHasMany =
+  (modelName, relationship, relatedType = relationship) =>
+  (schema, request) => {
+    const { params: { id }} = request
+    const ids = _relationshipIds(request)
+    const model = schema[modelName].find(id)
+    model[relationship].mergeCollection(schema[relatedType].find(ids))
+    return new Mirage.Response(204)
+  }
+const removeFromHasMany =
+  (modelName, relationship) =>
+  (schema, request) => {
+    const { params: { id }} = request
+    const ids = _relationshipIds(request)
+    const model = schema[modelName].find(id)
+    model[relationship] = model[relationship].filter(id => !ids.includes(id))
+    return new Mirage.Response(204)
+  }
+
 export default function() {
   this.namespace = '/admin'
 
@@ -40,6 +76,12 @@ export default function() {
   this.post('/cats')
   this.patch('/cats/:id', patch)
   this.delete('/cats/:id')
+  this.patch(
+    '/cats/:id/relationships/owner',
+    replaceBelongsTo('cats', 'owner', 'owners')
+  )
+  this.post('/cats/:id/relationships/toys', addToHasMany('cats', 'toys'))
+  this.delete('/cats/:id/relationships/toys', removeFromHasMany('cats', 'toys'))
 
   this.get('/dogs')
   this.get('/dogs/:id')
