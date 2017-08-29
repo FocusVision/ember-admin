@@ -100,12 +100,28 @@ export default function() {
   this.post('/toys')
   this.patch('/toys/:id', patch)
   this.delete('/toys/:id')
+  this.patch(
+    '/toys/:id/relationships/cat',
+    replaceBelongsTo('toys', 'cat', 'cats')
+  )
 
   this.get('/owners', getOwners)
   this.get('/owners/:id')
   this.post('/owners')
   this.patch('/owners/:id', patch)
   this.delete('/owners/:id')
+  this.post(
+    '/owners/:id/relationships/courses',
+    addToHasMany('owners', 'courses')
+  )
+  this.delete(
+    '/owners/:id/relationships/courses',
+    removeFromHasMany('owners', 'courses')
+  )
+  this.patch(
+    '/owners/:id/relationships/profile',
+    replaceBelongsTo('owners', 'profile', 'profiles')
+  )
 
   this.get('/courses')
   this.get('/courses/:id')
