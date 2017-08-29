@@ -1,10 +1,13 @@
 import Ember from 'ember'
 
 const {
-  Mixin
+  Mixin,
+  inject: { service }
 } = Ember
 
 export default Mixin.create({
+  admin: service(),
+
   setupController(controller, model) {
     this._super(controller, model)
 

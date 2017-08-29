@@ -5,13 +5,10 @@ import RelationshipRouteMixin
 const {
   Route,
   get,
-  inject: { service },
   RSVP
 } = Ember
 
 export default Route.extend(RelationshipRouteMixin, {
-  admin: service(),
-
   breadCrumb: null,
 
   model(params) {

@@ -3,13 +3,10 @@ import RelationshipRouteMixin
   from 'ember-admin/mixins/model-records/relationship-route-mixin'
 
 const {
-  Route,
-  inject: { service }
+  Route
 } = Ember
 
 export default Route.extend(RelationshipRouteMixin, {
-  admin: service(),
-
   model(params) {
     return this
       .get('admin.store')
