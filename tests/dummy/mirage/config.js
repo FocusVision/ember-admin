@@ -34,10 +34,10 @@ const getCats = ({ cats }, ...args) => getResources(cats, ...args)
 const getToys = ({ toys }, ...args) => getResources(toys, ...args)
 const getOwners = ({ owners }, ...args) => getResources(owners, ...args)
 
-const _relationshipIds = request =>
-  JSON.parse(request.requestBody).data.map(({ id }) => id)
-const _relationshipId = request =>
-  (JSON.parse(request.requestBody).data || {}).id
+const _relationshipIds = ({ requestBody }) =>
+  JSON.parse(requestBody).data.map(({ id }) => id)
+const _relationshipId = ({ requestBody }) =>
+  (JSON.parse(requestBody).data || {}).id
 
 const replaceBelongsTo =
   (modelName, relationship, relatedType = relationship) =>
