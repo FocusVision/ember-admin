@@ -15,25 +15,27 @@ export default Controller.extend(
     actions: {
       remove(model, parentModel) {
         const {
-          inverseKind,
+          inverseRelationshipKind,
           inverseRelationshipName,
-          kind,
+          relationshipKind,
           relationshipName
         } = this.relationshipInfo(parentModel)
 
-        parentModel.removeRelated(relationshipName, model, kind).then(() => {
-          if (kind === 'belongsTo') {
-            parentModel.set(relationshipName, null)
-          } else {
-            parentModel.get(relationshipName).removeObject(model)
-          }
+        parentModel
+          .removeRelated(relationshipName, model, relationshipKind)
+          .then(() => {
+            if (relationshipKind === 'belongsTo') {
+              parentModel.set(relationshipName, null)
+            } else {
+              parentModel.get(relationshipName).removeObject(model)
+            }
 
-          if (inverseKind === 'belongsTo') {
-            model.set(inverseRelationshipName, null)
-          } else if (inverseKind) {
-            model.get(inverseRelationshipName).removeObject(parentModel)
-          }
-        })
+            if (inverseRelationshipKind === 'belongsTo') {
+              model.set(inverseRelationshipName, null)
+            } else if (inverseRelationshipKind) {
+              model.get(inverseRelationshipName).removeObject(parentModel)
+            }
+          })
       }
     }
   }

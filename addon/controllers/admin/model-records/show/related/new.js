@@ -17,27 +17,29 @@ export default Controller.extend(
     actions: {
       save(model, parentModel) {
         const {
-          inverseKind,
+          inverseRelationshipKind,
           inverseRelationshipName,
-          kind,
+          relationshipKind,
           relationshipName
         } = this.relationshipInfo(parentModel)
 
         model.save().then(record => {
-          parentModel.addRelated(relationshipName, record, kind).then(() => {
-            if (kind === 'belongsTo') {
-              parentModel.set(relationshipName, record)
-            } else {
-              parentModel.get(relationshipName).pushObject(record)
-            }
+          parentModel
+            .addRelated(relationshipName, record, relationshipKind)
+            .then(() => {
+              if (relationshipKind === 'belongsTo') {
+                parentModel.set(relationshipName, record)
+              } else {
+                parentModel.get(relationshipName).pushObject(record)
+              }
 
-            if (inverseKind === 'belongsTo') {
-              model.set(inverseRelationshipName, parentModel)
-            } else if (inverseKind) {
-              model.get(inverseRelationshipName).pushObject(parentModel)
-            }
-            this._transitionToRelated()
-          })
+              if (inverseRelationshipKind === 'belongsTo') {
+                model.set(inverseRelationshipName, parentModel)
+              } else if (inverseRelationshipKind) {
+                model.get(inverseRelationshipName).pushObject(parentModel)
+              }
+              this._transitionToRelated()
+            })
         })
       }
     },

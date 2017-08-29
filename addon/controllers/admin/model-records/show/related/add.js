@@ -23,25 +23,27 @@ export default Controller.extend(
 
       add(model, parentModel) {
         const {
-          inverseKind,
+          inverseRelationshipKind,
           inverseRelationshipName,
-          kind,
+          relationshipKind,
           relationshipName
         } = this.relationshipInfo(parentModel)
 
-        parentModel.addRelated(relationshipName, model, kind).then(() => {
-          if (kind === 'belongsTo') {
-            parentModel.set(relationshipName, model)
-          } else {
-            parentModel.get(relationshipName).pushObject(model)
-          }
+        parentModel
+          .addRelated(relationshipName, model, relationshipKind)
+          .then(() => {
+            if (relationshipKind === 'belongsTo') {
+              parentModel.set(relationshipName, model)
+            } else {
+              parentModel.get(relationshipName).pushObject(model)
+            }
 
-          if (inverseKind === 'belongsTo') {
-            model.set(inverseRelationshipName, model)
-          } else if (inverseKind) {
-            model.get(inverseRelationshipName).pushObject(parentModel)
-          }
-        })
+            if (inverseRelationshipKind === 'belongsTo') {
+              model.set(inverseRelationshipName, parentModel)
+            } else if (inverseRelationshipKind) {
+              model.get(inverseRelationshipName).pushObject(parentModel)
+            }
+          })
       },
 
       complete() {
