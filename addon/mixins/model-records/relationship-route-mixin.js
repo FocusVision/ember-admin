@@ -2,18 +2,24 @@ import Ember from 'ember'
 
 const {
   Mixin,
-  String: { singularize }
+  inject: { service }
 } = Ember
 
 export default Mixin.create({
+  admin: service(),
+
   setupController(controller, model) {
     this._super(controller, model)
 
     controller.setProperties({
-      parentModel: this.modelFor('admin.model-records.show'),
-      recordName: this._relationshipName(),
+      parentModel: this._parentModel(),
+      relationshipName: this._relationshipName(),
       recordType: this._relationshipType()
     })
+  },
+
+  _parentModel() {
+    return this.modelFor('admin.model-records.show')
   },
 
   _relationshipName() {
@@ -21,6 +27,11 @@ export default Mixin.create({
   },
 
   _relationshipType() {
-    return singularize(this._relationshipName())
+    const store = this.get('admin.store')
+    const parentType = this._parentModel().constructor.modelName
+    return store
+      .modelFor(parentType)
+      .typeForRelationship(this._relationshipName(), store)
+      .modelName
   }
 })

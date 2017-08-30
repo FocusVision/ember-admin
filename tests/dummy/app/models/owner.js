@@ -1,5 +1,5 @@
 import DS from 'ember-data'
-import HasManyQuery from 'ember-data-has-many-query'
+import AdminModelMixin from 'ember-admin/mixins/admin-model-mixin'
 
 const {
   attr,
@@ -7,9 +7,8 @@ const {
   belongsTo,
   Model
 } = DS
-const { ModelMixin } = HasManyQuery
 
-export default Model.extend(ModelMixin, {
+export default Model.extend(AdminModelMixin, {
   name: attr('string'),
 
   profile: belongsTo('profile', { inverse: 'owner' }),

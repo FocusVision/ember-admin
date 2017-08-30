@@ -1,20 +1,17 @@
 import Ember from 'ember'
+import RelationshipRouteMixin
+  from 'ember-admin/mixins/model-records/relationship-route-mixin'
 
 const {
-  Route,
-  inject: { service },
-  String: { singularize }
+  Route
 } = Ember
 
-export default Route.extend({
-  admin: service(),
-
+export default Route.extend(RelationshipRouteMixin, {
   model(params) {
-    return this.get('admin.store')
+    return this
+      .get('admin.store')
       .query(
-        singularize(
-          this.paramsFor('admin.model-records.show.related').relationship_name
-        ),
+        this.modelFor('admin.model-records.show.related').relatedModelType,
         params
       )
   }
