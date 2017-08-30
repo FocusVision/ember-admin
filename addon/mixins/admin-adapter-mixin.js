@@ -14,6 +14,29 @@ const {
 } = HasManyQuery
 
 export default Mixin.create(RESTAdapterMixin, {
+  createRelated(model, relationshipName, relatedModel) {
+    const {
+      inverseRelationshipName,
+      inverseRelationshipKind,
+      relationshipKind
+    } = this._relationshipInfo(model, relationshipName)
+
+    if (inverseRelationshipKind === 'belongsTo') {
+      relatedModel.set(inverseRelationshipName, model)
+    }
+
+    return relatedModel.save().then(newModel => {
+      if (inverseRelationshipKind !== 'belongsTo') {
+        return this.addRelated(model, relationshipName, newModel)
+      }
+
+      if (relationshipKind === 'belongsTo') {
+        model.set(relationshipName, newModel)
+      } else if (relationshipKind) {
+        model.get(relationshipName).pushObject(newModel)
+      }
+    })
+  },
   removeRelated(model, relationshipName, relatedModel) {
     const {
       inverseRelationshipName,
