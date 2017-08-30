@@ -11,7 +11,11 @@ export default Controller.extend(ResourceControllerMixin, {
 
   actions: {
     save(model, parentModel) {
-      parentModel.createRelated(this.get('relationshipName'), model)
+      parentModel
+        .createRelated(this.get('relationshipName'), model)
+        .then(() => {
+          this._transitionToRelated()
+        })
     }
   },
 
