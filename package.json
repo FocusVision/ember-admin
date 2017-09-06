@@ -1,6 +1,6 @@
 {
   "name": "ember-admin",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Admin backend for ember-cli projects",
   "directories": {
     "doc": "doc",
